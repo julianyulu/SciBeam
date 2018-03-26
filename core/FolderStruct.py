@@ -1,8 +1,8 @@
-# FolderHierarchy.py --- 
+# FolderStruct.py --- 
 # 
-# Filename: FolderHierarchy.py
+# Filename: FolderStruct.py
 # Description: 
-#            Class FolderHierarchy
+#            Class FolderStruct
 #            ---------------------
 #            For folder structure analysis, regex indexing,
 #            file group and loading.
@@ -13,22 +13,25 @@
 # 
 # Created: Fri Mar 23 23:02:05 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Fri Mar 23 23:04:12 2018 (-0500)
+# Last-Updated: Mon Mar 26 00:45:19 2018 (-0500)
 #           By: yulu
-#     Update #: 4
+#     Update #: 40
 # 
 
 import os 
 import re
 import numpy as np 
+from SciBeam.core import base
 
-class FolderHierarchy:
+
+class Folder(base.Defaults):
     def __init__(self, path):
         self.path = path
-    
+        self.__pre_query_result = None
     @property
     def path(self):
         return self.__path
+    
     
     @path.setter
     def path(self, pathStr):
@@ -40,36 +43,51 @@ class FolderHierarchy:
             print("If using Windows path, make sure using *raw* strings\n",
                   "e.g.: r'C:\folder\folder\folder'  ")
             raise FileNotFoundError
-            
-    def queryType(self, qType = float, extension = '.lvm'):
-        regMap = {
-            float: '\d+\.?\d+',
-            int: '\d+',
-            str: '\s'
-        }
-        if type(qType) == type:
-            rgx = re.compile(regMap[qType])
-            kwds = [[rgx.findall(self.path), file] for file in os.listdir(self.path) if file.endswith(extension)]
-            return kwds
+
+    def query(self,regex = base.Defaults.file_regex, path = None,):
+        """
+        query filename key value in a endfolder (no subfolders) 
+        ------------------
+        [input]
+        self:
+        regex: regular expression for filename keywords query. The regex is meant for 
+               full-match, with keyword regex in group(1) 
+        [output]
+        dictionary of match keywords and corresponding filename 
+        """
+        if path:
+            query_path = path
         else:
-            print('please input a python type (not string), e.g. float, int, str, etc.')
-    
-    def querykwds(self, regex = '.*(\d+\.\d+).*.lvm$'):
-        files = os.listdir(self.path)
+            if self.__pre_query_result:
+                pre_query_result = self.__pre_query_result
+                query_result = self.__pre_query_result
+                self.__pre_query_result = None 
+                #query_path = self.__pre_query_path
+                for key in pre_query_result:
+                    query_result[key] = {pre_query_result[key]:{}}
+                    query_path = base.path_join(self.pre_query_path, pre_query_result[key])
+                    query_result[key] = self.query(path = query_path, regex = regex)
+                self.__pre_query_result = query_result
+                self.__pre_query_path = query_path # <=== this only works for two layers
+                
+            else:
+                query_path = self.path
+                    
+        files = os.listdir(query_path)
         reg = re.compile(regex)
-        kwdList = []
-        fileList = []
+        result_dict = {}
         for f in files:
             mt = reg.match(f)
             if mt == None:
                 continue
             else:
-                kwdList.append(mt.group(1))
-                fileList.append(f)
-        return(kwdList, fileList)
+                kwd = mt.group(1)
+                whole = mt.group(0)
+                result_dict = base.set_dict_key_value(result_dict, kwd, whole)
+        return result_dict
     
    
-    def addressBook(self,  layerRegex = '.*(\d+\.\d+).*.lvm$', subfolders = False):
+    def addressDict(self,  layerRegex = '.*(\d+\.\d+).*.lvm$', subfolders = False):
         """
         addressBook
         ----------------
@@ -109,7 +127,7 @@ class FolderHierarchy:
                                 else:
                                     #book[keywd1][keywd2] = {}
                                     book[keywd1][keywd2] = [address2]
-                            else: 
+        else: 
             regex2 = layerRegex if type(layerRegex) == str else layerRegex[0]
             for files in os.listdir(rootPath):
                 matchObj = re.match(regex2, files)
@@ -122,40 +140,4 @@ class FolderHierarchy:
                         book[keywd] = [address]
         return book
 
-    @staticmethod
-    def loadData(fileName, ncol = 2):
-        data = np.fromfile(fileName,  sep = '\t').reshape(-1,ncol)
-        return data
-
-        
-    @staticmethod
-    def loadAddressBook(addressDict, ncol = 2):
-        dataBook = {}
-        print("[*] In folder %s, loading..." %addressDict['path'])
-        for key1 in sorted(list(addressDict.keys() - ['path'])):
-            path = addressDict['path']
-            try:
-                subpath = dataBook[key1]['path']
-            except KeyError:
-                subpath = None
-                pass
-            if subpath:
-                print('Key1: %s,  Key2:' %key1, end=" ")
-                dataBook[key1] = {}
-                for key2 in sorted(list(addressDict[key1].keys() - ['path'])):
-                    print(key2, end = " ")
-                    dataBook[key1][key2] = []
-                    for fileName in addressDict[key1][key2]:
-                        data = np.fromfile(path + subpath + fileName,  sep = '\t').reshape(-1,ncol)
-                        #data = np.loadtxt(path + subpath + fileName, skiprows = 30)
-                        dataBook[key1][key2].append(data)
-                print('\n')
-                    else:
-                print('%s' %key1, end = " ")
-                dataBook[key1] = []               
-                for fileName in addressDict[key1]:
-                    data = np.fromfile(path + fileName,  sep = '\t').reshape(-1,2)
-                    #data = np.loadtxt(path + fileName, skiprows = 30)
-                    dataBook[key1].append(data)
-        return dataBook
-
+    

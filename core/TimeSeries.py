@@ -13,9 +13,9 @@
 # 
 # Created: Fri Mar 23 23:09:44 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Fri Mar 23 23:15:50 2018 (-0500)
+# Last-Updated: Sun Mar 25 16:17:02 2018 (-0500)
 #           By: yulu
-#     Update #: 8
+#     Update #: 17
 # 
 
 import numpy as np
@@ -126,7 +126,7 @@ class TimeSeries:
                 idx1 = len(times) if idx[1] is None else idx[1]
                 idx = list(range(idx0, idx1 + 1))
                 pass
-                finally:   
+            finally:   
                 yield idx
     
     @staticmethod
@@ -174,7 +174,7 @@ class TimeSeries:
                 peak, peakErr = np.array([[x[0][0], np.sqrt(x[1][0, 0])] for x in fitRes]).T
             else:
                 peak = [max(k) for k in data[:, 1:].T]
-            finally:            
+        finally:            
             peak = peak[0] if len(peak) == 1 else peak               
             if fit and error:                
                 peakErr = peakErr[0] if len(peakErr) == 1 else peakErr
@@ -198,7 +198,7 @@ class TimeSeries:
                 peakTime, peakTimeErr = np.array([[x[0][1], np.sqrt(x[1][1, 1])] for x in fitRes]).T
             else:
                 peakTime = [data[np.argmax(k), 0] for k in data[:, 1:].T]
-            finally:            
+        finally:            
             peakTime = peakTime[0] if len(peakTime) == 1 else peakTime               
             if fit and error:                
                 peakTimeErr = peakTimeErr[0] if len(peakTimeErr) == 1 else peakTimeErr
@@ -228,7 +228,7 @@ class TimeSeries:
                     idxLow = np.argmin(np.abs(dataY[:maxIdx] - peak/2.))
                     idxHigh = np.argmin(np.abs(dataY[maxIdx:] - peak/2.)) + maxIdx
                     peakFWHM.append(data[idxHigh, 0] - data[idxLow, 0])
-            finally:         
+        finally:         
             peakFWHM = peakFWHM[0] if len(peakFWHM) == 1 else peakFWHM               
             if fit and error:                
                 peakFWHMErr = peakFWHMErr[0] if len(peakFWHMErr) == 1 else peakFWHMErr
@@ -255,7 +255,7 @@ class TimeSeries:
                 
             else:
                 peakIntegrate = [np.trapz(x = data[:,0], y = s) for s in data[:,1:].T]
-            finally:         
+        finally:         
             peakIntegrate = peakIntegrate[0] if len(peakIntegrate) == 1 else peakIntegrate               
             if fit and error:                
                 peakIntegrateErr = peakIntegrateErr[0] if len(peakIntegrateErr) == 1 else peakIntegrateErr
