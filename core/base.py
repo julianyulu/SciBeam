@@ -9,9 +9,9 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Mar 26 00:30:20 2018 (-0500)
+# Last-Updated: Tue Mar 27 11:52:17 2018 (-0500)
 #           By: yulu
-#     Update #: 13
+#     Update #: 16
 # 
 
 
@@ -24,7 +24,7 @@ class Defaults:
     # Lower level
     # ----------------
     subfolder_regex = '.*(\d+\.?\d+).*'
-    file_regex = '.*(\d+\.?\d+.*' + data_file_extenstion
+    file_regex = '.*_(\d+\.?\d+).*' + data_file_extenstion + '$'
 
 
 

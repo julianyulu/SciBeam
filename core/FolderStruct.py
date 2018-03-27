@@ -13,9 +13,9 @@
 # 
 # Created: Fri Mar 23 23:02:05 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Mon Mar 26 00:45:19 2018 (-0500)
+# Last-Updated: Tue Mar 27 12:06:03 2018 (-0500)
 #           By: yulu
-#     Update #: 40
+#     Update #: 44
 # 
 
 import os 
@@ -58,6 +58,8 @@ class Folder(base.Defaults):
         if path:
             query_path = path
         else:
+            if False:
+            """
             if self.__pre_query_result:
                 pre_query_result = self.__pre_query_result
                 query_result = self.__pre_query_result
@@ -69,7 +71,7 @@ class Folder(base.Defaults):
                     query_result[key] = self.query(path = query_path, regex = regex)
                 self.__pre_query_result = query_result
                 self.__pre_query_path = query_path # <=== this only works for two layers
-                
+            """ 
             else:
                 query_path = self.path
                     
@@ -87,7 +89,7 @@ class Folder(base.Defaults):
         return result_dict
     
    
-    def addressDict(self,  layerRegex = '.*(\d+\.\d+).*.lvm$', subfolders = False):
+    def queryFolder(self,  layerRegex = '.*(\d+\.\d+).*.lvm$', subfolders = False):
         """
         addressBook
         ----------------
@@ -139,5 +141,3 @@ class Folder(base.Defaults):
                     else:
                         book[keywd] = [address]
         return book
-
-    
