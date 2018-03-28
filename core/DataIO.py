@@ -9,9 +9,9 @@
 # 
 # Created: Sun Mar 25 17:09:06 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Mar 27 23:15:58 2018 (-0500)
+# Last-Updated: Wed Mar 28 00:14:33 2018 (-0500)
 #           By: yulu
-#     Update #: 75
+#     Update #: 76
 # 
 
 import numpy as np
@@ -33,7 +33,7 @@ class loadDict:
 
     
     def load(self, path = None, ncol = base.Defaults.data_file_num_column):
-        addressDict = self.__fromDict
+        addressDict = self.fromDict
         dataDict = {}
 
         # check is path is given in the address dictionary, if not, ask for input
