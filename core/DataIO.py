@@ -9,19 +9,20 @@
 # 
 # Created: Sun Mar 25 17:09:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sun Mar 25 21:36:21 2018 (-0500)
+# Last-Updated: Tue Mar 27 23:15:58 2018 (-0500)
 #           By: yulu
-#     Update #: 48
+#     Update #: 75
 # 
 
 import numpy as np
 import pandas as pd
-
-class loadFromDict:
+from SciBeam.core import base
+class loadDict:
     def __init__(self, addressDict):
         self.fromDict = addressDict
         self.data = None
         self.dataframe = None
+        self.__last_call = None
         
     @property
     def fromDict(self):
@@ -31,12 +32,24 @@ class loadFromDict:
         self.__fromDict = addressDict
 
     
-    def load(self):
+    def load(self, path = None, ncol = base.Defaults.data_file_num_column):
         addressDict = self.__fromDict
         dataDict = {}
-        print("[*] In folder %s, loading..." %addressDict['path'])
-        for key1 in sorted(list(addressDict.keys() - ['path'])):
-            path = addressDict['path']
+
+        # check is path is given in the address dictionary, if not, ask for input
+        if path:
+            pass
+        else:
+            try:
+                path = addressDict['path']
+            except KeyError:
+                print("[!] No [path] key found in dictionary, please give a path")
+                raise KeyError
+        
+        print("[*] In folder %s, loading..." %path)
+        for key1 in sorted(list(addressDict.keys())):
+            if key1 == 'path':
+                continue
             try:
                 subpath = addressDict[key1]['path']
             except TypeError:
@@ -57,12 +70,19 @@ class loadFromDict:
                         
             else:
                 print('key: %s' %key1, end = " ")
-                dataDict[key1] = []               
-                for fileName in addressDict[key1]:
-                    data = np.fromfile(path + fileName,  sep = '\t').reshape(-1,2)
-                    #data = np.loadtxt(path + fileName, skiprows = 30)
-                    dataDict[key1].append(data)
+                
+                if type(addressDict[key1]) == str:
+                    filePath = base.path_join(path, addressDict[key1])
+                    data = np.fromfile(filePath,  sep = '\t').reshape(-1,ncol)
+                    dataDict[key1] = data
+                else:
+                    dataDict[key1] = []
+                    for fileName in addressDict[key1]:
+                        filePath = base.path_join(path, fileName)
+                        data = np.fromfile(filePath,  sep = '\t').reshape(-1,ncol)
+                        dataDict[key1].append(data)
         self.data = dataDict
+        self.__last_call = self.data
         return self
 
     def toDataFrame(self, data = None):
@@ -93,26 +113,26 @@ class loadFromDict:
                 for i, subkey in enumerate(subKeys): # e.g. scan position
                     
                     if i == 0:
-                        df[key]['time'] = data[key][subkey][0][:,0]
+                        df[key]['time'] = data[key][subkey][:,0] if type(data[key][subkey][:,0]) == str else data[key][subkey][0][:,0]
                     else:
                         pass
                     repeatNum = len(data[key][subkey]) # repeated data number (for average reason
-                    if repeatNum > 1:
+                    if repeatNum > 1 and type(data[key][subkey]) == list:
                         for i in range(repeatNum):
                             df[key][subkey + str(i)] = data[key][subkey][i][:,1]
                     else:
-                        df[key][subkey] = data[key][subkey][0][:,1]
+                        df[key][subkey] = data[key][subkey][:,1]
             else:
                 if not 'time' in df:
-                    df['time'] = data[key][0][:, 0]
+                    df['time'] = data[key][0][:, 0] if type(data[key]) == list else data[key][:, 0]
                 else:
                     pass
                 repeatNum = len(data[key])
-                if repeatNum > 1:
+                if repeatNum > 1 and type(data[key]) == list:
                     for i in range(repeatNum):
                         df[key + str(i)] = data[key][i][:,1]
                 else:
-                    df[key] = data[key][0][:,1]
+                    df[key] = data[key][:,1]
 
         if 'time' in df: # if single dataset, df = pandas DataFrame
             df = pd.DataFrame(df)
@@ -123,7 +143,15 @@ class loadFromDict:
                 df[key] = pd.DataFrame(df[key])
                 df[key] = df[key][['time'] + [x for x in sorted(df[key].columns) if x!='time']]
                 
-        self.dataframe = df 
-        return dataframe
+        self.dataframe = df
+        self.__last_call = self.dataframe
+        return self
+
+    
+    def value(self):
+        temp = self.__last_call
+        self.__last_call = None
+        return temp
+
                         
                         
