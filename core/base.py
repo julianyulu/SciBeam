@@ -9,9 +9,9 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 11:27:57 2018 (-0500)
+# Last-Updated: Thu Mar 29 11:35:09 2018 (-0500)
 #           By: yulu
-#     Update #: 29
+#     Update #: 30
 # 
 import os 
 
@@ -61,6 +61,7 @@ def pathJoin(*args):
     result_path = ''
     for pathStr in args:
         tempPath = pathStr.replace('\\','/')
+        tempPath = tempPath[1:] if tempPath[0] == '/' else tempPath
         result_path += tempPath if tempPath[-1] == '/' else tempPath + '/'
         if os.path.isdir(result_path):
             pass
