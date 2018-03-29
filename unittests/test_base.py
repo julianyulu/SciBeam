@@ -10,9 +10,9 @@
 # 
 # Created: Thu Mar 29 10:44:57 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 11:41:54 2018 (-0500)
+# Last-Updated: Thu Mar 29 13:56:49 2018 (-0500)
 #           By: yulu
-#     Update #: 9
+#     Update #: 17
 # 
 
 import unittest
@@ -27,25 +27,25 @@ class TestFunctions(unittest.TestCase):
         emptyDict = {}
         popedDict = {'a': 1}
         # insert to empty dict
-        testDict1 = base.buildDict(empty, 'a', 1)
-        self.assertEqual(testDict1['1'], 2)
-        self.assertEqual(emptyDict['1'], 2)
+        testDict1 = base.buildDict(emptyDict, 'a', 1)
+        self.assertEqual(testDict1['a'], 1)
+        self.assertEqual(emptyDict['a'], 1)
 
         # insert to populated dict
         testDict2 = base.buildDict(popedDict, 'b', 2)
         self.assertEqual(testDict2['b'], 2)
         self.assertEqual(testDict2['a'], 1)
-        self.assertEqual(popedDict2['b'], 2)
-        self.assertEqual(popedDict2['a'], 1)
+        self.assertEqual(popedDict['b'], 2)
+        self.assertEqual(popedDict['a'], 1)
 
         # insert with repeated key
         testDict3 = base.buildDict(popedDict, 'a', 3)
         self.assertEqual(testDict3['a'], [1,3])
         self.assertEqual(testDict3['b'], 2)
-        self.assertEqual(popedDict3['a'], [1,3])
-        self.assertEqual(popedDict3['b'], 2)
+        self.assertEqual(popedDict['a'], [1,3])
+        self.assertEqual(popedDict['b'], 2)
 
-
+    @unittest.expectedFailure
     def test_pathJoin(self):
         test_path_win = r'C:\Documents\MyFolder\Whatever'
         test_path_linux1 = '/home/MyFolder/Whatever'
@@ -76,3 +76,5 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(base.pathJoin(test_path_linux2, test_target1, test_target2, test_target3, test_target4), '/home/MyFolder/Whatever/folder1/folder2/folder3/folder4/')
         
 
+if __name__ == '__main__':
+    unittest.main()

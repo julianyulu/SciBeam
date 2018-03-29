@@ -9,9 +9,9 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 11:35:09 2018 (-0500)
+# Last-Updated: Thu Mar 29 13:44:13 2018 (-0500)
 #           By: yulu
-#     Update #: 30
+#     Update #: 34
 # 
 import os 
 
@@ -61,8 +61,9 @@ def pathJoin(*args):
     result_path = ''
     for pathStr in args:
         tempPath = pathStr.replace('\\','/')
-        tempPath = tempPath[1:] if tempPath[0] == '/' else tempPath
+        #tempPath = tempPath[1:] if tempPath[0] == '/' else tempPath
         result_path += tempPath if tempPath[-1] == '/' else tempPath + '/'
+        result_path.replace('//', '/') # incase the are two '/' 
         if os.path.isdir(result_path):
             pass
         else:
