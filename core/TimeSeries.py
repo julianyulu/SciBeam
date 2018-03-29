@@ -13,9 +13,9 @@
 # 
 # Created: Fri Mar 23 23:09:44 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Sun Mar 25 16:17:02 2018 (-0500)
+# Last-Updated: Wed Mar 28 23:02:12 2018 (-0500)
 #           By: yulu
-#     Update #: 17
+#     Update #: 22
 # 
 
 import numpy as np
@@ -29,7 +29,7 @@ class TimeSeries:
     def __init__(self, data):
         self.data = data
         self.labels = [None] * self.cols
-    
+        
     @property
     def data(self):
         return self.__data
@@ -157,11 +157,10 @@ class TimeSeries:
             pass
         popt[2] = abs(popt[2]) # sigma only takes positive value
         return (popt, pcov)
-    
-    @staticmethod
-    def peak(data, fit = False, error = False):
+        
+    def peakHeight(self, fit = False, error = False):
         try:
-            nRow, nCol = data.shape
+            nRow, nCol = self.data.shape
         except AttributeError:
             print("[!] Input data has to be 2D array with time series as 0th column!")
             raise AttributeError
@@ -170,10 +169,10 @@ class TimeSeries:
             raise ValueError
         else:
             if fit:
-                fitRes = [TimeSeries.gausFit(data[:,0], y) for y in data[:,1:].T]
+                fitRes = [TimeSeries.gausFit(self.data[:,0], y) for y in self.data[:,1:].T]
                 peak, peakErr = np.array([[x[0][0], np.sqrt(x[1][0, 0])] for x in fitRes]).T
             else:
-                peak = [max(k) for k in data[:, 1:].T]
+                peak = [max(k) for k in self.data[:, 1:].T]
         finally:            
             peak = peak[0] if len(peak) == 1 else peak               
             if fit and error:                
@@ -181,11 +180,10 @@ class TimeSeries:
                 return(peak, peakErr)
             else:
                 return(peak)
-    
-    @staticmethod
-    def peakTime(data, fit = False, error = False):
+        
+    def peakTime(self, fit = False, error = False):
         try:
-            nRow, nCol = data.shape
+            nRow, nCol = self.data.shape
         except AttributeError:
             print("[!] Input data has to be 2D array with time series as 0th column!")
             raise AttributeError
@@ -194,10 +192,10 @@ class TimeSeries:
             raise ValueError
         else:
             if fit:
-                fitRes = [TimeSeries.gausFit(data[:,0], y) for y in data[:,1:].T]
+                fitRes = [TimeSeries.gausFit(self.data[:,0], y) for y in self.data[:,1:].T]
                 peakTime, peakTimeErr = np.array([[x[0][1], np.sqrt(x[1][1, 1])] for x in fitRes]).T
             else:
-                peakTime = [data[np.argmax(k), 0] for k in data[:, 1:].T]
+                peakTime = [self.data[np.argmax(k), 0] for k in self.data[:, 1:].T]
         finally:            
             peakTime = peakTime[0] if len(peakTime) == 1 else peakTime               
             if fit and error:                
@@ -205,11 +203,10 @@ class TimeSeries:
                 return(peakTime, peakTimeErr)
             else:
                 return(peakTime)
-            
-    @staticmethod
-    def peakFWHM(data, fit = False, error = False):
+        
+    def peakFWHM(self, fit = False, error = False):
         try:
-            nRow, nCol = data.shape
+            nRow, nCol = self.data.shape
         except AttributeError:
             print("[!] Input data has to be 2D array with time series as 0th column!")
             raise AttributeError
@@ -218,16 +215,16 @@ class TimeSeries:
             raise ValueError
         else:
             if fit:
-                fitRes = [TimeSeries.gausFit(data[:,0], y) for y in data[:,1:].T]
+                fitRes = [TimeSeries.gausFit(self.data[:,0], y) for y in self.data[:,1:].T]
                 peakFWHM, peakFWHMErr = np.array([[x[0][2], np.sqrt(x[1][2, 2])] for x in fitRes]).T
             else:
                 peakFWHM = []
-                for dataY in data[:,1:].T:
+                for dataY in self.data[:,1:].T:
                     maxIdx = np.argmax(dataY)
                     peak = dataY[maxIdx]
                     idxLow = np.argmin(np.abs(dataY[:maxIdx] - peak/2.))
                     idxHigh = np.argmin(np.abs(dataY[maxIdx:] - peak/2.)) + maxIdx
-                    peakFWHM.append(data[idxHigh, 0] - data[idxLow, 0])
+                    peakFWHM.append(self.data[idxHigh, 0] - self.data[idxLow, 0])
         finally:         
             peakFWHM = peakFWHM[0] if len(peakFWHM) == 1 else peakFWHM               
             if fit and error:                
@@ -235,12 +232,10 @@ class TimeSeries:
                 return(peakFWHM, peakFWHM)
             else:
                 return(peakFWHM)
-        
-    
-    @classmethod
-    def peakIntegrate(data, fit = False, error = False):
+            
+    def peakIntegrate(self, fit = False, error = False):
         try:
-            nRow, nCol = data.shape
+            nRow, nCol = self.data.shape
         except AttributeError:
             print("[!] Input data has to be 2D array with time series as 0th column!")
             raise AttributeError
@@ -249,12 +244,12 @@ class TimeSeries:
             raise ValueError
         else:
             if fit:
-                popt = [cls.gausFit(data[:,0], y)[0] for y in data[:,1:].T]
+                popt = [cls.gausFit(self.data[:,0], y)[0] for y in self.data[:,1:].T]
                 # intergrate (-6sigma,6sigma) region 
                 peakIntegrate, peakIntegrateErr = np.array([quad(TimeSeries.__gaus, y[1] - 6*y[2], y[1] + 6*y[2], args = tuple(y)) for y in popt]).T
                 
             else:
-                peakIntegrate = [np.trapz(x = data[:,0], y = s) for s in data[:,1:].T]
+                peakIntegrate = [np.trapz(x = self.data[:,0], y = s) for s in self.data[:,1:].T]
         finally:         
             peakIntegrate = peakIntegrate[0] if len(peakIntegrate) == 1 else peakIntegrate               
             if fit and error:                
