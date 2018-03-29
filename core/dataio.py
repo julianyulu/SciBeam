@@ -9,9 +9,9 @@
 # 
 # Created: Sun Mar 25 17:09:06 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 00:54:35 2018 (-0500)
+# Last-Updated: Thu Mar 29 11:28:14 2018 (-0500)
 #           By: yulu
-#     Update #: 83
+#     Update #: 84
 # 
 
 import numpy as np
@@ -74,13 +74,13 @@ class LoadDictFile:
                 print('key: %s' %key1, end = " ")
                 
                 if type(addressDict[key1]) == str:
-                    filePath = base.path_join(path, addressDict[key1])
+                    filePath = base.pathJoin(path, addressDict[key1])
                     data = np.fromfile(filePath,  sep = '\t').reshape(-1,ncol)
                     dataDict[key1] = data
                 else:
                     dataDict[key1] = []
                     for fileName in addressDict[key1]:
-                        filePath = base.path_join(path, fileName)
+                        filePath = base.pathJoin(path, fileName)
                         data = np.fromfile(filePath,  sep = '\t').reshape(-1,ncol)
                         dataDict[key1].append(data)
         self.data = dataDict

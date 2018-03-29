@@ -13,9 +13,9 @@
 # 
 # Created: Fri Mar 23 23:02:05 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Thu Mar 29 01:34:58 2018 (-0500)
+# Last-Updated: Thu Mar 29 11:28:33 2018 (-0500)
 #           By: yulu
-#     Update #: 76
+#     Update #: 78
 # 
 
 import os 
@@ -69,7 +69,7 @@ class Folder(base.Defaults):
                 if last_query_key == 'path':
                     continue
                 else:
-                    query_path = base.path_join(path['path'], path[last_query_key])
+                    query_path = base.pathJoin(path['path'], path[last_query_key])
                     ## potential bug
                     result_dict[last_query_key] = Folder(query_path).query(regex).value()
                     ##
@@ -86,7 +86,7 @@ class Folder(base.Defaults):
                 else:
                     kwd = mt.group(1)
                     whole = mt.group(0)
-                    result_dict = base.set_dict_key_value(result_dict, kwd, whole)
+                    result_dict = base.buildDict(result_dict, kwd, whole)
         
         self.__last_query = result_dict
         self.query_result = result_dict

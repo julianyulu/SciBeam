@@ -9,9 +9,9 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Wed Mar 28 23:35:25 2018 (-0500)
+# Last-Updated: Thu Mar 29 11:27:57 2018 (-0500)
 #           By: yulu
-#     Update #: 25
+#     Update #: 29
 # 
 import os 
 
@@ -26,9 +26,10 @@ class Defaults:
     subfolder_regex = '.*(\d+\.?\d+).*'
     file_regex = '.*_(\d+\.?\d+).*' + data_file_extenstion + '$'
 
+    # Unit tests
+    
 
-
-def set_dict_key_value(init_dict, key, value):
+def buildDict(init_dict, key, value):
     """
     Add / set key,value pair to a given dict.
     If the same key exists, combine values to list 
@@ -55,7 +56,7 @@ def set_dict_key_value(init_dict, key, value):
     return init_dict    
 
     
-def path_join(*args):
+def pathJoin(*args):
     num_path = len(args)
     result_path = ''
     for pathStr in args:
