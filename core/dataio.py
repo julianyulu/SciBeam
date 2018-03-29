@@ -9,27 +9,29 @@
 # 
 # Created: Sun Mar 25 17:09:06 2018 (-0500)
 # Version: 
-# Last-Updated: Wed Mar 28 00:14:33 2018 (-0500)
+# Last-Updated: Thu Mar 29 00:54:35 2018 (-0500)
 #           By: yulu
-#     Update #: 76
+#     Update #: 83
 # 
 
 import numpy as np
 import pandas as pd
 from SciBeam.core import base
-class loadDict:
+class LoadDictFile:
+    
     def __init__(self, addressDict):
         self.fromDict = addressDict
-        self.data = None
-        self.dataframe = None
-        self.__last_call = None
-        
+                
     @property
     def fromDict(self):
         return self.__fromDict
+    
     @fromDict.setter
     def fromDict(self, addressDict):
         self.__fromDict = addressDict
+        self.data = None
+        self.dataframe = None
+        self.__last_call = None
 
     
     def load(self, path = None, ncol = base.Defaults.data_file_num_column):

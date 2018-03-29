@@ -9,9 +9,9 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Mar 27 22:42:24 2018 (-0500)
+# Last-Updated: Wed Mar 28 23:35:25 2018 (-0500)
 #           By: yulu
-#     Update #: 24
+#     Update #: 25
 # 
 import os 
 
@@ -70,7 +70,7 @@ def path_join(*args):
     # if os.path.isdir(result_path):
     #     return result_path
     # else:
-    #     print("[!] Combined path %s is no recognized as a directory !" %result_path)
+    #     print("[!] Combined path %s is not recognized as a directory !" %result_path)
     #     print("If using Windows path, make sure using *raw* strings\n",
     #           "e.g.: r'C:\folder\folder\folder'  ")
     #     raise FileNotFoundError

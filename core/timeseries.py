@@ -13,9 +13,9 @@
 # 
 # Created: Fri Mar 23 23:09:44 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Wed Mar 28 23:02:12 2018 (-0500)
+# Last-Updated: Wed Mar 28 23:26:54 2018 (-0500)
 #           By: yulu
-#     Update #: 22
+#     Update #: 37
 # 
 
 import numpy as np
@@ -27,8 +27,10 @@ import matplotlib.pyplot as plt
 
 class TimeSeries:
     def __init__(self, data):
+        self.nrow = None
+        self.ncol = None
         self.data = data
-        self.labels = [None] * self.cols
+        #self.labels = [None] * self.ncol
         
     @property
     def data(self):
@@ -36,8 +38,17 @@ class TimeSeries:
     
     @data.setter
     def data(self, data):
-        if type(data) == np.ndarray:
-            rows, cols = data.shape
+        if data is None:
+            self.nrow = None
+            self.ncol = None
+            self.__data  = None
+            
+        elif type(data) == np.ndarray:
+            nrow, ncol = data.shape
+            self.nrow = nrow
+            self.ncol = ncol
+            self.__data = data
+        
             
         elif type(data) == list:
             try:
@@ -46,27 +57,29 @@ class TimeSeries:
                 print("[!] Cannot combine data series in the input list, shape doesn't match!")
                 raise ValueError
             finally:
-                rows, cols = data.shape       
+                nrow, ncol = data.shape
+                self.nrow = nrow
+                self.ncol = ncol
+                self.__data = data
+
         else:
             print("[!] Input data not understood !")
             print("Data should be a single ndarray or list of ndarrays (for combination)")
             
-        self.rows = rows
-        self.cols = cols
-        self.__data = data
+            
         
     
-    @property
-    def labels(self):
-        return self.__labels
+    # @property
+    # def labels(self):
+    #     return self.__labels
     
-    @labels.setter
-    def labels(self, labelNames):
-        if len(labelNames) == self.cols:
-            self.__labels = labelNames
-        else:
-            print("[!] Label names don't match number columns in given data.")
-            print("Number of columns: %d, number of labels given %d" %(self.cols, len(labelNames)))
+    # @labels.setter
+    # def labels(self, labelNames):
+    #     if len(labelNames) == self.ncol:
+    #         self.__labels = labelNames
+    #     else:
+    #         print("[!] Label names don't match number columns in given data.")
+    #         print("Number of columns: %d, number of labels given %d" %(self.ncol, len(labelNames)))
         
     def timeSelect(self, *args):
         """

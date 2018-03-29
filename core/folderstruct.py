@@ -13,9 +13,9 @@
 # 
 # Created: Fri Mar 23 23:02:05 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Tue Mar 27 23:27:37 2018 (-0500)
+# Last-Updated: Thu Mar 29 01:34:58 2018 (-0500)
 #           By: yulu
-#     Update #: 70
+#     Update #: 76
 # 
 
 import os 
@@ -25,10 +25,9 @@ from SciBeam.core import base
 
 
 class Folder(base.Defaults):
-    def __init__(self, path):
-        self.path = path
-        self.query_result = None
-        self.__last_query = None
+    def __init__(self, pathStr):
+        self.path = pathStr
+        
     @property
     def path(self):
         return self.__path
@@ -36,6 +35,8 @@ class Folder(base.Defaults):
     
     @path.setter
     def path(self, pathStr):
+        self.query_result = None
+        self.__last_query = None
         if os.path.isdir(pathStr):
             tempPath = pathStr.replace('\\','/')
             self.__path = tempPath if tempPath[-1] == '/' else tempPath + '/'
@@ -60,13 +61,18 @@ class Folder(base.Defaults):
             return_result = True
             path = self.__last_query
             result_dict = self.__last_query
-            #self.__last_query = None
+            ##
+            #potential bug
+            self.__last_query = None
+            ##
             for last_query_key in path:
                 if last_query_key == 'path':
                     continue
                 else:
                     query_path = base.path_join(path['path'], path[last_query_key])
+                    ## potential bug
                     result_dict[last_query_key] = Folder(query_path).query(regex).value()
+                    ##
         else:
             return_result = False
             result_dict = {}
