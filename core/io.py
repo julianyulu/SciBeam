@@ -9,9 +9,9 @@
 # 
 # Created: Sun Mar 25 17:09:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sun Apr  1 15:38:33 2018 (-0500)
+# Last-Updated: Sun Apr  1 17:22:48 2018 (-0500)
 #           By: yulu
-#     Update #: 98
+#     Update #: 104
 # 
 
 import numpy as np
@@ -31,8 +31,8 @@ class Loader:
     def fileDict(self, addressDict):
         self.__fileDict = addressDict
         self.data = None
-        self.dataframe = None
-        self.__last_call = None
+        
+        
 
     
     def load(self, ncol = base.Defaults.data_file_num_column):
@@ -80,10 +80,11 @@ class Loader:
                         filePath = base.pathJoin(path, fileName)
                         data = np.fromfile(filePath,  sep = '\t').reshape(-1,ncol)
                         dataDict[key1].append(data)
-        self.data = dataDict
+        self.data = self.toDataFrame(dataDict)
         return self
 
-    def toDataFrame(self, data = None):
+    @staticmethod
+    def toDataFrame(data):
         """
         toDataFrame
         ---------------------
@@ -97,7 +98,7 @@ class Loader:
         or dictionary of dataframes if 3D data 
         """
         
-        data = data if data else self.data
+        
         dataKeys = data.keys()
         df = {}
         for key in dataKeys: # e.g. chamber position 
@@ -105,7 +106,7 @@ class Loader:
                 subKeys = data[key].keys()
             except AttributeError:
                 subKeys = None
-            if subKeys:
+            if not subKeys is None:
                 df[key] = {}
                 subKeys = sorted(list(subKeys))
                 for i, subkey in enumerate(subKeys): # e.g. scan position
@@ -141,8 +142,8 @@ class Loader:
                 df[key] = pd.DataFrame(df[key])
                 df[key] = df[key][['time'] + [x for x in sorted(df[key].columns) if x!='time']]
                 
-        self.dataframe = df
-        return self
+        
+        return df
     
     
     

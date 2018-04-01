@@ -9,22 +9,27 @@
 # 
 # Created: Wed Mar 28 23:05:08 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 21:01:33 2018 (-0500)
+# Last-Updated: Sun Apr  1 17:10:42 2018 (-0500)
 #           By: yulu
-#     Update #: 35
+#     Update #: 45
 # 
+
+
+
 
 import numpy as np
 
 from SciBeam.core.folderstruct import Folder
-from SciBeam.core.dataio import LoadDictFile
+from SciBeam.core.io import Loader
 from SciBeam.core.timeseries import TimeSeries
 
-class Analysis(Folder, LoadDictFile):#, TimeSeries):
-    
-    
-    def __init__(self, path, fileDict = None, ):
+class Analysis(Folder, Loader, TimeSeries):
+
+    def __init__(self, path):
         Folder.__init__(self, path)
+        Loader.__init__(self, None)
+        TimeSeries.__init__(self, None)
+    
         
         #LoadDictFile.__init__(fileDict)
         

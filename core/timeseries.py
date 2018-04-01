@@ -13,9 +13,9 @@
 # 
 # Created: Fri Mar 23 23:09:44 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Sun Apr  1 16:05:20 2018 (-0500)
+# Last-Updated: Sun Apr  1 17:35:20 2018 (-0500)
 #           By: yulu
-#     Update #: 56
+#     Update #: 81
 # 
 
 import numpy as np
@@ -28,11 +28,8 @@ import matplotlib.pyplot as plt
 
 class TimeSeries:
     def __init__(self, data):
-        self.nrow = None
-        self.ncol = None
         self.data = data
-        #self.labels = [None] * self.ncol
-        
+                
     @property
     def data(self):
         return self.__data
@@ -40,54 +37,31 @@ class TimeSeries:
     @data.setter
     def data(self, data):
         if data is None:
-            self.nrow = None
-            self.ncol = None
-            self.__data  = None
-            
+            self.__data = pd.DataFrame()
         elif type(data) is np.ndarray:
-            nrow, ncol = data.shape
-            self.nrow = nrow
-            self.ncol = ncol
-            self.__data = data
+            self.__data = pd.DataFrame(data)
         
         elif type(data) is pd.core.frame.DataFrame:
-            data = data.values
-            nrow, ncol = data.shape
-            self.nrow = nrow
-            self.ncol = ncol
             self.__data = data
             
-        elif type(data) == list:
+        elif hasattr(data, '__iter__'): 
             try:
-                data = np.vstack(data).T
-                print(data)
+                data = pd.DataFrame(np.c_[data])
             except ValueError:
                 print("[!] Cannot combine data series in the input list, shape doesn't match!")
                 raise ValueError
             finally:
-                nrow, ncol = data.shape
-                self.nrow = nrow
-                self.ncol = ncol
                 self.__data = data
-
+        elif type(data) is dict:
+            data = pd.DataFrame(data)
+            self.__data = data
+            
         else:
             print("[!] Input data not understood !")
-            print("Data should be a single ndarray or list of ndarrays (for combination)")
-            
-            
+            print("Data should be one of the below:\n",
+                  "pandas DataFrame, 2d array with time as 0th column, 1d arrray, a simple iterable")
         
-    
-    # @property
-    # def labels(self):
-    #     return self.__labels
-    
-    # @labels.setter
-    # def labels(self, labelNames):
-    #     if len(labelNames) == self.ncol:
-    #         self.__labels = labelNames
-    #     else:
-    #         print("[!] Label names don't match number columns in given data.")
-    #         print("Number of columns: %d, number of labels given %d" %(self.ncol, len(labelNames)))
+            
         
     def timeSelect(self, *args):
         """
@@ -110,6 +84,9 @@ class TimeSeries:
     
     @staticmethod
     def cleanData(data, lowerBound = None, upperBound = None, removeOffset = True, noiseFilter = False):
+        if type(data) is pd.core.DataFrame:
+            data = data.values
+            
         if lowerBound or upperBound:
             idxGen = TimeSeries.timeIdx(data, [lowerBound, upperBound])
             data = data[idxGen, :]
@@ -136,7 +113,8 @@ class TimeSeries:
         [Output]
         generater of indexes corresponding to input args
         """
-
+        if type(data) is pd.core.DataFrame:
+            data = data.values
         times = data[:,0] if  len(data.shape) > 1 else data
         for t in args:            
             try:
@@ -191,6 +169,9 @@ class TimeSeries:
         return (popt, pcov)
         
     def peakHeight(self, fit = False, error = False):
+        if type(self.data) is pd.core.frame.DataFrame:
+            data = self.data.values
+            
         try:
             nRow, nCol = self.__data.shape
         except AttributeError:
@@ -201,10 +182,10 @@ class TimeSeries:
             raise ValueError
         else:
             if fit:
-                fitRes = [TimeSeries.gausFit(self.__data[:,0], y) for y in self.__data[:,1:].T]
+                fitRes = [TimeSeries.gausFit(data[:,0], y) for y in data[:,1:].T]
                 peak, peakErr = np.array([[x[0][0], np.sqrt(x[1][0, 0])] for x in fitRes]).T
             else:
-                peak = [max(k) for k in self.__data[:, 1:].T]
+                peak = [max(k) for k in data[:, 1:].T]
         finally:            
             peak = peak[0] if len(peak) == 1 else peak               
             if fit and error:                
@@ -214,8 +195,10 @@ class TimeSeries:
                 return(peak)
         
     def peakTime(self, fit = False, error = False):
+        if type(self.data) is pd.core.frame.DataFrame:
+            data = self.data.values
         try:
-            nRow, nCol = self.__data.shape
+            nRow, nCol = data.shape
         except AttributeError:
             print("[!] Input data has to be 2D array with time series as 0th column!")
             raise AttributeError
@@ -224,10 +207,10 @@ class TimeSeries:
             raise ValueError
         else:
             if fit:
-                fitRes = [TimeSeries.gausFit(self.__data[:,0], y) for y in self.__data[:,1:].T]
+                fitRes = [TimeSeries.gausFit(data[:,0], y) for y in data[:,1:].T]
                 peakTime, peakTimeErr = np.array([[x[0][1], np.sqrt(x[1][1, 1])] for x in fitRes]).T
             else:
-                peakTime = [self.__data[np.argmax(k), 0] for k in self.__data[:, 1:].T]
+                peakTime = [data[np.argmax(k), 0] for k in data[:, 1:].T]
         finally:            
             peakTime = peakTime[0] if len(peakTime) == 1 else peakTime               
             if fit and error:                
@@ -237,8 +220,10 @@ class TimeSeries:
                 return(peakTime)
         
     def peakFWHM(self, fit = False, error = False):
+        if type(self.data) is pd.core.frame.DataFrame:
+            data = self.data.values
         try:
-            nRow, nCol = self.__data.shape
+            nRow, nCol = data.shape
         except AttributeError:
             print("[!] Input data has to be 2D array with time series as 0th column!")
             raise AttributeError
@@ -247,16 +232,16 @@ class TimeSeries:
             raise ValueError
         else:
             if fit:
-                fitRes = [TimeSeries.gausFit(self.__data[:,0], y) for y in self.__data[:,1:].T]
+                fitRes = [TimeSeries.gausFit(data[:,0], y) for y in data[:,1:].T]
                 peakFWHM, peakFWHMErr = np.array([[x[0][2], np.sqrt(x[1][2, 2])] for x in fitRes]).T
             else:
                 peakFWHM = []
-                for dataY in self.__data[:,1:].T:
+                for dataY in data[:,1:].T:
                     maxIdx = np.argmax(dataY)
                     peak = dataY[maxIdx]
                     idxLow = np.argmin(np.abs(dataY[:maxIdx] - peak/2.))
                     idxHigh = np.argmin(np.abs(dataY[maxIdx:] - peak/2.)) + maxIdx
-                    peakFWHM.append(self.__data[idxHigh, 0] - self.__data[idxLow, 0])
+                    peakFWHM.append(data[idxHigh, 0] - data[idxLow, 0])
         finally:         
             peakFWHM = peakFWHM[0] if len(peakFWHM) == 1 else peakFWHM               
             if fit and error:                
@@ -266,8 +251,10 @@ class TimeSeries:
                 return(peakFWHM)
             
     def peakIntegrate(self, fit = False, error = False):
+        if type(self.data) is pd.core.frame.DataFrame:
+            data = self.data.values
         try:
-            nRow, nCol = self.__data.shape
+            nRow, nCol = data.shape
         except AttributeError:
             print("[!] Input data has to be 2D array with time series as 0th column!")
             raise AttributeError
@@ -276,12 +263,12 @@ class TimeSeries:
             raise ValueError
         else:
             if fit:
-                popt = [self.gausFit(self.__data[:,0], y)[0] for y in self.__data[:,1:].T]
+                popt = [self.gausFit(data[:,0], y)[0] for y in data[:,1:].T]
                 # intergrate (-6sigma,6sigma) region 
                 peakIntegrate, peakIntegrateErr = np.array([quad(TimeSeries.gaus0, y[1] - 6*y[2], y[1] + 6*y[2], args = tuple(y)) for y in popt]).T
                 
             else:
-                peakIntegrate = [np.trapz(x = self.__data[:,0], y = s) for s in self.__data[:,1:].T]
+                peakIntegrate = [np.trapz(x = data[:,0], y = s) for s in data[:,1:].T]
         finally:         
             peakIntegrate = peakIntegrate[0] if len(peakIntegrate) == 1 else peakIntegrate               
             if fit and error:                

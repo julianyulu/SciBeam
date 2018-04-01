@@ -13,9 +13,9 @@
 # 
 # Created: Fri Mar 23 23:02:05 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Sun Apr  1 15:25:47 2018 (-0500)
+# Last-Updated: Sun Apr  1 17:51:20 2018 (-0500)
 #           By: yulu
-#     Update #: 93
+#     Update #: 98
 # 
 
 import os 
@@ -27,7 +27,7 @@ from SciBeam.core import base
 class Folder(base.Defaults):
     def __init__(self, pathStr):
         self.path = pathStr
-        self.queryResult = None
+        self.fileDict = None
 
 
     @property
@@ -68,7 +68,7 @@ class Folder(base.Defaults):
                 kwd = mt.group(1)
                 whole = mt.group(0)
                 result_dict = base.buildDict(result_dict, kwd, whole)
-        self.queryResult = result_dict
+        self.fileDict = result_dict
         return self
 
 
@@ -90,8 +90,22 @@ class FolderTools:
                 kwd = mt.group(1)
                 whole = mt.group(0)
                 result_dict = base.buildDict(result_dict, kwd, whole)
-        queryResult = result_dict
-        return queryResult
+        fileDict = result_dict
+        return fileDict
+
+    def query_gen(path, regex = base.Defaults.file_regex):
+        files = os.listdir(path)
+        reg = re.compile(regex)
+        for f in files:
+            mt = reg.match(f)
+            if mt == None:
+                continue
+            else:
+                kwd = mt.group(1)
+                whole = mt.group(0)
+                yield base.pathJoin(path, whole)
+        
+        
 
     
     
