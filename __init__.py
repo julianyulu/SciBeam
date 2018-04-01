@@ -10,12 +10,13 @@
 # 
 # Created: Sun Mar 25 16:04:08 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 13:24:19 2018 (-0500)
+# Last-Updated: Sun Apr  1 15:27:17 2018 (-0500)
 #           By: yulu
-#     Update #: 22
+#     Update #: 25
 # 
 
 from SciBeam.core.folderstruct import Folder
-from SciBeam.core.dataio import LoadDictFile
+from SciBeam.core.folderstruct import FolderTools
+from SciBeam.core.io import Loader
 from SciBeam.core.timeseries import TimeSeries
 from SciBeam.core.fullanalysis import Analysis

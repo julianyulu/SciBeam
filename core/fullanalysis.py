@@ -9,9 +9,9 @@
 # 
 # Created: Wed Mar 28 23:05:08 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 01:33:42 2018 (-0500)
+# Last-Updated: Thu Mar 29 21:01:33 2018 (-0500)
 #           By: yulu
-#     Update #: 20
+#     Update #: 35
 # 
 
 import numpy as np
@@ -20,16 +20,13 @@ from SciBeam.core.folderstruct import Folder
 from SciBeam.core.dataio import LoadDictFile
 from SciBeam.core.timeseries import TimeSeries
 
-class Analysis:
+class Analysis(Folder, LoadDictFile):#, TimeSeries):
     
     
-    def __init__(self, path):
-        self.path = path
-        self.Folder = Folder(path)
-        self.LoadDictFile = LoadDictFile.__init__(self.Folder, self.Folder.query_result)
-
-    def myloadfile(self):
-        return LoadDictFile(self.Folder.query_result)
+    def __init__(self, path, fileDict = None, ):
+        Folder.__init__(self, path)
+        
+        #LoadDictFile.__init__(fileDict)
         
 
     

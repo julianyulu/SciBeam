@@ -1,4 +1,4 @@
-# DataIO.py --- 
+# io.py --- 
 # 
 # Filename: DataIO.py
 # Description: 
@@ -9,44 +9,41 @@
 # 
 # Created: Sun Mar 25 17:09:06 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 11:28:14 2018 (-0500)
+# Last-Updated: Sun Apr  1 15:38:33 2018 (-0500)
 #           By: yulu
-#     Update #: 84
+#     Update #: 98
 # 
 
 import numpy as np
 import pandas as pd
 from SciBeam.core import base
-class LoadDictFile:
+
+class Loader:
     
     def __init__(self, addressDict):
-        self.fromDict = addressDict
-                
+        self.fileDict = addressDict
+        
     @property
-    def fromDict(self):
-        return self.__fromDict
+    def fileDict(self):
+        return self.__fileDict
     
-    @fromDict.setter
-    def fromDict(self, addressDict):
-        self.__fromDict = addressDict
+    @fileDict.setter
+    def fileDict(self, addressDict):
+        self.__fileDict = addressDict
         self.data = None
         self.dataframe = None
         self.__last_call = None
 
     
-    def load(self, path = None, ncol = base.Defaults.data_file_num_column):
-        addressDict = self.fromDict
+    def load(self, ncol = base.Defaults.data_file_num_column):
+        addressDict = self.fileDict
         dataDict = {}
-
-        # check is path is given in the address dictionary, if not, ask for input
-        if path:
-            pass
-        else:
-            try:
-                path = addressDict['path']
-            except KeyError:
-                print("[!] No [path] key found in dictionary, please give a path")
-                raise KeyError
+        # check if path is given in the address dictionary, if not, ask for input
+        try:
+            path = addressDict['path']
+        except KeyError:
+            print("[!] No [path] key found in dictionary, please give a path")
+            raise KeyError
         
         print("[*] In folder %s, loading..." %path)
         for key1 in sorted(list(addressDict.keys())):
@@ -84,7 +81,6 @@ class LoadDictFile:
                         data = np.fromfile(filePath,  sep = '\t').reshape(-1,ncol)
                         dataDict[key1].append(data)
         self.data = dataDict
-        self.__last_call = self.data
         return self
 
     def toDataFrame(self, data = None):
@@ -146,14 +142,7 @@ class LoadDictFile:
                 df[key] = df[key][['time'] + [x for x in sorted(df[key].columns) if x!='time']]
                 
         self.dataframe = df
-        self.__last_call = self.dataframe
         return self
-
     
-    def value(self):
-        temp = self.__last_call
-        self.__last_call = None
-        return temp
-
-                        
-                        
+    
+    
