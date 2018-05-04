@@ -10,9 +10,9 @@
 # 
 # Created: Thu Mar 29 10:44:57 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 13:56:49 2018 (-0500)
+# Last-Updated: Fri May  4 11:33:21 2018 (-0500)
 #           By: yulu
-#     Update #: 17
+#     Update #: 23
 # 
 
 import unittest
@@ -23,6 +23,7 @@ import numpy as np
 from SciBeam.core import base
 
 class TestFunctions(unittest.TestCase):
+    '''
     def test_buildDict(self):
         emptyDict = {}
         popedDict = {'a': 1}
@@ -74,7 +75,15 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(base.pathJoin(test_path_linux2, test_target3), '/home/MyFolder/Whatever/folder3/')
         self.assertEqual(base.pathJoin(test_path_linux2, test_target4), '/home/MyFolder/Whatever/folder4/')
         self.assertEqual(base.pathJoin(test_path_linux2, test_target1, test_target2, test_target3, test_target4), '/home/MyFolder/Whatever/folder1/folder2/folder3/folder4/')
-        
+    '''
+    def test_winPathHandler(self):
+        test_path_win = r'C:\Documents\MyFolder\Whatever.txt'
+        test_path_linux = '/home/MyFolder/Whatever.txt'
 
-if __name__ == '__main__':
-    unittest.main()
+        self.assertEqual(base.winPathHandler(test_path_win), 'C:/Documents/MyFolder/Whatever.txt')
+        self.assertEqual(base.winPathHandler(test_path_linux), '/home/MyFolder/Whatever.txt')
+        self.assertEqual(base.winPathHandler([test_path_win, test_path_linux]),['C:/Documents/MyFolder/Whatever.txt','/home/MyFolder/Whatever.txt'])
+    
+
+    if __name__ == '__main__':
+        unittest.main()
