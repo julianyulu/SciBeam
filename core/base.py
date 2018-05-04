@@ -9,9 +9,9 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Mar 29 13:44:13 2018 (-0500)
+# Last-Updated: Fri May  4 10:20:48 2018 (-0500)
 #           By: yulu
-#     Update #: 34
+#     Update #: 36
 # 
 import os 
 
@@ -57,6 +57,11 @@ def buildDict(init_dict, key, value):
 
     
 def pathJoin(*args):
+    """
+    Join multiple paths for windows / linux and take care of the 
+    slashes by the end
+    """
+
     num_path = len(args)
     result_path = ''
     for pathStr in args:
