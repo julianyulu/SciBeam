@@ -9,13 +9,17 @@
 # 
 # Created: Sat May  5 23:52:27 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May  6 00:03:25 2018 (-0500)
+# Last-Updated: Sun May  6 10:43:47 2018 (-0500)
 #           By: yulu
-#     Update #: 5
+#     Update #: 8
 # 
 
 
 class DescriptorMixin:
+    """
+    Read-only descriptor for class cross reference 
+    """
+    
     def __init__(self, descriptor_cls):
         self.descriptor_cls = descriptor_cls
         self.construct_descriptor = descriptor_cls._make_descriptor

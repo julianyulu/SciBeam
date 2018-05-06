@@ -9,11 +9,12 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May  6 00:42:28 2018 (-0500)
+# Last-Updated: Sun May  6 16:27:13 2018 (-0500)
 #           By: yulu
-#     Update #: 59
+#     Update #: 60
 # 
-import os 
+import os
+
 _mixin_class = ["<class 'SciBeam.core.tof.TOF'>"]
 
 def _is_mixin(att):
@@ -37,7 +38,12 @@ class Defaults:
     file_regex = '.*_(\d+\.?\d+).*' + data_file_extenstion + '$'
 
     # Unit tests
-    
+
+
+
+###
+# Not being used
+###
 
 def buildDict(init_dict, key, value):
     """
