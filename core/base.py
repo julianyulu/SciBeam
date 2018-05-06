@@ -9,11 +9,21 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May  5 13:43:44 2018 (-0500)
+# Last-Updated: Sun May  6 00:42:28 2018 (-0500)
 #           By: yulu
-#     Update #: 43
+#     Update #: 59
 # 
 import os 
+_mixin_class = ["<class 'SciBeam.core.tof.TOF'>"]
+
+def _is_mixin(att):
+    for cls in _mixin_class:
+        if str(type(att)) == cls:
+            return True
+    
+    return False
+    
+
 
 class Defaults:
 

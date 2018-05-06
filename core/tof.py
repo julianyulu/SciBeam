@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May  5 18:22:54 2018 (-0500)
+# Last-Updated: Sun May  6 00:06:45 2018 (-0500)
 #           By: yulu
-#     Update #: 147
+#     Update #: 162
 # 
 
 
@@ -22,13 +22,16 @@ import re
 
 from SciBeam.core.common import Common
 from SciBeam.core.regexp import RegExp    
+from SciBeam.core.timeseriesanalysis import TimeSeries
+from SciBeam.core import base
+from SciBeam.core.descriptor import DescriptorMixin
 
 class TOF:
     
     """
     Single time-of-flight data analysis
     """
-
+    
     def __init__(self, values, time = [], labels = None, time_unit = None, value_unit = None):
         self.data = values
         self.time = time
@@ -36,6 +39,7 @@ class TOF:
         self.time_unit = time_unit
         self.value_unit = value_unit
         self.df = self.__to_DataFrame()
+        
         
 
     def __repr__(self):
@@ -210,6 +214,10 @@ class TOF:
             '--------------------'])
         return info_str
 
-    
+    @property
+    def _make_mixin(self):
+        return self.df
+
+    ts = DescriptorMixin(TimeSeries)
     
                             
