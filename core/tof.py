@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May  6 16:44:26 2018 (-0500)
+# Last-Updated: Sun May  6 17:03:01 2018 (-0500)
 #           By: yulu
-#     Update #: 292
+#     Update #: 294
 # 
 
 
@@ -25,7 +25,7 @@ from SciBeam.core.regexp import RegExp
 from SciBeam.core.timeseries import TimeSeries
 from SciBeam.core import base
 from SciBeam.core.descriptor import DescriptorMixin
-
+from SciBeam.core.plot import Plot
 class TOF:
     
     """
@@ -274,12 +274,9 @@ class TOF:
     def _make_mixin(self):
         return self.df
 
-
-
-
-    
+    #Descriptors:
     #single = DescriptorMixin(TimeSeries)
-    
+    plot = DescriptorMixin(Plot)
 # Class Tof end <---
 
 
