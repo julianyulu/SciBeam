@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May  6 21:37:43 2018 (-0500)
+# Last-Updated: Tue May  8 23:17:22 2018 (-0500)
 #           By: yulu
-#     Update #: 59
+#     Update #: 61
 # 
 
 import numpy as np
@@ -56,12 +56,16 @@ class Plot:
 
     def scanPlot(self, **kwargs):
         figureKwds = ['figsize', 'ncols', 'nrows','sharex', 'sharey']
-        print(kwargs)
+
         figure_setup = {y[0]: y[1] for y in  [(x, kwargs.pop(x)) for x in figureKwds if x in kwargs]}
-        fig, ax = plt.subplots(**figure_setup)
         
-        if len(ax) == 1:
-            ax.plot(df.index, df[0.3])
+        fig, ax = plt.subplots(**figure_setup)
+
+        
+        #if len(ax) == 1:
+            #ax.plot(df.index, df[0.3])
+        #else:
+         #   ax[i].plot(df
         
         
             

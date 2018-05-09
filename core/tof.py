@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May  6 17:03:01 2018 (-0500)
+# Last-Updated: Tue May  8 22:30:45 2018 (-0500)
 #           By: yulu
-#     Update #: 294
+#     Update #: 296
 # 
 
 
@@ -26,6 +26,9 @@ from SciBeam.core.timeseries import TimeSeries
 from SciBeam.core import base
 from SciBeam.core.descriptor import DescriptorMixin
 from SciBeam.core.plot import Plot
+
+
+
 class TOF:
     
     """
@@ -46,8 +49,6 @@ class TOF:
         self.value_unit = value_unit
         self.df = self.__to_DataFrame()
         
-        
-
     def __repr__(self):
         return repr(self.df)
     
@@ -61,7 +62,6 @@ class TOF:
         if d.ndim == 1:
             d = d.reshape(1, -1)
         self.__data = d
-        
 
     @property
     def time(self):
@@ -263,9 +263,7 @@ class TOF:
         """
         lb, ub = self.find_time_idx(self.time, lowerBound, upperBound)
         return self.df.iloc[lb:ub, :].copy() # Dataframe
-    
-
-    
+        
     @property
     def describe(self):
         return self.df.describe()
