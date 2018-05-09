@@ -9,9 +9,9 @@
 # 
 # Created: Tue May  8 23:19:52 2018 (-0500)
 # Version: 
-# Last-Updated: Tue May  8 23:54:28 2018 (-0500)
+# Last-Updated: Wed May  9 00:13:43 2018 (-0500)
 #           By: yulu
-#     Update #: 31
+#     Update #: 34
 # 
 
 import numpy as np
@@ -56,7 +56,7 @@ def gausFit(x, y, offset = False):
     if offset:
         errorFunc = lambda p, x, y: (gaus(x, y0 = 0, *p) - y)
     else:
-        errorFunc = lambda p, x, y: (gaus_noOffset(x, *p) - y)
+        errorFunc = lambda p, x, y: (gaus(x, *p) - y)
     popt, pcov, infodic, mesg, ier = leastsq(errorFunc, [a0, x0, halfWidth], full_output = True, args = (x, y))
     if ier < 0:
         raise ValueError("Gaussian fit failed ")
@@ -105,7 +105,7 @@ def doubleGausFit(x, y, guessPara, offset = False):
     popt, pcov, infodic, mesg, ier= leastsq(errorFunc, guessPara, full_output= True ,args = (x, y))
     if ier < 0:
         raise ValueError("[*] Double gauss fit failed! ")
-return popt, pcov
+    return popt, pcov
 
 
 def bandPassFilter(data, tStep = None, lowFreq = 0, highFreq = 1e4):
@@ -124,7 +124,7 @@ def bandPassFilter(data, tStep = None, lowFreq = 0, highFreq = 1e4):
             yf[i] = 0
     iyf = irfft(yf)
     data[:,1] = iyf
-return(data)
+    return(data)
 
 
 def integrate(x = 0, y = 0, kind = 'numerical', func = None, low = None, high = None, args = ()):
