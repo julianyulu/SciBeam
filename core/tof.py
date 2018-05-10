@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue May  8 22:30:45 2018 (-0500)
+# Last-Updated: Thu May 10 11:39:21 2018 (-0500)
 #           By: yulu
-#     Update #: 296
+#     Update #: 365
 # 
 
 
@@ -22,14 +22,20 @@ import re
 
 from SciBeam.core.common import Common
 from SciBeam.core.regexp import RegExp    
-from SciBeam.core.timeseries import TimeSeries
+#from SciBeam.core.timeseries import TimeSeries
 from SciBeam.core import base
 from SciBeam.core.descriptor import DescriptorMixin
-from SciBeam.core.plot import Plot
+#from SciBeam.core.plot import Plot
 
+class TOFSeries(pd.Series):
+    @property
+    def _constructor(self):
+        return TOFSeries
+    @property
+    def _constructor_expanddim(self):
+        return TOF
 
-
-class TOF:
+class TOF(pd.DataFrame):
     
     """
     Single time-of-flight data analysis
@@ -41,32 +47,123 @@ class TOF:
     value_unit: unit for tof values, default None
     """
     
-    def __init__(self, values, time = [], labels = None, time_unit = None, value_unit = None):
-        self.data = values
-        self.time = time
-        self.labels = labels
-        self.time_unit = time_unit
-        self.value_unit = value_unit
-        self.df = self.__to_DataFrame()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         
-    def __repr__(self):
-        return repr(self.df)
+        
+        
+        
     
     @property
-    def data(self):
-        return self.__data
-
-    @data.setter
-    def data(self, values):
-        d = np.array(values)
-        if d.ndim == 1:
-            d = d.reshape(1, -1)
-        self.__data = d
-
+    def _constructor(self):
+        return TOF
     @property
-    def time(self):
-        return self.__time
-    
+    def _constructor_sliced(self):
+        return TOFSeries
+
+    @classmethod
+    def fromtxt(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
+                offset_margin = 'both', offset_margin_size = 20,skiprows = 0, sep = '\t'):
+        """
+        Buid TOF instance from given file
+        Current only works for '\t' seperated txt and lvm file
+        """
+
+        path = Common.winPathHandler(path)
+        # If given folder path
+        if os.path.isdir(path):
+            if regStr:
+                keys, files = RegExp.fileMatch(path, regStr)
+                values = {}
+                for k, f in zip(keys, files):
+                    data = Common.loadFile(path + f, skiprows = skiprows, sep = sep)
+                    if lowerBound and upperBound:
+                        lb, ub = TOF.find_time_idx(data[:, 1], lowerBound, upperBound)
+                        print(lb, ub)
+                        time = data[lb:ub, 0]
+                        if removeOffset:
+                            value = TOF.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
+                        else:
+                            value = data[lb:ub, 1]
+                    else:
+                        time = data[:, 0]
+                        value = data[:, 1]
+                    values[k] =  value
+            
+            else:
+                raise ValueError("[*] Please provide regStr for file match in the path !")
+
+        # if given file path
+        else:
+            data = Common.loadFile(path, cols = cols, usecols = usecols,skiprows = skiprows,  sep = sep)
+            if lowerBound and upperBound:
+                lb, ub = TOF.find_time_idx(data[:,0], lowerbound, upperBound)
+                time = data[lb : ub, 0]
+                if removeOffset:
+                    value = TOF.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
+                else:
+                    value = data[lb:ub, 1]
+            else:
+                time = data[:,0]
+                value = data[:,1]
+            values = dict('value', value)
+            
+        return cls(values, index = time)
+            
+
+    @staticmethod
+    def find_time_idx(time, *args):
+        """
+        Generator of time index for a given time value
+        args: can be 1,2,3, or [1,2] or [1,2,3]
+        """
+        time = np.array(time)
+        t_max_gap = np.max(np.diff(time))
+        for arg_elem in args:
+            
+            if hasattr(arg_elem, '__iter__'):
+                idx = []
+                for t in arg_elem:
+                    candi_idx = np.argmin(abs(t - time))
+                    if abs(t - time[candi_idx]) > t_max_gap:
+                        raise ValueError("[*] Error: find_time_idx didn't find closest match !\n" + 
+                                         "[!] Searching for time %f while the closest match is %f, you may consider check the unit!"
+                                         %(t, time[candi_idx]))
+                    else: 
+                        idx.append(candi_idx)
+                    yield idx
+                    
+            else:
+                candi_idx = np.argmin(abs(arg_elem - time))
+                if abs(arg_elem - time[candi_idx]) > t_max_gap:
+                        raise ValueError("[*] Error: find_time_idx didn't find closest match !\n" + 
+                                         "[!] Searching for time %f while the closest match is %f, you may consider check the unit!"
+                                         %(arg_elem, time[candi_idx]))
+                else:
+                    idx = candi_idx
+                yield idx
+                    
+    @staticmethod
+    def remove_data_offset(data, lowerBoundIdx = None, upperBoundIdx = None, offset_margin = 'both', offset_margin_size = 10):
+        if offset_margin == 'both':
+            offset = (np.mean(data[lowerBoundIdx-offset_margin_size: lowerBoundIdx]) + np.mean(data[upperBoundIdx : upperBoundIdx + offset_margin_size]))  / 2.
+        elif offset_margin == 'left':
+            offset = np.mean(data[lowerBoundIdx-offset_margin_size: lowerBoundIdx])
+        elif offset_margin == 'right':
+            offset = np.mean(data[upperBoundIdx : upperBoundIdx + offset_margin_size])
+        elif offset_margin == 'inner':
+            offset = (np.mean(data[lowerBoundIdx: lowerBoundIdx + offset_margin_size]) + np.mean(data[upperBoundIdx - offset_margin_size: upperBoundIdx]))  / 2
+        elif offset_margin == 'inner left':
+            offset = np.mean(data[lowerBoundIdx: lowerBoundIdx + offset_margin_size])
+        elif offset_margin == 'inner right':
+            offset = np.mean(data[upperBoundIdx - offset_margin_size: upperBoundIdx])
+        else:
+            raise ValueError(("[*] offset_margin: %s not understood !\n" +
+                              "[!] possible values of offset_margin: 'both', 'left', 'right', 'inner', 'inner left', 'inner right'") % offset_margin)
+        data = data[lowerBoundIdx:upperBoundIdx] - offset
+        return data
+
+    '''    
     @time.setter
     def time(self, time):
         datalen = self.__data.shape[1]
@@ -130,9 +227,9 @@ class TOF:
         return df
 
     
-        
+   
     @classmethod
-    def fromfile(cls, path, regStr = None, lowerBound = None, upperBound = None,
+    def fromtxt(cls, path, regStr = None, lowerBound = None, upperBound = None,
                  removeOffset = True, cols = 2, usecols = None, skiprows = 0,
                  kind = 'txt', sep = '\t'):
 
@@ -155,7 +252,7 @@ class TOF:
                         pass
                     data.append(d[:,1])
                 time = d[:,0]
-                return cls(data, time = time, labels = keys)
+                return cls(data, index = time, columns = keys)
             else:
                 print("[*] Please provide regStr for file match in the path !")
 
@@ -170,11 +267,8 @@ class TOF:
             data = d[:,1]
             return cls(data, time = time)
                 
-
-    @property
-    def shape(self):
-        return self.__data.shape
-
+    
+    
     @property
     def info(self):
         """
@@ -200,39 +294,7 @@ class TOF:
     
 
 
-    @staticmethod
-    def find_time_idx(time, *args):
-        """
-        Generator of time index for a given time value
-        args: can be 1,2,3, or [1,2] or [1,2,3]
-        """
-        time = np.array(time)
-        t_max_gap = np.max(np.diff(time))
-        for arg_elem in args:
-            
-            if hasattr(arg_elem, '__iter__'):
-                idx = []
-                for t in arg_elem:
-                    candi_idx = np.argmin(abs(t - time))
-                    if abs(t - time[candi_idx]) > t_max_gap:
-                        raise ValueError("[*] Error: find_time_idx didn't find closest match !\n" + 
-                                         "[!] Searching for time %f while the closest match is %f, you may consider check the unit!"
-                                         %(t, time[candi_idx]))
-                    else: 
-                        idx.append(candi_idx)
-                    yield idx
-                    
-            else:
-                candi_idx = np.argmin(abs(arg_elem - time))
-                if abs(arg_elem - time[candi_idx]) > t_max_gap:
-                        raise ValueError("[*] Error: find_time_idx didn't find closest match !\n" + 
-                                         "[!] Searching for time %f while the closest match is %f, you may consider check the unit!"
-                                         %(arg_elem, time[candi_idx]))
-                else:
-                    idx = candi_idx
-                yield idx
-                    
-        
+    
                 
     def selectTimeSlice(self, *args):
         """
@@ -276,7 +338,7 @@ class TOF:
     #single = DescriptorMixin(TimeSeries)
     plot = DescriptorMixin(Plot)
 # Class Tof end <---
-
+'''
 
 
 
