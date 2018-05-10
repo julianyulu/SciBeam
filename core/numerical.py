@@ -9,9 +9,9 @@
 # 
 # Created: Tue May  8 23:19:52 2018 (-0500)
 # Version: 
-# Last-Updated: Wed May  9 00:13:43 2018 (-0500)
+# Last-Updated: Wed May  9 11:04:14 2018 (-0500)
 #           By: yulu
-#     Update #: 34
+#     Update #: 39
 # 
 
 import numpy as np
@@ -24,7 +24,9 @@ __all__ = [
     "gaus",
     "gausFit",
     "doubleGaus",
-    "doubleGausFit"
+    "doubleGausFit",
+    "bandPassFilter",
+    "integrate"
     ]
 
 
@@ -128,8 +130,12 @@ def bandPassFilter(data, tStep = None, lowFreq = 0, highFreq = 1e4):
 
 
 def integrate(x = 0, y = 0, kind = 'numerical', func = None, low = None, high = None, args = ()):
+    """
+    numerical / function integration using numpy trapz / scipy quad
+    """
     if kind == 'numerical':
         return np.trapz(y, x = x)
     elif kind == 'function':
         return quad(func, low, high, args = args)[0]
+
 
