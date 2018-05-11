@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Thu May 10 19:38:21 2018 (-0500)
-#           By: superlu
-#     Update #: 377
+# Last-Updated: Thu May 10 23:43:08 2018 (-0500)
+#           By: yulu
+#     Update #: 389
 # 
 
 
@@ -46,12 +46,9 @@ class TOF(pd.DataFrame):
     time_unit: unit for time, optional, default None
     value_unit: unit for tof values, default None
     """
-    
+    pd.set_option('precision', 9)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
-        
-        
         
     
     @property
@@ -144,6 +141,9 @@ class TOF(pd.DataFrame):
                     
     @staticmethod
     def remove_data_offset(data, lowerBoundIdx = None, upperBoundIdx = None, offset_margin = 'both', offset_margin_size = 10):
+        """
+        remove offset in 1D array data
+        """
         if offset_margin == 'both':
             offset = (np.mean(data[lowerBoundIdx-offset_margin_size: lowerBoundIdx]) + np.mean(data[upperBoundIdx : upperBoundIdx + offset_margin_size]))  / 2.
         elif offset_margin == 'left':
@@ -161,33 +161,6 @@ class TOF(pd.DataFrame):
                               "[!] possible values of offset_margin: 'both', 'left', 'right', 'inner', 'inner left', 'inner right'") % offset_margin)
         data = data[lowerBoundIdx:upperBoundIdx] - offset
         return data
-
-    '''
-    @property
-    def info(self):
-        """
-        General info string of the class obj.
-        """
-        delta_t = np.unique(self.df.index)
-        max_value = max(self.df.max())
-        min_value = min(self.df.min())
-        start_t = min(self.df.index)
-        end_t = max(self.df.index)
-
-        info_str = '\n'.join([
-            'SciBeam.TOF.info:',
-            '--------------------',
-            'data value shape: %s'    %str(self.__data.shape),
-            'total data points: %d'   %self.__data.size,
-            'Start time: %f'          %start_t,
-            'End time: %f'            %end_t,
-            'Max value: %f'           %max_value,
-            'Min value: %f'           %min_value,
-            '--------------------'])
-        print(info_str)
-    '''
-
-
     
                 
     def selectTimeSlice(self, *args):
@@ -211,63 +184,51 @@ class TOF(pd.DataFrame):
         slice_DataFrame = pd.DataFrame(slice_value)
         return slice_DataFrame
 
+    
     def selectTimeRange(self, lowerBound, upperBound):
         """
         makeTimeRange
         Select continious data in a provided time range
         --------------
         """
-        lb, ub = self.find_time_idx(self.index, lowerBound, upperBound)
-        return self.iloc[lb:ub, :].copy() # Dataframe
+        lb, ub = TOF.find_time_idx(self.index, lowerBound, upperBound)
+        return self.iloc[lb:ub, :].copy()
+
+    
         
+    '''
+    
+    def peakFinder(self, n_simgas = 4, as_bounds = True, as_series = False, as_figure = False, removeOffset = True, lowerBound = None, upperBound = None):
+        if lowerBound or upperBound:
+            lb, ub = TOF.find_time_idx(self.index, lowerBound, upperBound)
+            data = self.iloc[lb:ub, :]
+        else:
+            data = self
+        if removeOffset:
+            data = TOF.remove_data_offset(data, offset_margin = 'inner', offset_margin_size = 5)
+        peak_idx = self.idxmax()
+        hwhm_idx_left = self.apply(lambda x: pd.Series.idxmin(abs(x[:pd.Series.idxmax(x)] - x.max() / 2)))
+        ## This is the "index" of dataframe not index like 1,2,3,4, doesn't work
+        delta_idx = (peak_idx - hwhm_idx_left) / (2.355 / 2) * n_simgas / 2
+        lb,ub  = peak_idx - delta_idx, peak_idx + delta_idx
+        if as_bounds:
+            return lb, ub 
+        elif as_series:
+            return [self.loc[lb.iloc[i]:ub.iloc[i], self.columns[i]] for i in range(len(lb))]
+        elif as_figure:
+            plt.figure()
+            series.plot()
+            plt.xlabel('time')
+            plt.ylabel('value')
+            plt.title('Peak finder result')
+            plt.show()
+        else:
+            raise ValueError("[*] Please specify return method: as_bounds, as_series, as_figure")
+    '''
     
     # #Descriptors:
     # #single = DescriptorMixin(TimeSeries)
     # plot = DescriptorMixin(Plot)
-# Class Tof end <---
-'''
-
-
-
-###
-# Functions
-###
-def _find_time_bound_idx(time, lowerBound, upperBound):
-    """
-    find the index of time lower and upper bounds in the given time data
-    """
-    time = np.array(time)
-    t_max_gap = np.max(np.diff(time))
-    idx = []
-    for t in [lowerBound, upperBound]:
-        candi_idx = np.argmin(abs(t - time))
-        if abs(t - time[candi_idx]) > t_max_gap:
-            raise ValueError("\n[*] Error: find_time_idx didn't find closest match !\n" + 
-                             "[!] Searching for time %f while the closest match is %f, you may consider check the unit!"
-                             %(t, time[candi_idx]))
-        else: 
-            idx.append(candi_idx)
-
-    return idx[0], idx[1]
 
     
-def _select_time_bound_data(data, lowerBound, upperBound, removeOffset = True,
-                             offset_detect_margin = 20):
-    lb, ub = _find_time_bound_idx(data[:,0], lowerBound, upperBound)
-    if removeOffset:
-        while True:
-            try:
-                offset = (np.average(data[lb-offset_detect_margin:lb, 1]) +
-                          np.average(data[ub:ub + offset_detect_margin, 1])) / 2
-                break
-            except IndexError:
-                offset_detect_margin = offset_detect_margin - 1
-            else:
-                pass
-        data[:,1] = data[:,1] - offset
-            
-    else:
-        pass
-    data = data[lb:ub, :]
-    return data
-'''    
+# Class Tof end <---
