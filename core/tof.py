@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Thu May 10 23:43:08 2018 (-0500)
-#           By: yulu
-#     Update #: 389
+# Last-Updated: Fri May 11 15:58:39 2018 (-0500)
+#           By: superlu
+#     Update #: 403
 # 
 
 
@@ -25,6 +25,7 @@ from SciBeam.core.regexp import RegExp
 #from SciBeam.core.timeseries import TimeSeries
 from SciBeam.core import base
 from SciBeam.core.descriptor import DescriptorMixin
+from SciBeam.core import numerical
 #from SciBeam.core.plot import Plot
 
 class TOFSeries(pd.Series):
@@ -195,6 +196,12 @@ class TOF(pd.DataFrame):
         return self.iloc[lb:ub, :].copy()
 
     
+    def peakHeight(self, gauss_fit = False, offset = False):\
+        if gauss_fit:
+            return  self.apply(lambda z: numerical.gausFit(x = z.index, y = z.values, offset = offset)[0][0])
+            pass
+        else:
+            return self.max()
         
     '''
     
@@ -225,6 +232,7 @@ class TOF(pd.DataFrame):
         else:
             raise ValueError("[*] Please specify return method: as_bounds, as_series, as_figure")
     '''
+
     
     # #Descriptors:
     # #single = DescriptorMixin(TimeSeries)
