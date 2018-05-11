@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Thu May 10 11:39:21 2018 (-0500)
-#           By: yulu
-#     Update #: 365
+# Last-Updated: Thu May 10 19:23:26 2018 (-0500)
+#           By: superlu
+#     Update #: 366
 # 
 
 
@@ -78,7 +78,7 @@ class TOF(pd.DataFrame):
                 for k, f in zip(keys, files):
                     data = Common.loadFile(path + f, skiprows = skiprows, sep = sep)
                     if lowerBound and upperBound:
-                        lb, ub = TOF.find_time_idx(data[:, 1], lowerBound, upperBound)
+                        lb, ub = TOF.find_time_idx(data[:, 0], lowerBound, upperBound)
                         print(lb, ub)
                         time = data[lb:ub, 0]
                         if removeOffset:
