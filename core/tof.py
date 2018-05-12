@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Fri May 11 20:42:01 2018 (-0500)
-#           By: superlu
-#     Update #: 438
+# Last-Updated: Sat May 12 12:26:09 2018 (-0500)
+#           By: yulu
+#     Update #: 470
 # 
 
 
@@ -166,7 +166,7 @@ class TOF(pd.DataFrame):
         return data
     
                 
-    def selectTimeSlice(self, *args):
+    def selectTimeSlice(self, *args, inplace = False):
         """
         makeSlice
         -------------
@@ -185,17 +185,25 @@ class TOF(pd.DataFrame):
             else:
                 slice_value.append(self.iloc[arg_elem])
         slice_DataFrame = pd.DataFrame(slice_value)
-        return slice_DataFrame
+        if inplace:
+            self.__init__(slice_DataFrame)
+        else:
+            return slice_DataFrame
 
     
-    def selectTimeRange(self, lowerBound, upperBound):
+    def selectTimeRange(self, lowerBound, upperBound, inplace = False):
         """
         makeTimeRange
         Select continious data in a provided time range
         --------------
         """
         lb, ub = TOF.find_time_idx(self.index, lowerBound, upperBound)
-        return self.iloc[lb:ub, :].copy()
+        selected = self.iloc[lb:ub, :].copy()
+        if inplace:
+            self.__init__(selected)
+        else:
+            return selected
+        
 
     
     def peakHeight(self, gauss_fit = False, offset = False):
@@ -230,16 +238,66 @@ class TOF(pd.DataFrame):
         ---------------------
         return series
         """
-        def integ_area(series):
+        def integ_gaus_area(series):
             popt, pcov = numerical.gausFit(x = series.index, y = series.values, offset = False)
-            print(popt)
-            area = quad(lambda x, A, x0, sigma:numerical.gaus(x, A, x0, sigma), series.index.min(), series.index.max(), args = popt)[0]
+            area = quad(lambda x:numerical.gaus(x, *popt), series.index.min(), series.index.max())[0]
             return area
         
         if gauss_fit:
-            return  self.apply(integ_area)
+            return  self.apply(integ_gaus_area)
         else:
             return self.apply(lambda z: np.trapz(x = z.index, y = z.values))
+    
+
+    def peakFWHM(self, gauss_fit = True):
+        """
+        peakFWHM
+        find peak FWHM
+        ---------------------
+        return series
+        """
+        def gaus_fit_fwhm(series):
+            popt, pcov = numerical.gausFit(x = series.index, y = series.values, offset = False)
+            fwhm = np.sqrt(2 * np.log(2)) * abs(popt[2])
+            return fwhm
+
+        def literal_fwhm(series):
+            time = series.index
+            value = series.values
+            peak_values = max(value)
+            peak_idx = np.argmax(value)
+            half_max = peak_values / 2
+            hwhm_idx_left = np.argmin(abs(value[:peak_idx] - half_max))
+            hwhm_idx_right = np.argmin(abs(value[peak_idx : ] - half_max)) + peak_idx
+            fwhm = time[hwhm_idx_right] - time[hwhm_idx_left]
+            return fwhm
+        
+        if gauss_fit:
+            return  self.apply(gaus_fit_fwhm)
+        
+        else:
+            return self.apply(literal_fwhm)
+        
+
+    def inch_to_mm(self, offset_inch = 0, inplace = False):
+        """
+        convert inches to milimeters in the columns names
+        """
+        values = (self.columns -  offset_inch) * 25.4
+        if inplace:
+            self.columns = values
+        else:
+            return values
+
+    def sec_to_microsec(self, offset_sec = 0, inplace = False):
+        """
+        convert seconds in index to microseconds
+        """
+        times = (self.index - offset_sec) * 1e6
+        if inplace:
+            self.index = times
+        else:
+            return times 
         
         
     '''
