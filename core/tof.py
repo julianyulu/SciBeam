@@ -9,14 +9,15 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Fri May 11 15:58:39 2018 (-0500)
+# Last-Updated: Fri May 11 20:42:01 2018 (-0500)
 #           By: superlu
-#     Update #: 403
+#     Update #: 438
 # 
 
 
 import numpy as np
 import pandas as pd
+from scipy.integrate import quad
 import os
 import re
 
@@ -26,6 +27,7 @@ from SciBeam.core.regexp import RegExp
 from SciBeam.core import base
 from SciBeam.core.descriptor import DescriptorMixin
 from SciBeam.core import numerical
+
 #from SciBeam.core.plot import Plot
 
 class TOFSeries(pd.Series):
@@ -196,12 +198,49 @@ class TOF(pd.DataFrame):
         return self.iloc[lb:ub, :].copy()
 
     
-    def peakHeight(self, gauss_fit = False, offset = False):\
+    def peakHeight(self, gauss_fit = False, offset = False):
+        """
+        peakHeight
+        find peak height from dataframe
+        --------------------
+        return series
+        """
         if gauss_fit:
             return  self.apply(lambda z: numerical.gausFit(x = z.index, y = z.values, offset = offset)[0][0])
-            pass
+            
         else:
             return self.max()
+        
+    def peakTime(self, gauss_fit = False):
+        """
+        peakTime
+        find peak arrival time 
+        ----------------------
+        return series
+        """
+        if gauss_fit:
+            return  self.apply(lambda z: numerical.gausFit(x = z.index, y = z.values, offset = False)[0][1])
+        else:
+            return self.idxmax()
+        
+    def peakArea(self, gauss_fit = False):
+        """
+        peakArea
+        find peak integrated signal(area)
+        ---------------------
+        return series
+        """
+        def integ_area(series):
+            popt, pcov = numerical.gausFit(x = series.index, y = series.values, offset = False)
+            print(popt)
+            area = quad(lambda x, A, x0, sigma:numerical.gaus(x, A, x0, sigma), series.index.min(), series.index.max(), args = popt)[0]
+            return area
+        
+        if gauss_fit:
+            return  self.apply(integ_area)
+        else:
+            return self.apply(lambda z: np.trapz(x = z.index, y = z.values))
+        
         
     '''
     
