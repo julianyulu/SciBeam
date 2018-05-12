@@ -9,28 +9,27 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Wed May  9 11:23:58 2018 (-0500)
+# Last-Updated: Sat May 12 17:57:52 2018 (-0500)
 #           By: yulu
-#     Update #: 106
+#     Update #: 202
 # 
 
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import NullFormatter
 from SciBeam.core import base
 from SciBeam.core import numerical
-from SciBeam.timeseries import TimeSeries
 
-class Plot:
+class PlotTOFFrame:
     """
     Plot dataframe with time as index and another numerical variable as 
     column labels 
     """
-    def __init__(self, dataframe, lowerBound = None, upperBound = None):
+    def __init__(self, dataframe, lowerBound = None, upperBound = None, index_label = None, column_label = None):
         self.__is_mixin = base._is_mixin(dataframe)
         self.data = dataframe._make_mixin if self.__is_mixin else dataframe
-        self.position = np.array(self.data.columns)
-        self.time = np.array(self.data.index)
-        
+        self.index_label = index_label
+        self.column_label = column_label
     
     
     @property
@@ -41,7 +40,7 @@ class Plot:
         self.__data = dataframe
 
     @classmethod
-    def _make_descriptor(cls, data):
+    def _constructor(cls, data):
         return cls(data)
     
     def image(self, **kwargs):
@@ -50,26 +49,86 @@ class Plot:
         """
         
         if 'figsize' in kwargs:
-            fig, ax = plt.subplots(figsize = kwargs.pop('figsize'))
+            fig = plt.figure(figsize = kwargs.pop('figsize'))
         else:
-            fig, ax = plt.subplots()
-            
-        cax = ax.imshow(self.data.T,
+            fig = plt.figure(figsize = (6,6))
+
+        nullfmt = NullFormatter()         # no labels
+
+        # definitions for the axes
+        
+
+        left, width = 0.1, 0.65
+        bottom, height = 0.1, 0.65
+        bottom_h = left_h = left + width + 0.02
+
+        rect_img = [left, bottom, width, height]
+        rect_distx = [left, bottom_h, width, 0.2]
+        rect_disty = [left_h, bottom, 0.2, height]
+        rect_cax = [left_h, bottom_h, 0.1, 0.2]
+        # start with a rectangular Figure
+        
+
+        axImg = fig.add_axes(rect_img)
+        axDistrx = fig.add_axes(rect_distx)
+        axDistry = fig.add_axes(rect_disty)
+        cax = fig.add_axes(rect_cax)
+        # no labels
+        axDistrx.xaxis.set_major_formatter(nullfmt)
+        axDistry.yaxis.set_major_formatter(nullfmt)
+
+
+        areaDataY = [np.trapz(x = self.data.index, y = self.data[x]) for x in self.data]
+        areaDataX = [np.trapz(x = self.data.columns, y = self.data.loc[x,:]) for x in self.data.index]
+        axDistrx.plot(self.data.index, areaDataX)
+        axDistry.plot(areaDataY, self.data.columns)
+        
+        
+        
+        im = axImg.imshow(self.data.T,
                         **kwargs,
                         aspect = 'auto',
                         extent=[self.data.index[0], self.data.index[-1], self.data.columns[0], self.data.columns[-1]],
                         
                         )
+        
+        
+        axImg.set_xlabel(self.index_label if self.index_label else 'Time of flight')
+        axImg.set_ylabel(self.column_label if self.column_label else 'Position')
+        cbar = fig.colorbar(im,  cax = cax)
+        #cbar.ax.set_ylabel('Signal')
+        
+        return fig, (axImg, axDistrx, axDistry)
 
-        ax.set_xlabel('Time of flight [us]')
-        ax.set_ylabel('Position')
-        cbar = fig.colorbar(cax)
-        cbar.set_label('Signal')
-        return fig, ax
+
+
+
+
+class PlotTOFSeries:
+    """
+    Plot dataframe with time as index and another numerical variable as 
+    column labels 
+    """
+    def __init__(self, dataseries, lowerBound = None, upperBound = None, index_label = None, column_name = None):
+        self.__is_mixin = base._is_mixin(dataseries)
+        self.data = dataseries._make_mixin if self.__is_mixin else dataseries
+        self.index_label = index_label
+        self.column_name = column_name
+    
+    @property
+    def data(self):
+        return self.__data
+    @data.setter
+    def data(self, dataseries):
+        self.__data = dataseries
+
+    @classmethod
+    def _constructor(cls, data):
+        return cls(data)
 
     def peakPlot(self, fit_tof = False, fit_result = True, print_fit_params = True, **kwargs):
         """
-        Plot peak height for each columns in dataframe
+        Plot peak height for each columns in dataseries
         """
 
         if fit_tof:
@@ -110,7 +169,7 @@ class Plot:
 
 def areaPlot(self, fit_tof = False, fit_result = True, print_fit_params = True, **kwargs):
     """
-    Plot peak height for each columns in dataframe
+    Plot peak height for each columns in dataseries
     """
 
     if fit_tof:

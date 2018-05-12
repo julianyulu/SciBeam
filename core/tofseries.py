@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May 12 15:04:17 2018 (-0500)
+# Last-Updated: Sat May 12 15:11:44 2018 (-0500)
 #           By: yulu
-#     Update #: 590
+#     Update #: 591
 # 
 
 
@@ -254,9 +254,6 @@ class TOFSeries(pd.Series):
         else:
             return selected
     
-
-    
-
     def peakFinder(self, n_sigmas = 2, as_bounds = True, as_series = False, as_figure = False, removeOffset = False, lowerBound = None, upperBound = None):
         if lowerBound or upperBound:
             lb, ub = TOFSeries.find_time_idx(self.index, lowerBound, upperBound)

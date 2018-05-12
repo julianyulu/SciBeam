@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May 12 15:04:07 2018 (-0500)
+# Last-Updated: Sat May 12 16:16:12 2018 (-0500)
 #           By: yulu
-#     Update #: 542
+#     Update #: 553
 # 
 
 
@@ -29,7 +29,7 @@ from SciBeam.core.descriptor import DescriptorMixin
 from SciBeam.core import numerical
 
 import matplotlib.pyplot as plt
-#from SciBeam.core.plot import Plot    
+from SciBeam.core.plot import PlotTOFFrame
     
 class TOFFrame(pd.DataFrame):
     
@@ -53,7 +53,11 @@ class TOFFrame(pd.DataFrame):
     @property
     def _constructor_sliced(self):
         return tofseries.TOFSeries
-
+    
+    @property
+    def _make_mixin(self):
+        return self.copy()
+    
     @classmethod
     def fromtxt(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
                 offset_margin = 'both', offset_margin_size = 20,skiprows = 0, sep = '\t'):
@@ -338,11 +342,11 @@ class TOFFrame(pd.DataFrame):
             self.index = times
         else:
             return times
-    
-    
-    # #Descriptors:
-    # #single = DescriptorMixin(TimeSeries)
-    # plot = DescriptorMixin(Plot)
 
     
-# Class Tof end <---
+    
+    #Descriptors:
+    #single = DescriptorMixin(TimeSeries)
+    Plot = DescriptorMixin(PlotTOFFrame)
+
+    

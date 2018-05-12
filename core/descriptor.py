@@ -9,9 +9,9 @@
 # 
 # Created: Sat May  5 23:52:27 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May  6 10:43:47 2018 (-0500)
+# Last-Updated: Sat May 12 15:51:37 2018 (-0500)
 #           By: yulu
-#     Update #: 8
+#     Update #: 11
 # 
 
 
@@ -22,10 +22,10 @@ class DescriptorMixin:
     
     def __init__(self, descriptor_cls):
         self.descriptor_cls = descriptor_cls
-        self.construct_descriptor = descriptor_cls._make_descriptor
+        self.construct_descriptor = descriptor_cls._constructor
 
     def __get__(self, obj, objtype):
-        if obj == None:
+        if obj is None:
             return self.descriptor_cls
         else:
             return self.construct_descriptor(obj)

@@ -9,13 +9,15 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May  6 16:27:13 2018 (-0500)
+# Last-Updated: Sat May 12 16:06:09 2018 (-0500)
 #           By: yulu
-#     Update #: 60
+#     Update #: 63
 # 
 import os
 
-_mixin_class = ["<class 'SciBeam.core.tof.TOF'>"]
+_mixin_class = ["<class 'SciBeam.core.tofseries.TOFSeries'>",
+                "<class 'SciBeam.core.tofframe.TOFFrame'>",
+                 "<class 'SciBeam.core.plot.PlotTOFFrame'>"]
 
 def _is_mixin(att):
     for cls in _mixin_class:
