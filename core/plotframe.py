@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May 12 22:21:45 2018 (-0500)
+# Last-Updated: Sun May 13 11:21:34 2018 (-0500)
 #           By: yulu
-#     Update #: 205
+#     Update #: 206
 # 
 
 import numpy as np
@@ -30,7 +30,6 @@ class PlotTOFFrame:
         self.data = dataframe._make_mixin if self.__is_mixin else dataframe
         self.index_label = index_label
         self.column_label = column_label
-    
     
     @property
     def data(self):

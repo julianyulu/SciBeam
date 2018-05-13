@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May 12 22:21:11 2018 (-0500)
+# Last-Updated: Sun May 13 12:07:16 2018 (-0500)
 #           By: yulu
-#     Update #: 207
+#     Update #: 252
 # 
 
 import numpy as np
@@ -31,7 +31,7 @@ class PlotTOFSeries:
         self.data = dataseries._make_mixin if self.__is_mixin else dataseries
         self.index_label = index_label
         self.column_name = column_name
-    
+
     @property
     def data(self):
         return self.__data
@@ -43,6 +43,52 @@ class PlotTOFSeries:
     def _constructor(cls, data):
         return cls(data)
 
+
+    def scatter(self, ax = None, gauss_fit = True, print_fit_params = True, title = None, xlabel = None, ylabel = None, label = None, **kwargs):
+
+        
+            
+        if ax is None:
+            plt.plot(self.data.index, self.data.values, 'o', **kwargs)
+                        
+            if gauss_fit:
+                popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values)
+                smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
+                plt.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-')
+                plt.legend(['gauss fit'])
+            else:
+                pass
+
+            # if no gauss_fit, the 2nd label will be muted
+            if label: plt.legend([label, 'gauss fit'])
+            if ylabel: plt.ylabel(ylabel)
+            if xlabel: plt.xlabel(xlabel)
+            if title: plt.title(title)
+            
+        else:
+            ax.plot(self.data.index, self.data.values, 'o', **kwargs)
+            if gauss_fit:
+                popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values)
+                smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
+                ax.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-')
+                ax.legend(['gauss fit'])
+            else:
+                pass
+
+            # if no gauss_fit, the 2nd label will be muted, otherwise will overwrite
+            if label: ax.legend([label, 'gauss fit'])
+            if ylabel: ax.set_ylabel(ylabel)
+            if xlabel: ax.set_xlabel(xlabel)
+            if title: ax.set_title(title)
+
+        
+
+        
+        
+            
+'''
+
+#=============================================                
     def peakPlot(self, fit_tof = False, fit_result = True, print_fit_params = True, **kwargs):
         """
         Plot peak height for each columns in dataseries
@@ -142,3 +188,4 @@ def areaPlot(self, fit_tof = False, fit_result = True, print_fit_params = True, 
                 
                 
                 
+'''

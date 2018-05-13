@@ -9,28 +9,32 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May 12 15:11:44 2018 (-0500)
+# Last-Updated: Sun May 13 14:15:30 2018 (-0500)
 #           By: yulu
-#     Update #: 591
+#     Update #: 607
 # 
 
 
 import numpy as np
-import pandas as pd
+import pandas
 from scipy.integrate import quad
 import os
 import re
 
+from SciBeam.core.descriptor import DescriptorMixin
 from SciBeam.core.common import Common
 from SciBeam.core.regexp import RegExp    
 from SciBeam.core import base
 from SciBeam.core import numerical
 from SciBeam.core import tofframe
-#from SciBeam.core.plot import Plot
+from SciBeam.core.plotseries import PlotTOFSeries
 
-class TOFSeries(pd.Series):
-    pd.set_option('precision', 9)
+class TOFSeries(pandas.Series):
+    pandas.set_option('precision', 9)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
     @property
     def _constructor(self):
         return TOFSeries
@@ -38,9 +42,22 @@ class TOFSeries(pd.Series):
     def _constructor_expanddim(self):
         return tofframe.TOFFrame
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    @property
+    def _make_mixin(self):
+        return self.copy()
 
+    def _toTOFSeries(func):
+        """
+        Decorator to wrap series returns for method chain 
+        """
+        def wrapper(func, *args, **kwargs):
+            result = func(*args, **kwargs)
+            if type(result) == pandas.core.series.Series:
+                return TOFSeries(result)
+            else:
+                return result
+        return wrapper
+    
     @classmethod
     def fromtxt(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
                 offset_margin = 'outer', offset_margin_size = 20,skiprows = 0, sep = '\t'):
@@ -69,8 +86,6 @@ class TOFSeries(pd.Series):
                 value = data[:,1]
         return cls(values, index = time)
     
-    def mymax(self):
-        return self.max()
 
     def height(self, gauss_fit = False, offset = False):
         """
@@ -216,6 +231,7 @@ class TOFSeries(pd.Series):
         data = data[lowerBoundIdx:upperBoundIdx] - offset
         return data
 
+    @_toTOFSeries
     def selectTimeSlice(self, *args, inplace = False):
         """
         makeSlice
@@ -234,13 +250,13 @@ class TOFSeries(pd.Series):
                     slice_value.append(self.iloc[t])
             else:
                 slice_value.append(self.iloc[arg_elem])
-        slice_DataFrame = pd.DataFrame(slice_value)
+        slice_series = pandas.Series(slice_value)
         if inplace:
-            self.__init__(slice_DataFrame)
+            self.__init__(slice_series)
         else:
-            return slice_DataFrame
+            return slice_series
 
-    
+    @_toTOFSeries
     def selectTimeRange(self, lowerBound, upperBound, inplace = False):
         """
         makeTimeRange
@@ -253,7 +269,8 @@ class TOFSeries(pd.Series):
             self.__init__(selected)
         else:
             return selected
-    
+
+    @_toTOFSeries
     def peakFinder(self, n_sigmas = 2, as_bounds = True, as_series = False, as_figure = False, removeOffset = False, lowerBound = None, upperBound = None):
         if lowerBound or upperBound:
             lb, ub = TOFSeries.find_time_idx(self.index, lowerBound, upperBound)
@@ -318,3 +335,6 @@ class TOFSeries(pd.Series):
             self.index = times
         else:
             return times
+
+    # Descriptors
+    plot1d = DescriptorMixin(PlotTOFSeries)
