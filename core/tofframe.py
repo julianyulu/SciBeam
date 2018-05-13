@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May 12 16:16:12 2018 (-0500)
+# Last-Updated: Sat May 12 21:41:44 2018 (-0500)
 #           By: yulu
-#     Update #: 553
+#     Update #: 554
 # 
 
 
@@ -29,7 +29,7 @@ from SciBeam.core.descriptor import DescriptorMixin
 from SciBeam.core import numerical
 
 import matplotlib.pyplot as plt
-from SciBeam.core.plot import PlotTOFFrame
+from SciBeam.core.plotframe import PlotTOFFrame
     
 class TOFFrame(pd.DataFrame):
     
