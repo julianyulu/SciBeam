@@ -9,14 +9,15 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May 13 12:07:16 2018 (-0500)
+# Last-Updated: Sun May 13 14:59:30 2018 (-0500)
 #           By: yulu
-#     Update #: 252
+#     Update #: 281
 # 
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import NullFormatter
+from SciBeam.core.formatter import format_dict
 from SciBeam.core import base
 from SciBeam.core import numerical
 
@@ -44,17 +45,19 @@ class PlotTOFSeries:
         return cls(data)
 
 
-    def scatter(self, ax = None, gauss_fit = True, print_fit_params = True, title = None, xlabel = None, ylabel = None, label = None, **kwargs):
+    def plot(self, ax = None, gauss_fit = True, print_fit_params = True, title = None, xlabel = None, ylabel = None, label = None, **kwargs):
 
         
-            
         if ax is None:
             plt.plot(self.data.index, self.data.values, 'o', **kwargs)
                         
             if gauss_fit:
                 popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values)
+                fit_params = {'a': popt[0], 'x0': popt[1], '$\sigma$': popt[2]}
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
                 plt.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-')
+                plt.text(0.45 *  max(self.data.index), 0.9 * max(self.data.values),format_dict(fit_params), verticalalignment='top', horizontalalignment='right')
+                
                 plt.legend(['gauss fit'])
             else:
                 pass
@@ -70,7 +73,8 @@ class PlotTOFSeries:
             if gauss_fit:
                 popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values)
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
-                ax.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-')
+                
+                ax.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-', **kwargs)
                 ax.legend(['gauss fit'])
             else:
                 pass
@@ -81,11 +85,8 @@ class PlotTOFSeries:
             if xlabel: ax.set_xlabel(xlabel)
             if title: ax.set_title(title)
 
-        
 
-        
-        
-            
+    
 '''
 
 #=============================================                
