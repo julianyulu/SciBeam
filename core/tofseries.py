@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May 13 14:15:30 2018 (-0500)
+# Last-Updated: Sun May 13 16:16:19 2018 (-0500)
 #           By: yulu
-#     Update #: 607
+#     Update #: 624
 # 
 
 
@@ -50,7 +50,7 @@ class TOFSeries(pandas.Series):
         """
         Decorator to wrap series returns for method chain 
         """
-        def wrapper(func, *args, **kwargs):
+        def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
             if type(result) == pandas.core.series.Series:
                 return TOFSeries(result)
@@ -309,7 +309,7 @@ class TOFSeries(pandas.Series):
         else:
             raise ValueError("[*] Please specify return method: as_bounds, as_series, as_figure")
 
-    
+        
     def selectPeakRegion(self, inplace = False, plot = False):
         """
         auto select peak region

@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May 13 14:59:30 2018 (-0500)
+# Last-Updated: Sun May 13 15:11:11 2018 (-0500)
 #           By: yulu
-#     Update #: 281
+#     Update #: 284
 # 
 
 import numpy as np
@@ -45,7 +45,7 @@ class PlotTOFSeries:
         return cls(data)
 
 
-    def plot(self, ax = None, gauss_fit = True, print_fit_params = True, title = None, xlabel = None, ylabel = None, label = None, **kwargs):
+    def plot(self, ax = None, gauss_fit = True, print_fit_params = True, title = None, xlabel = None, ylabel = None, label = None, params_digits = 3, **kwargs):
 
         
         if ax is None:
@@ -56,9 +56,9 @@ class PlotTOFSeries:
                 fit_params = {'a': popt[0], 'x0': popt[1], '$\sigma$': popt[2]}
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
                 plt.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-')
-                plt.text(0.45 *  max(self.data.index), 0.9 * max(self.data.values),format_dict(fit_params), verticalalignment='top', horizontalalignment='right')
+                plt.text(0.45 *  max(self.data.index), 0.9 * max(self.data.values),format_dict(fit_params, digits = params_digits), verticalalignment='top', horizontalalignment='right')
                 
-                plt.legend(['gauss fit'])
+                plt.legend(['data', 'gauss fit'])
             else:
                 pass
 
@@ -75,7 +75,7 @@ class PlotTOFSeries:
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
                 
                 ax.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-', **kwargs)
-                ax.legend(['gauss fit'])
+                ax.legend(['data', 'gauss fit'])
             else:
                 pass
 

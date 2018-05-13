@@ -9,24 +9,26 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May 13 12:54:10 2018 (-0500)
+# Last-Updated: Sun May 13 16:19:42 2018 (-0500)
 #           By: yulu
-#     Update #: 598
+#     Update #: 609
 # 
 
 
-import numpy as np
-import pandas
-from scipy.integrate import quad
+
+
 import os
 import re
+import pandas
+import numpy as np
+from scipy.integrate import quad
 
+from SciBeam.core import base
+from SciBeam.core import tofseries
+from SciBeam.core import numerical
 from SciBeam.core.common import Common
 from SciBeam.core.regexp import RegExp    
-from SciBeam.core import tofseries
-from SciBeam.core import base
 from SciBeam.core.descriptor import DescriptorMixin
-from SciBeam.core import numerical
 
 import matplotlib.pyplot as plt
 from SciBeam.core.plotframe import PlotTOFFrame
@@ -317,7 +319,7 @@ class TOFFrame(pandas.DataFrame):
 
         if as_figure:
             if len(self.columns) > 1:
-                plt.imshow(self.iloc[lowerBoundIdx : upperBoundIdx, :].T, aspect = 'auto')
+                PlotTOFFrame(self.iloc[lowerBoundIdx : upperBoundIdx, :]).image()
             else:
                 self.iloc[lb:ub,:].plot(use_index = True, title = 'selectPeakRegion result')
 
@@ -375,6 +377,6 @@ class TOFFrame(pandas.DataFrame):
     
     #Descriptors:
     #single = DescriptorMixin(TimeSeries)
-    Plot = DescriptorMixin(PlotTOFFrame)
+    plot2d = DescriptorMixin(PlotTOFFrame)
 
     
