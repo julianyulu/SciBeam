@@ -1,6 +1,6 @@
-# plot.py --- 
+# plotseries.py --- 
 # 
-# Filename: plot.py
+# Filename: plotseries.py
 # Description: 
 # 
 # Author:    Yu Lu
@@ -9,67 +9,43 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Wed May  9 11:23:58 2018 (-0500)
+# Last-Updated: Sat May 12 22:21:11 2018 (-0500)
 #           By: yulu
-#     Update #: 106
+#     Update #: 207
 # 
 
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import NullFormatter
 from SciBeam.core import base
 from SciBeam.core import numerical
-from SciBeam.timeseries import TimeSeries
 
-class Plot:
+
+class PlotTOFSeries:
     """
     Plot dataframe with time as index and another numerical variable as 
     column labels 
     """
-    def __init__(self, dataframe, lowerBound = None, upperBound = None):
-        self.__is_mixin = base._is_mixin(dataframe)
-        self.data = dataframe._make_mixin if self.__is_mixin else dataframe
-        self.position = np.array(self.data.columns)
-        self.time = np.array(self.data.index)
-        
-    
+    def __init__(self, dataseries, lowerBound = None, upperBound = None, index_label = None, column_name = None):
+        self.__is_mixin = base._is_mixin(dataseries)
+        self.data = dataseries._make_mixin if self.__is_mixin else dataseries
+        self.index_label = index_label
+        self.column_name = column_name
     
     @property
     def data(self):
         return self.__data
     @data.setter
-    def data(self, dataframe):
-        self.__data = dataframe
+    def data(self, dataseries):
+        self.__data = dataseries
 
     @classmethod
-    def _make_descriptor(cls, data):
+    def _constructor(cls, data):
         return cls(data)
-    
-    def image(self, **kwargs):
-        """
-        image plot of tof data measured multiplot positions
-        """
-        
-        if 'figsize' in kwargs:
-            fig, ax = plt.subplots(figsize = kwargs.pop('figsize'))
-        else:
-            fig, ax = plt.subplots()
-            
-        cax = ax.imshow(self.data.T,
-                        **kwargs,
-                        aspect = 'auto',
-                        extent=[self.data.index[0], self.data.index[-1], self.data.columns[0], self.data.columns[-1]],
-                        
-                        )
-
-        ax.set_xlabel('Time of flight [us]')
-        ax.set_ylabel('Position')
-        cbar = fig.colorbar(cax)
-        cbar.set_label('Signal')
-        return fig, ax
 
     def peakPlot(self, fit_tof = False, fit_result = True, print_fit_params = True, **kwargs):
         """
-        Plot peak height for each columns in dataframe
+        Plot peak height for each columns in dataseries
         """
 
         if fit_tof:
@@ -110,7 +86,7 @@ class Plot:
 
 def areaPlot(self, fit_tof = False, fit_result = True, print_fit_params = True, **kwargs):
     """
-    Plot peak height for each columns in dataframe
+    Plot peak height for each columns in dataseries
     """
 
     if fit_tof:
