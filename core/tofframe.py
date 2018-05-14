@@ -9,29 +9,31 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May 12 21:41:44 2018 (-0500)
+# Last-Updated: Sun May 13 16:19:42 2018 (-0500)
 #           By: yulu
-#     Update #: 554
+#     Update #: 609
 # 
 
 
-import numpy as np
-import pandas as pd
-from scipy.integrate import quad
+
+
 import os
 import re
+import pandas
+import numpy as np
+from scipy.integrate import quad
 
+from SciBeam.core import base
+from SciBeam.core import tofseries
+from SciBeam.core import numerical
 from SciBeam.core.common import Common
 from SciBeam.core.regexp import RegExp    
-from SciBeam.core import tofseries
-from SciBeam.core import base
 from SciBeam.core.descriptor import DescriptorMixin
-from SciBeam.core import numerical
 
 import matplotlib.pyplot as plt
 from SciBeam.core.plotframe import PlotTOFFrame
     
-class TOFFrame(pd.DataFrame):
+class TOFFrame(pandas.DataFrame):
     
     """
     Single time-of-flight data analysis
@@ -42,10 +44,9 @@ class TOFFrame(pd.DataFrame):
     time_unit: unit for time, optional, default None
     value_unit: unit for tof values, default None
     """
-    pd.set_option('precision', 9)
+    pandas.set_option('precision', 9)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
     
     @property
     def _constructor(self):
@@ -57,6 +58,32 @@ class TOFFrame(pd.DataFrame):
     @property
     def _make_mixin(self):
         return self.copy()
+
+    def _toTOFSeries(func):
+        """
+        Decorator to wrap series returns for method chain 
+        """
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            if type(result) == pandas.core.series.Series:
+                return tofseries.TOFSeries(result)
+            else:
+                return result
+        return wrapper
+
+    
+    def _toTOFFrame(func):
+        """
+        Decorator to wrap frame returns for method chain 
+        """
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            if type(result) == pandas.core.frame.DataFrame:
+                return TOFFrame(result)
+            else:
+                return result
+        return wrapper
+
     
     @classmethod
     def fromtxt(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
@@ -191,8 +218,10 @@ class TOFFrame(pd.DataFrame):
                               "[!] possible values of how: 'outer', 'outer left', 'outer right', 'inner', 'inner left', 'inner right'") % how)
         
         data = data[lowerBoundIdx:upperBoundIdx] - offset
+        
         return data
-                
+    
+    @_toTOFFrame
     def selectTimeSlice(self, *args, inplace = False):
         """
         makeSlice
@@ -211,13 +240,13 @@ class TOFFrame(pd.DataFrame):
                     slice_value.append(self.iloc[t])
             else:
                 slice_value.append(self.iloc[arg_elem])
-        slice_DataFrame = pd.DataFrame(slice_value)
+        slice_DataFrame = pandas.DataFrame(slice_value)
         if inplace:
             self.__init__(slice_DataFrame)
         else:
             return slice_DataFrame
 
-    
+    @_toTOFFrame
     def selectTimeRange(self, lowerBound, upperBound, inplace = False):
         """
         makeTimeRange
@@ -231,8 +260,8 @@ class TOFFrame(pd.DataFrame):
         else:
             return selected
         
-
     
+    @_toTOFSeries
     def peakHeight(self, gauss_fit = False, offset = False):
         """
         peakHeight
@@ -240,9 +269,10 @@ class TOFFrame(pd.DataFrame):
         --------------------
         return series
         """
-        return  self.apply(tofseries.TOFSeries.height, gauss_fit = gauss_fit, offset = offset)
         
-
+        return self.apply(tofseries.TOFSeries.height, gauss_fit = gauss_fit, offset = offset)
+        
+    @_toTOFSeries
     def peakTime(self, gauss_fit = False):
         """
         peakTime
@@ -250,9 +280,9 @@ class TOFFrame(pd.DataFrame):
         ----------------------
         return series
         """
-        return  self.apply(tofseries.TOFSeries.peakTime, gauss_fit = gauss_fit)
+        return self.apply(tofseries.TOFSeries.peakTime, gauss_fit = gauss_fit)
         
-        
+    @_toTOFSeries
     def peakArea(self, gauss_fit = False):
         """
         peakArea
@@ -263,7 +293,7 @@ class TOFFrame(pd.DataFrame):
         
         return  self.apply(tofseries.TOFSeries.area, gauss_fit = gauss_fit)
             
-
+    @_toTOFSeries
     def peakFWHM(self, gauss_fit = True):
         """
         peakFWHM
@@ -271,9 +301,9 @@ class TOFFrame(pd.DataFrame):
         ---------------------
         return series
         """
-        return  self.apply(tofseries.TOFSeries.fwhm,  gauss_fit = gauss_fit)
+        return self.apply(tofseries.TOFSeries.fwhm,  gauss_fit = gauss_fit)
 
-        
+    @_toTOFFrame
     def selectPeakRegion(self, n_sigmas = 2, lowerBound = None, upperBound = None, as_frame = False, as_bounds = False, as_figure = True, inplace = False):
         """
         Automatically detect and select peak region
@@ -289,7 +319,7 @@ class TOFFrame(pd.DataFrame):
 
         if as_figure:
             if len(self.columns) > 1:
-                plt.imshow(self.iloc[lowerBoundIdx : upperBoundIdx, :].T, aspect = 'auto')
+                PlotTOFFrame(self.iloc[lowerBoundIdx : upperBoundIdx, :]).image()
             else:
                 self.iloc[lb:ub,:].plot(use_index = True, title = 'selectPeakRegion result')
 
@@ -347,6 +377,6 @@ class TOFFrame(pd.DataFrame):
     
     #Descriptors:
     #single = DescriptorMixin(TimeSeries)
-    Plot = DescriptorMixin(PlotTOFFrame)
+    plot2d = DescriptorMixin(PlotTOFFrame)
 
     
