@@ -9,15 +9,15 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May  5 18:19:59 2018 (-0500)
+# Last-Updated: Mon May 14 12:46:51 2018 (-0500)
 #           By: yulu
-#     Update #: 10
+#     Update #: 11
 # 
 
 from SciBeam.core.common import Common
 import os, re
 class RegExp(Common):
-
+    
     def fileMatch(path, regStr, sort = True, asNumber = True):
         """
         Match filenames in path to regStr

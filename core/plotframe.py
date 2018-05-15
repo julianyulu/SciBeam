@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May 13 11:21:34 2018 (-0500)
+# Last-Updated: Tue May 15 00:21:41 2018 (-0500)
 #           By: yulu
-#     Update #: 206
+#     Update #: 212
 # 
 
 import numpy as np
@@ -50,6 +50,7 @@ class PlotTOFFrame:
         if 'figsize' in kwargs:
             fig = plt.figure(figsize = kwargs.pop('figsize'))
         else:
+            pass
             fig = plt.figure(figsize = (6,6))
 
         nullfmt = NullFormatter()         # no labels
@@ -81,7 +82,7 @@ class PlotTOFFrame:
         areaDataX = [np.trapz(x = self.data.columns, y = self.data.loc[x,:]) for x in self.data.index]
         axDistrx.plot(self.data.index, areaDataX)
         axDistry.plot(areaDataY, self.data.columns)
-        
+        axDistry.invert_yaxis()
         
         
         im = axImg.imshow(self.data.T,

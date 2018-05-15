@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May 13 16:19:42 2018 (-0500)
+# Last-Updated: Mon May 14 12:57:36 2018 (-0500)
 #           By: yulu
-#     Update #: 609
+#     Update #: 611
 # 
 
 
@@ -102,10 +102,10 @@ class TOFFrame(pandas.DataFrame):
                 for k, f in zip(keys, files):
                     data = Common.loadFile(path + f, skiprows = skiprows, sep = sep)
                     if lowerBound and upperBound:
-                        lb, ub = TOFFRAME.find_time_idx(data[:, 0], lowerBound, upperBound)
+                        lb, ub = TOFFrame.find_time_idx(data[:, 0], lowerBound, upperBound)
                         time = data[lb:ub, 0]
                         if removeOffset:
-                            value = TOFFRAME.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
+                            value = TOFframe.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
                         else:
                             value = data[lb:ub, 1]
                     else:
@@ -120,10 +120,10 @@ class TOFFrame(pandas.DataFrame):
         else:
             data = Common.loadFile(path, cols = cols, usecols = usecols,skiprows = skiprows,  sep = sep)
             if lowerBound and upperBound:
-                lb, ub = TOFFRAME.find_time_idx(data[:,0], lowerbound, upperBound)
+                lb, ub = TOFFrame.find_time_idx(data[:,0], lowerbound, upperBound)
                 time = data[lb : ub, 0]
                 if removeOffset:
-                    value = TOFFRAME.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
+                    value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
                 else:
                     value = data[lb:ub, 1]
             else:

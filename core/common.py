@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 11:32:04 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May  5 17:53:37 2018 (-0500)
+# Last-Updated: Tue May 15 00:04:07 2018 (-0500)
 #           By: yulu
-#     Update #: 27
+#     Update #: 30
 # 
 import os
 import numpy as np
@@ -65,12 +65,15 @@ class Common:
                 # not complete
                 print("You haven't finised this error exception !")
                 pass
+            ## 
+            # Slow algorithm
+            ##
             
-            try:
-                data = np.loadtxt(filename, delimiter = sep, skiprows = skiprows, usecols = usecols)
-            except ValueError:
-                print("You haven't finised this error exception !")
-                pass
+            # try:
+            #     data = np.loadtxt(filename, delimiter = sep, skiprows = skiprows, usecols = usecols)
+            # except ValueError:
+            #     print("You haven't finised this error exception !")
+            #     pass
             
             return data
         
