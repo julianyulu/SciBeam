@@ -9,9 +9,9 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Mon May 14 12:46:51 2018 (-0500)
+# Last-Updated: Tue May 15 00:40:19 2018 (-0500)
 #           By: yulu
-#     Update #: 11
+#     Update #: 13
 # 
 
 from SciBeam.core.common import Common
@@ -43,7 +43,7 @@ class RegExp(Common):
             return list(resultKey), list(resultFile)
 
         else:
-            print("[*]Prived path is not a folder, make sure correct path is provided !")
+            print("[*]Provided path is not a folder, make sure correct path is provided !")
 
     
             
