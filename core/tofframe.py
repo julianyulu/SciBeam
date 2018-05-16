@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Mon May 14 12:57:36 2018 (-0500)
+# Last-Updated: Tue May 15 17:15:10 2018 (-0500)
 #           By: yulu
-#     Update #: 611
+#     Update #: 612
 # 
 
 
@@ -118,7 +118,7 @@ class TOFFrame(pandas.DataFrame):
 
         # if given file path
         else:
-            data = Common.loadFile(path, cols = cols, usecols = usecols,skiprows = skiprows,  sep = sep)
+            data = Common.loadFile(path, skiprows = skiprows,  sep = sep)
             if lowerBound and upperBound:
                 lb, ub = TOFFrame.find_time_idx(data[:,0], lowerbound, upperBound)
                 time = data[lb : ub, 0]
