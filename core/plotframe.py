@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Tue May 15 00:31:45 2018 (-0500)
+# Last-Updated: Wed May 23 16:56:37 2018 (-0500)
 #           By: yulu
-#     Update #: 212
+#     Update #: 220
 # 
 
 import numpy as np
@@ -56,8 +56,6 @@ class PlotTOFFrame:
         nullfmt = NullFormatter()         # no labels
 
         # definitions for the axes
-        
-
         left, width = 0.1, 0.65
         bottom, height = 0.1, 0.65
         bottom_h = left_h = left + width + 0.02
@@ -66,9 +64,8 @@ class PlotTOFFrame:
         rect_distx = [left, bottom_h, width, 0.2]
         rect_disty = [left_h, bottom, 0.2, height]
         rect_cax = [left_h, bottom_h, 0.1, 0.2]
-        # start with a rectangular Figure
-        
 
+        # start with a rectangular Figure
         axImg = fig.add_axes(rect_img)
         axDistrx = fig.add_axes(rect_distx)
         axDistry = fig.add_axes(rect_disty)
@@ -82,10 +79,10 @@ class PlotTOFFrame:
         areaDataX = [np.trapz(x = self.data.columns, y = self.data.loc[x,:]) for x in self.data.index]
         axDistrx.plot(self.data.index, areaDataX)
         axDistry.plot(areaDataY, self.data.columns)
-        axDistry.invert_yaxis()
+        #axDistry.invert_yaxis() # don't need to invert anymore 
         
-        
-        im = axImg.imshow(self.data.T,
+        # has to flip data so that lower position starts from lower part of the image 
+        im = axImg.imshow(np.flip(self.data.values.T, axis = 0), 
                         **kwargs,
                         aspect = 'auto',
                         extent=[self.data.index[0], self.data.index[-1], self.data.columns[0], self.data.columns[-1]],

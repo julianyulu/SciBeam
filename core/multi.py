@@ -9,9 +9,9 @@
 # 
 # Created: Tue May 15 17:37:29 2018 (-0500)
 # Version: 
-# Last-Updated: Tue May 15 18:20:35 2018 (-0500)
+# Last-Updated: Wed May 23 16:38:22 2018 (-0500)
 #           By: yulu
-#     Update #: 11
+#     Update #: 12
 # 
 
 from SciBeam import TOFFrame
@@ -30,4 +30,4 @@ class Multi:
             return TOFFrame().__getattribute__(name)(*args, **kwargs)
         return inner
     
-            
+    
