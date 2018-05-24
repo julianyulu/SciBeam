@@ -9,9 +9,9 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Tue May 15 15:57:34 2018 (-0500)
+# Last-Updated: Wed May 23 18:04:35 2018 (-0500)
 #           By: yulu
-#     Update #: 15
+#     Update #: 18
 # 
 
 from SciBeam.core.common import Common
@@ -46,7 +46,9 @@ class RegExp(Common):
         else:
             print("[*]Provided path is not a folder, make sure correct path is provided !")
 
+    @staticmethod
+    def match2D(path, regStrL1, regStrL2, sort = True, as_number = True):
+        pass
     
-            
                 
                    
