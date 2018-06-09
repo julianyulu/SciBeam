@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Wed May 23 16:56:37 2018 (-0500)
+# Last-Updated: Sat Jun  9 13:39:39 2018 (-0500)
 #           By: yulu
-#     Update #: 220
+#     Update #: 226
 # 
 
 import numpy as np
@@ -48,10 +48,9 @@ class PlotTOFFrame:
         """
         
         if 'figsize' in kwargs:
-            fig = plt.figure(figsize = kwargs.pop('figsize'))
+            plt.figure(figsize = kwargs.pop('figsize'))
         else:
-            pass
-            fig = plt.figure(figsize = (6,6))
+            plt.figure(figsize = (6,6))
 
         nullfmt = NullFormatter()         # no labels
 
@@ -66,10 +65,10 @@ class PlotTOFFrame:
         rect_cax = [left_h, bottom_h, 0.1, 0.2]
 
         # start with a rectangular Figure
-        axImg = fig.add_axes(rect_img)
-        axDistrx = fig.add_axes(rect_distx)
-        axDistry = fig.add_axes(rect_disty)
-        cax = fig.add_axes(rect_cax)
+        axImg = plt.axes(rect_img)
+        axDistrx = plt.axes(rect_distx)
+        axDistry = plt.axes(rect_disty)
+        cax = plt.axes(rect_cax)
         # no labels
         axDistrx.xaxis.set_major_formatter(nullfmt)
         axDistry.yaxis.set_major_formatter(nullfmt)
@@ -92,8 +91,6 @@ class PlotTOFFrame:
         
         axImg.set_xlabel(self.index_label if self.index_label else 'Time of flight')
         axImg.set_ylabel(self.column_label if self.column_label else 'Position')
-        cbar = fig.colorbar(im,  cax = cax)
+        cbar = plt.colorbar(im,  cax = cax)
         #cbar.ax.set_ylabel('Signal')
-        
-        return fig, (axImg, axDistrx, axDistry)
 
