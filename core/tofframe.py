@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue May 15 17:15:10 2018 (-0500)
+# Last-Updated: Sat Jun  9 13:15:29 2018 (-0500)
 #           By: yulu
-#     Update #: 612
+#     Update #: 620
 # 
 
 
@@ -87,7 +87,7 @@ class TOFFrame(pandas.DataFrame):
     
     @classmethod
     def fromtxt(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
-                offset_margin = 'both', offset_margin_size = 20,skiprows = 0, sep = '\t'):
+                offset_margin_how = 'outer', offset_margin_size = 20, skiprows = 0, sep = '\t'):
         """
         Buid TOF instance from given file
         Current only works for '\t' seperated txt and lvm file
@@ -105,7 +105,7 @@ class TOFFrame(pandas.DataFrame):
                         lb, ub = TOFFrame.find_time_idx(data[:, 0], lowerBound, upperBound)
                         time = data[lb:ub, 0]
                         if removeOffset:
-                            value = TOFframe.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
+                            value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
                         else:
                             value = data[lb:ub, 1]
                     else:
@@ -123,7 +123,7 @@ class TOFFrame(pandas.DataFrame):
                 lb, ub = TOFFrame.find_time_idx(data[:,0], lowerbound, upperBound)
                 time = data[lb : ub, 0]
                 if removeOffset:
-                    value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
+                    value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
                 else:
                     value = data[lb:ub, 1]
             else:
