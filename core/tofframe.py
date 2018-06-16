@@ -333,6 +333,7 @@ class TOFFrame(pandas.DataFrame):
         else:
             raise ValueError("[*] Please specify return method: as_bounds, as_frame, as_figure")
     
+    @_toTOFFrame
     def inch_to_mm(self, offset_inch = 0, inplace = False):
         """
         convert inches to milimeters in the columns names
@@ -340,9 +341,11 @@ class TOFFrame(pandas.DataFrame):
         values = (self.columns -  offset_inch) * 25.4
         if inplace:
             self.columns = values
+            return self
         else:
             return values
-
+        
+    @_toTOFFrame
     def mm_to_inch(self, offset_mm = 0, inplace = False):
         """
         convert milimeters to inches in the columns names
@@ -350,9 +353,11 @@ class TOFFrame(pandas.DataFrame):
         values = (self.columns -  offset_mm) /  25.4
         if inplace:
             self.columns = values
+            return self
         else:
             return values
-
+    
+    @_toTOFFrame
     def sec_to_microsec(self, offset_sec = 0, inplace = False):
         """
         convert seconds in index to microseconds
@@ -360,9 +365,11 @@ class TOFFrame(pandas.DataFrame):
         times = (self.index - offset_sec) * 1e6
         if inplace:
             self.index = times
+            return self
         else:
             return times
-
+       
+    @_toTOFFrame
     def microsec_to_sec(self, offset_microsec = 0, inplace = False):
         """
         convert microseconds in index to seconds
@@ -370,9 +377,16 @@ class TOFFrame(pandas.DataFrame):
         times = (self.index - offset_microsec) * 1e-6
         if inplace:
             self.index = times
+            return self
         else:
             return times
-
+    
+    @_toTOFSeries
+    def reduce(self, axis = 0):
+        """
+        reduce dimention from 2D to 1D by sum along axis
+        """
+        return self.sum(axis = axis)
     
     
     #Descriptors:

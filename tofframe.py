@@ -1,6 +1,6 @@
-# tofseries.py --- 
+# tofframe.py --- 
 # 
-# Filename: tofseries.py
+# Filename: tof.py
 # Description: 
 #            single time-of-flight data series analysis
 # Author:    Yu Lu
@@ -9,38 +9,51 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May 13 16:16:19 2018 (-0500)
+# Last-Updated: Sat Jun  9 13:15:29 2018 (-0500)
 #           By: yulu
-#     Update #: 624
+#     Update #: 620
 # 
 
 
-import numpy as np
-import pandas
-from scipy.integrate import quad
+
+
 import os
 import re
+import pandas
+import numpy as np
+from scipy.integrate import quad
 
-from SciBeam.core.descriptor import DescriptorMixin
+from SciBeam.core import base
+from SciBeam.core import tofseries
+from SciBeam.core import numerical
 from SciBeam.core.common import Common
 from SciBeam.core.regexp import RegExp    
-from SciBeam.core import base
-from SciBeam.core import numerical
-from SciBeam.core import tofframe
-from SciBeam.core.plotseries import PlotTOFSeries
+from SciBeam.core.descriptor import DescriptorMixin
 
-class TOFSeries(pandas.Series):
+import matplotlib.pyplot as plt
+from SciBeam.core.plotframe import PlotTOFFrame
+    
+class TOFFrame(pandas.DataFrame):
+    
+    """
+    Single time-of-flight data analysis
+    data: value of tof measure, shape(len(labels), len(times))
+    time: time, 1D array of time for each tof data point
+    label: label of the tof measurement, for mulitple same tof measurement 
+           under different conditions, e.g. sensor position, etc. 
+    time_unit: unit for time, optional, default None
+    value_unit: unit for tof values, default None
+    """
     pandas.set_option('precision', 9)
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+    
     @property
     def _constructor(self):
-        return TOFSeries
+        return TOFFrame
     @property
-    def _constructor_expanddim(self):
-        return tofframe.TOFFrame
+    def _constructor_sliced(self):
+        return tofseries.TOFSeries
     
     @property
     def _make_mixin(self):
@@ -53,14 +66,28 @@ class TOFSeries(pandas.Series):
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
             if type(result) == pandas.core.series.Series:
-                return TOFSeries(result)
+                return tofseries.TOFSeries(result)
             else:
                 return result
         return wrapper
+
+    
+    def _toTOFFrame(func):
+        """
+        Decorator to wrap frame returns for method chain 
+        """
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            if type(result) == pandas.core.frame.DataFrame:
+                return TOFFrame(result)
+            else:
+                return result
+        return wrapper
+
     
     @classmethod
     def fromtxt(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
-                offset_margin = 'outer', offset_margin_size = 20,skiprows = 0, sep = '\t'):
+                offset_margin_how = 'outer', offset_margin_size = 20, skiprows = 0, sep = '\t'):
         """
         Buid TOF instance from given file
         Current only works for '\t' seperated txt and lvm file
@@ -69,81 +96,43 @@ class TOFSeries(pandas.Series):
         path = Common.winPathHandler(path)
         # If given folder path
         if os.path.isdir(path):
-            raise ValueError("[*] TOFSeries only take single file as series source!")
+            if regStr:
+                keys, files = RegExp.fileMatch(path, regStr)
+                values = {}
+                for k, f in zip(keys, files):
+                    data = Common.loadFile(path + f, skiprows = skiprows, sep = sep)
+                    if lowerBound and upperBound:
+                        lb, ub = TOFFrame.find_time_idx(data[:, 0], lowerBound, upperBound)
+                        time = data[lb:ub, 0]
+                        if removeOffset:
+                            value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
+                        else:
+                            value = data[lb:ub, 1]
+                    else:
+                        time = data[:, 0]
+                        value = data[:, 1]
+                    values[k] =  value
+            
+            else:
+                raise ValueError("[*] Please provide regStr for file match in the path !")
 
         # if given file path
         else:
-            data = Common.loadFile(path, cols = cols, usecols = usecols,skiprows = skiprows,  sep = sep)
+            data = Common.loadFile(path, skiprows = skiprows,  sep = sep)
             if lowerBound and upperBound:
-                lb, ub = TOFSeries.find_time_idx(data[:,0], lowerbound, upperBound)
+                lb, ub = TOFFrame.find_time_idx(data[:,0], lowerbound, upperBound)
                 time = data[lb : ub, 0]
                 if removeOffset:
-                    value = TOFSeries.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
+                    value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
                 else:
                     value = data[lb:ub, 1]
             else:
                 time = data[:,0]
                 value = data[:,1]
+            values = dict('value', value)
+            
         return cls(values, index = time)
-    
-
-    def height(self, gauss_fit = False, offset = False):
-        """
-        peakHeight
-        find peak height from dataframe
-        --------------------
-        return series
-        """
-        if gauss_fit:
-            return numerical.gausFit(x = self.index, y = self.values, offset = offset)[0][0]
-        else:
-            return self.max()
-        
-    def peakTime(self, gauss_fit = False):
-        """
-        peakTime
-        find peak arrival time 
-        ----------------------
-        return series
-        """
-        if gauss_fit:
-            return numerical.gausFit(x = self.index, y = self.values, offset = False)[0][1]
-        else:
-            return self.idxmax()
-
-    def area(self, gauss_fit = False):
-        """
-        integrated signal area
-        if gauss_fit is True, return area on fitted signal
-        else return normal numerically integrated signal
-        """
-        if gauss_fit:
-            popt, pcov = numerical.gausFit(x = self.index, y = self.values, offset = False)
-            area = quad(lambda x:numerical.gaus(x, *popt), self.index.min(), self.index.max())[0]
-        else:
-            area = np.trapz(x = self.index, y = self.values)
-        return area
-
-    def fwhm(self, gauss_fit = True):
-        """
-        find fwhm, if gauss_fit == True(default), using gauss fit fwhm
-        else use literally caculated fwhm
-        """
-        if gauss_fit:
-            popt, pcov = numerical.gausFit(x = self.index, y = self.values, offset = False)
-            fwhm = np.sqrt(2 * np.log(2)) * abs(popt[2])
-        else:
-            time = self.index
-            value = self.values
-            peak_values = max(value)
-            peak_idx = np.argmax(value)
-            half_max = peak_values / 2
-            hwhm_idx_left = np.argmin(abs(value[:peak_idx] - half_max))
-            hwhm_idx_right = np.argmin(abs(value[peak_idx : ] - half_max)) + peak_idx
-            fwhm = time[hwhm_idx_right] - time[hwhm_idx_left]
-        return fwhm
-
-    
+            
 
     @staticmethod
     def find_time_idx(time, *args):
@@ -176,7 +165,7 @@ class TOFSeries(pandas.Series):
                 else:
                     idx = candi_idx
                 yield idx
-    
+                    
     @staticmethod
     def remove_data_offset(data, lowerBoundIdx = None, upperBoundIdx = None, how = 'outer', margin_size = 10):
         """
@@ -229,9 +218,10 @@ class TOFSeries(pandas.Series):
                               "[!] possible values of how: 'outer', 'outer left', 'outer right', 'inner', 'inner left', 'inner right'") % how)
         
         data = data[lowerBoundIdx:upperBoundIdx] - offset
+        
         return data
-
-    @_toTOFSeries
+    
+    @_toTOFFrame
     def selectTimeSlice(self, *args, inplace = False):
         """
         makeSlice
@@ -250,82 +240,124 @@ class TOFSeries(pandas.Series):
                     slice_value.append(self.iloc[t])
             else:
                 slice_value.append(self.iloc[arg_elem])
-        slice_series = pandas.Series(slice_value)
+        slice_DataFrame = pandas.DataFrame(slice_value)
         if inplace:
-            self.__init__(slice_series)
+            self.__init__(slice_DataFrame)
         else:
-            return slice_series
+            return slice_DataFrame
 
-    @_toTOFSeries
+    @_toTOFFrame
     def selectTimeRange(self, lowerBound, upperBound, inplace = False):
         """
         makeTimeRange
         Select continious data in a provided time range
         --------------
         """
-        lb, ub = TOFSeries.find_time_idx(self.index, lowerBound, upperBound)
+        lb, ub = TOFFrame.find_time_idx(self.index, lowerBound, upperBound)
         selected = self.iloc[lb:ub, :].copy()
         if inplace:
             self.__init__(selected)
         else:
             return selected
-
+        
+    
     @_toTOFSeries
-    def peakFinder(self, n_sigmas = 2, as_bounds = True, as_series = False, as_figure = False, removeOffset = False, lowerBound = None, upperBound = None):
-        if lowerBound or upperBound:
-            lb, ub = TOFSeries.find_time_idx(self.index, lowerBound, upperBound)
-            data = self.iloc[lb:ub, :].copy()
-        else:
-            data = self.copy()
+    def peakHeight(self, gauss_fit = False, offset = False):
+        """
+        peakHeight
+        find peak height from dataframe
+        --------------------
+        return series
+        """
+        
+        return self.apply(tofseries.TOFSeries.height, gauss_fit = gauss_fit, offset = offset)
+        
+    @_toTOFSeries
+    def peakTime(self, gauss_fit = False):
+        """
+        peakTime
+        find peak arrival time 
+        ----------------------
+        return series
+        """
+        return self.apply(tofseries.TOFSeries.peakTime, gauss_fit = gauss_fit)
+        
+    @_toTOFSeries
+    def peakArea(self, gauss_fit = False):
+        """
+        peakArea
+        find peak integrated signal(area)
+        ---------------------
+        return series
+        """
+        
+        return  self.apply(tofseries.TOFSeries.area, gauss_fit = gauss_fit)
+            
+    @_toTOFSeries
+    def peakFWHM(self, gauss_fit = True):
+        """
+        peakFWHM
+        find peak FWHM
+        ---------------------
+        return series
+        """
+        return self.apply(tofseries.TOFSeries.fwhm,  gauss_fit = gauss_fit)
 
-        time = data.index
-        value = data.values
-        
-        if removeOffset:
-            value = TOFSeries.remove_data_offset(value, how = 'inner', margin_size = 5)
-        else:
-            pass
-        
-        peak_idx = np.argmax(value)
-        peak_value = value[peak_idx]
-        
-        hwhm_idx_left = np.argmin(abs(value[:peak_idx] - peak_value / 2))
-        hwhm_idx_right = np.argmin(abs(value[peak_idx:] - peak_value / 2)) + peak_idx
-        fwhm_index_range = hwhm_idx_right - hwhm_idx_left
-        ## This is the "index" of dataframe not index like 1,2,3,4, doesn't work
-        delta_idx = int(fwhm_index_range / np.sqrt(8 * np.log(2)) * n_sigmas)
-        lb,ub  = peak_idx - delta_idx, peak_idx + delta_idx
-        lb = 0 if lb < 0 else lb
-        ub = len(value) if ub > len(value) else ub
-        
+    @_toTOFFrame
+    def selectPeakRegion(self, n_sigmas = 2, lowerBound = None, upperBound = None, as_frame = False, as_bounds = False, as_figure = True, inplace = False):
+        """
+        Automatically detect and select peak region
+        """
+        lowerBoundIdx = []
+        upperBoundIdx = []
+        for col in self.columns:
+            lb, ub = self[col].peakFinder(as_bounds = True, n_sigmas = n_sigmas, lowerBound = lowerBound, upperBound = upperBound)
+            lowerBoundIdx.append(lb)
+            upperBoundIdx.append(ub)
+        lowerBoundIdx = int(np.mean(lowerBoundIdx))
+        upperBoundIdx = int(np.mean(upperBoundIdx))
+
         if as_figure:
-            self.iloc[lb:ub].plot(use_index = True, title = 'peakFinder result')
-        else:
-            pass
-        if as_series:
-            return self[lb:ub]
+            if len(self.columns) > 1:
+                PlotTOFFrame(self.iloc[lowerBoundIdx : upperBoundIdx, :]).image()
+            else:
+                self.iloc[lb:ub,:].plot(use_index = True, title = 'selectPeakRegion result')
+
         elif as_bounds:
-            return lb, ub 
+            return lowerBoundIdx, upperBoundIdx
+        elif as_frame:
+            if inplace:
+                self.__init__(self.iloc[lowerBoundIdx : upperBoundIdx, :])
+            else:
+                return self.iloc[lowerBoundIdx : upperBoundIdx, :]
         else:
-            raise ValueError("[*] Please specify return method: as_bounds, as_series, as_figure")
-
+            raise ValueError("[*] Please specify return method: as_bounds, as_frame, as_figure")
+    
+    @_toTOFFrame
+    def inch_to_mm(self, offset_inch = 0, inplace = False):
+        """
+        convert inches to milimeters in the columns names
+        """
+        values = (self.columns -  offset_inch) * 25.4
+        if inplace:
+            self.columns = values
+            return self
+        else:
+            return values
         
-    def selectPeakRegion(self, inplace = False, plot = False):
+    @_toTOFFrame
+    def mm_to_inch(self, offset_mm = 0, inplace = False):
         """
-        auto select peak region
+        convert milimeters to inches in the columns names
         """
-        if plot:
-            if inplace:
-                series = self.peakFinder(as_series = True, as_figure =True)
-                self.__init__(self.peakFinder(as_series = True))
-            else:
-                self.peakFinder(as_bounds = False, as_figure =True)
+        values = (self.columns -  offset_mm) /  25.4
+        if inplace:
+            self.columns = values
+            return self
         else:
-            if inplace:
-                self.__init__(self.peakFinder(as_series = True))
-            else:
-                return self.peakFinder(as_series = True)
-
+            return values
+    
+    @_toTOFFrame
     def sec_to_microsec(self, offset_sec = 0, inplace = False):
         """
         convert seconds in index to microseconds
@@ -333,24 +365,26 @@ class TOFSeries(pandas.Series):
         times = (self.index - offset_sec) * 1e6
         if inplace:
             self.index = times
+            return self
         else:
             return times
+       
+    @_toTOFFrame
+    def microsec_to_sec(self, offset_microsec = 0, inplace = False):
+        """
+        convert microseconds in index to seconds
+        """
+        times = (self.index - offset_microsec) * 1e-6
+        if inplace:
+            self.index = times
+            return self
+        else:
+            return times
+
     
-    def gausFit(self, offset = False):
-        popt, pcov = numerical.gausFit(x = self.index, y = self.values, offset = offset)
-        return popt, pcov
     
+    #Descriptors:
+    #single = DescriptorMixin(TimeSeries)
+    plot2d = DescriptorMixin(PlotTOFFrame)
+
     
-    ##### below
-    # std doesn't since current gausFit is using leastsq to do the job !!!!!!!
-    #########
-    
-    
-#     def gausCenter(self, offset = False):
-#         popt, pcov = self.gausFit(offset = offset)
-#         center = popt[1]
-#         std = np.sqrt(pcov[1,1])
-#         return center, std
-    
-    # Descriptors
-    plot1d = DescriptorMixin(PlotTOFSeries)
