@@ -15,7 +15,7 @@
 # 
 
 import numpy as np
-from scipy.optimize import leastsq
+from scipy.optimize import leastsq, curve_fit
 from scipy.fftpack import rfft, irfft
 from scipy.integrate import quad
 from SciBeam.core import base
@@ -30,10 +30,13 @@ __all__ = [
     ]
 
 
-def gaus(x, A, x0, sigma, y0 = 0):
-    return A * np.exp(-(x - x0)**2 / (2 * sigma**2)) + y0
+def gaus(x, A, x0, sigma, offset = 0):
+    if offset: 
+        return A * np.exp(-(x - x0)**2 / (2 * sigma**2)) + offset
+    else:
+        return A * np.exp(-(x - x0)**2 / (2 * sigma**2))
 
-def gausFit(x, y, offset = False):
+def gausFit(x, y, offset = 0):
     """
     - Functions: [float, array]popt, [float, array]pcov = gausFit([2D array]data)
     - Description:
@@ -55,13 +58,19 @@ def gausFit(x, y, offset = False):
     x0 = x[idxMax]
     
     halfWidth = x[idxMax + np.argmin(abs(y[idxMax:] - a0 / 2))] - x[idxMax]
+    
     if offset:
-        errorFunc = lambda p, x, y: (gaus(x, y0 = 0, *p) - y)
+        popt, pcov = curve_fit(gaus, x, y, p0 = [a0, x0, halfWidth, 0])
     else:
-        errorFunc = lambda p, x, y: (gaus(x, *p) - y)
-    popt, pcov, infodic, mesg, ier = leastsq(errorFunc, [a0, x0, halfWidth], full_output = True, args = (x, y))
-    if ier < 0:
-        raise ValueError("Gaussian fit failed ")
+        popt, pcov = curve_fit(gaus, x, y, p0 = [a0, x0, halfWidth, 0])
+       
+#     if offset:
+#         errorFunc = lambda p, x, y: (gaus(x, y0 = 0, *p) - y)
+#     else:
+#         errorFunc = lambda p, x, y: (gaus(x, *p) - y)
+#     popt, pcov, infodic, mesg, ier = leastsq(errorFunc, [a0, x0, halfWidth], full_output = True, args = (x, y))
+#     if ier < 0:
+#         raise ValueError("Gaussian fit failed ")
     return popt, pcov
 
 
