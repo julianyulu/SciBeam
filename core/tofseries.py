@@ -337,20 +337,34 @@ class TOFSeries(pandas.Series):
             return times
     
     def gausFit(self, offset = False):
+        """
+        1D gauss fit
+        """
         popt, pcov = numerical.gausFit(x = self.index, y = self.values, offset = offset)
         return popt, pcov
     
     
-    ##### below
-    # std doesn't since current gausFit is using leastsq to do the job !!!!!!!
-    #########
+    ###
+    # Below func might be redundant
+    ###
     
-    
-#     def gausCenter(self, offset = False):
-#         popt, pcov = self.gausFit(offset = offset)
-#         center = popt[1]
-#         std = np.sqrt(pcov[1,1])
-#         return center, std
+    def gausCenter(self, offset = False):
+        """
+        gaus fit center 
+        """
+        popt, pcov = self.gausFit(offset = offset)
+        center = popt[1]
+        std = np.sqrt(pcov[1,1])
+        return center, std
+
+    def gausStd(self, offset = False):
+        """
+        gaus fit std
+        """
+        popt, pcov = self.gausFit(offset = offset)
+        sigma = popt[2]
+        std = np.sqrt(pcov[2,2])
+        return sigma, std
     
     # Descriptors
     plot1d = DescriptorMixin(PlotTOFSeries)

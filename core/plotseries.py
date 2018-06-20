@@ -45,14 +45,14 @@ class PlotTOFSeries:
         return cls(data)
 
 
-    def plot(self, ax = None, gauss_fit = True, print_fit_params = True, title = None, xlabel = None, ylabel = None, label = None, params_digits = 3, **kwargs):
+    def plot(self, ax = None, gauss_fit = True, gauss_fit_offset = 0, print_fit_params = True, title = None, xlabel = None, ylabel = None, label = None, params_digits = 3, **kwargs):
 
         
         if ax is None:
             plt.plot(self.data.index, self.data.values, 'o', **kwargs)
                         
             if gauss_fit:
-                popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values)
+                popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values, offset = gauss_fit_offset)
                 fit_params = {'a': popt[0], 'x0': popt[1], '$\sigma$': popt[2]}
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
                 plt.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-')
@@ -71,7 +71,7 @@ class PlotTOFSeries:
         else:
             ax.plot(self.data.index, self.data.values, 'o', **kwargs)
             if gauss_fit:
-                popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values)
+                popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values , offset = gauss_fit_offset)
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
                 
                 ax.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-', **kwargs)
