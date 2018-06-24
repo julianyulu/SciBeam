@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jun  9 13:39:39 2018 (-0500)
+# Last-Updated: Sun Jun 24 15:26:32 2018 (-0500)
 #           By: yulu
-#     Update #: 226
+#     Update #: 228
 # 
 
 import numpy as np
@@ -81,7 +81,7 @@ class PlotTOFFrame:
         #axDistry.invert_yaxis() # don't need to invert anymore 
         
         # has to flip data so that lower position starts from lower part of the image 
-        im = axImg.imshow(np.flip(self.data.values.T, axis = 0), 
+        im = axImg.imshow(np.flipud(self.data.values.T), 
                         **kwargs,
                         aspect = 'auto',
                         extent=[self.data.index[0], self.data.index[-1], self.data.columns[0], self.data.columns[-1]],
