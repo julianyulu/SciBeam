@@ -9,9 +9,9 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Sun Jun 24 18:21:05 2018 (-0500)
+# Last-Updated: Mon Jun 25 00:46:25 2018 (-0500)
 #           By: yulu
-#     Update #: 76
+#     Update #: 192
 # 
 
 from SciBeam.core.common import Common
@@ -88,64 +88,86 @@ class RegMatch(Common):
 
 
     def match(self, strings, group = 1, asNumber = True):
+        """
+        Match a single or list of regularizations to a single or list of strings
+        Return as a dictionary
+        """
         if type(self.regex) == list:
             matched_dicts = [self.single_regex_match(regex, strings, group = 1, asNumber = asNumber) for regex in self.regex]
         else:
             matched_dicts = self.single_regex_match(self.regex, strings, group = 1, asNumber = asNumber)
         return matched_dicts
-        
 
-    ### -----not finished below -----
     @staticmethod
-    def folderMatch(regStr, path, asNumber = True, group = 1):
-        path = self.winPathHandler(path)
-        is_multi_regex = True if type(regStr) == list else False
+    def _trace_dict_value(dictIn, trace_list):
+        dictOut = dictIn
+        for key in trace_list:
+            dictOut = dictOut[key]
+        return dictOut
+        
+    @staticmethod
+    def _trace_dict_key(dictIn, trace_result):
+        
+        if not type(dictIn) == dict:
+            raise TypeError("not dict")
+            #return trace_result.append([])
+            #return trace_result.append(trace_result[-1].pop())
+        else:
+            for key in dictIn:
+                #trace_result_copy = trace_result.copy()
+                print("start: ", dictIn, trace_result)
                 
-        if is_multi_regex:
-            for i, regex in enumerate(regStr):
+                try:
+                    trace_result[-1].append(key)
+                except IndexError:
+                    print('error')
+                    trace_result.append([key])
+                maybe_subdict = dictIn[key]
+                
+                print("end: ", maybe_subdict, trace_result)
+
+                if type(maybe_subdict) == dict:
+                    trace_result  = RegMatch._trace_dict_key(maybe_subdict, trace_result)
+                else:
+                    print('reach leaves')
+                    
+                    trace_result = trace_result + [trace_result[-1][:-1]]
+                    print('trace_result', trace_result)
+                    continue
+                
+            return trace_result
+
+    @staticmethod
+    def _trace_dict_key0(dictIn):
+        trace = []
+        if type(dictIn) == dict:
+            pass
+        else:
+            return []
+        
+        for key in dictIn:
+            res = [key] + RegMatch._trace_dict_key0(dictIn[key])
+            trace.append(res)     
+        return trace
+                    
+                    
+
+                
+                    
+            
+        
+    def folderMatch(self, folder_path, asNumber = True, group = 1):
+        path = self.winPathHandler(folder_path)
+        if type(self.regex) == list:
+            for i, regex in enumerate(self.regex):
                 resDict = {}
                 if i == 0:
                     searchList = os.listdir(path)
-                    resDict = RegExp.match(regex, searchList, asNumber = asNumber, group = group)
+                    resDict = self.single_regex_match(regex, searchList, group = group, asNumber = asNumber)
                 else:
                     for key in resDict:
-                        subResDict = RegExp.match(regex, resDict[key], asNumber = asNumber, group = group)
-                        resDict[key] = subResDict
-            return resDict
+                        subResDict = self.single_regex_match(regex, resDict[key], group = group, asNumber = asNumber)
+                        
         
-        else:
-            resDict = RegExp.match(regStr, os.listdir(path), asNumber = asNumber, group = group)
-                
-                    
-                    
-                
-        
-    @staticmethod 
-    def fileMatch(path, regStr, sort = True, asNumber = True, group = 1):
-        """
-        Match filenames in path to regStr
-        """
-        reg  = re.compile(regStr)
-        path = self.winPathHandler(path)
-        resultValue = []
-        resultFile = []
-        if os.path.isdir(path):
-            for f in os.listdir(path):
-                match_value, match_string = RegExp.match(reg, f, asNumber = asNumber, group = group)
-                resultValue.append(match_value)
-                resultFile.append(match_string)
-            if sort:
-                resultValue, resultFile = list(zip(*sorted(zip(resultValue, resultFile), key = lambda x: x[0])))
-            else:
-                pass
-            
-            return list(resultValue), list(resultFile)
-
-        else:
-            print("[*]Provided path is not a folder, make sure correct path is provided !")
-
-    
-        
-    
                 
                    
