@@ -9,14 +9,15 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Jun 25 00:46:25 2018 (-0500)
+# Last-Updated: Mon Jun 25 22:09:16 2018 (-0500)
 #           By: yulu
-#     Update #: 192
+#     Update #: 203
 # 
 
 from SciBeam.core.common import Common
 from SciBeam.core import base
 import os, re
+
 class RegMatch(Common):
     def __init__(self, regStr):
         self.regex = regStr
@@ -98,6 +99,8 @@ class RegMatch(Common):
             matched_dicts = self.single_regex_match(self.regex, strings, group = 1, asNumber = asNumber)
         return matched_dicts
 
+    
+
     @staticmethod
     def _trace_dict_value(dictIn, trace_list):
         dictOut = dictIn
@@ -106,39 +109,10 @@ class RegMatch(Common):
         return dictOut
         
     @staticmethod
-    def _trace_dict_key(dictIn, trace_result):
-        
-        if not type(dictIn) == dict:
-            raise TypeError("not dict")
-            #return trace_result.append([])
-            #return trace_result.append(trace_result[-1].pop())
-        else:
-            for key in dictIn:
-                #trace_result_copy = trace_result.copy()
-                print("start: ", dictIn, trace_result)
-                
-                try:
-                    trace_result[-1].append(key)
-                except IndexError:
-                    print('error')
-                    trace_result.append([key])
-                maybe_subdict = dictIn[key]
-                
-                print("end: ", maybe_subdict, trace_result)
-
-                if type(maybe_subdict) == dict:
-                    trace_result  = RegMatch._trace_dict_key(maybe_subdict, trace_result)
-                else:
-                    print('reach leaves')
-                    
-                    trace_result = trace_result + [trace_result[-1][:-1]]
-                    print('trace_result', trace_result)
-                    continue
-                
-            return trace_result
-
-    @staticmethod
-    def _trace_dict_key0(dictIn):
+    def _trace_dict_key(dictIn):
+        """
+        Trace the key path of a nested dictionary
+        """
         trace = []
         if type(dictIn) == dict:
             pass
@@ -150,24 +124,30 @@ class RegMatch(Common):
             trace.append(res)     
         return trace
                     
-                    
 
-                
-                    
-            
-        
     def folderMatch(self, folder_path, asNumber = True, group = 1):
+        """
+        Match files in the folder content with self.regex
+        if two regex are in the self.regex, then the match is done
+        in a recursive way, that first regex get matched, and the 2nd
+        regex is applied to the match result from the first one.
+        """
+        
         path = self.winPathHandler(folder_path)
+        searchList = os.listdir(path)
+        resDict = {}
         if type(self.regex) == list:
             for i, regex in enumerate(self.regex):
-                resDict = {}
                 if i == 0:
-                    searchList = os.listdir(path)
                     resDict = self.single_regex_match(regex, searchList, group = group, asNumber = asNumber)
                 else:
                     for key in resDict:
-                        subResDict = self.single_regex_match(regex, resDict[key], group = group, asNumber = asNumber)
-                        
+                        resDict[key] = self.single_regex_match(regex, resDict[key], group = group, asNumber = asNumber)
+        else:
+            resDict = self.single_regex_match(self.regex, searchList, group = group, asNumber = asNumber)
+        return resDict
+
+        
         
                 
-                   
+                  

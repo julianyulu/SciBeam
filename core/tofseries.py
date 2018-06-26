@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May 13 16:16:19 2018 (-0500)
+# Last-Updated: Mon Jun 25 22:22:02 2018 (-0500)
 #           By: yulu
-#     Update #: 624
+#     Update #: 628
 # 
 
 
@@ -23,7 +23,7 @@ import re
 
 from SciBeam.core.descriptor import DescriptorMixin
 from SciBeam.core.common import Common
-from SciBeam.core.regexp import RegExp    
+from SciBeam.core.regexp import RegMatch
 from SciBeam.core import base
 from SciBeam.core import numerical
 from SciBeam.core import tofframe
@@ -59,21 +59,21 @@ class TOFSeries(pandas.Series):
         return wrapper
     
     @classmethod
-    def fromtxt(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
+    def fromtxt(cls, file_path, lowerBound = None, upperBound = None, removeOffset = True,
                 offset_margin = 'outer', offset_margin_size = 20,skiprows = 0, sep = '\t'):
         """
         Buid TOF instance from given file
         Current only works for '\t' seperated txt and lvm file
         """
 
-        path = Common.winPathHandler(path)
+        file_path = Common.winPathHandler(file_path)
         # If given folder path
-        if os.path.isdir(path):
+        if os.path.isdir(file_path):
             raise ValueError("[*] TOFSeries only take single file as series source!")
 
         # if given file path
         else:
-            data = Common.loadFile(path, cols = cols, usecols = usecols,skiprows = skiprows,  sep = sep)
+            data = Common.loadFile(file_path, cols = cols, usecols = usecols,skiprows = skiprows,  sep = sep)
             if lowerBound and upperBound:
                 lb, ub = TOFSeries.find_time_idx(data[:,0], lowerbound, upperBound)
                 time = data[lb : ub, 0]

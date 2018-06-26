@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jun  9 13:15:29 2018 (-0500)
+# Last-Updated: Mon Jun 25 22:16:16 2018 (-0500)
 #           By: yulu
-#     Update #: 620
+#     Update #: 625
 # 
 
 
@@ -27,7 +27,7 @@ from SciBeam.core import base
 from SciBeam.core import tofseries
 from SciBeam.core import numerical
 from SciBeam.core.common import Common
-from SciBeam.core.regexp import RegExp    
+from SciBeam.core.regexp import RegMatch
 from SciBeam.core.descriptor import DescriptorMixin
 
 import matplotlib.pyplot as plt
@@ -97,7 +97,8 @@ class TOFFrame(pandas.DataFrame):
         # If given folder path
         if os.path.isdir(path):
             if regStr:
-                keys, files = RegExp.fileMatch(path, regStr)
+                matchDict = RegMatch(regStr).folderMatch(path)
+                keys, files = zip(*sorted(matchDict.items(), key = lambda x: x[0]))
                 values = {}
                 for k, f in zip(keys, files):
                     data = Common.loadFile(path + f, skiprows = skiprows, sep = sep)
