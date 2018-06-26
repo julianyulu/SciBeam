@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Jun 25 22:16:16 2018 (-0500)
+# Last-Updated: Tue Jun 26 16:25:47 2018 (-0500)
 #           By: yulu
-#     Update #: 625
+#     Update #: 627
 # 
 
 
@@ -26,7 +26,7 @@ from scipy.integrate import quad
 from SciBeam.core import base
 from SciBeam.core import tofseries
 from SciBeam.core import numerical
-from SciBeam.core.common import Common
+from SciBeam.core.common import winPathHandler, loadFile
 from SciBeam.core.regexp import RegMatch
 from SciBeam.core.descriptor import DescriptorMixin
 
@@ -93,7 +93,7 @@ class TOFFrame(pandas.DataFrame):
         Current only works for '\t' seperated txt and lvm file
         """
 
-        path = Common.winPathHandler(path)
+        path = winPathHandler(path)
         # If given folder path
         if os.path.isdir(path):
             if regStr:
@@ -101,7 +101,7 @@ class TOFFrame(pandas.DataFrame):
                 keys, files = zip(*sorted(matchDict.items(), key = lambda x: x[0]))
                 values = {}
                 for k, f in zip(keys, files):
-                    data = Common.loadFile(path + f, skiprows = skiprows, sep = sep)
+                    data = loadFile(path + f, skiprows = skiprows, sep = sep)
                     if lowerBound and upperBound:
                         lb, ub = TOFFrame.find_time_idx(data[:, 0], lowerBound, upperBound)
                         time = data[lb:ub, 0]
@@ -119,7 +119,7 @@ class TOFFrame(pandas.DataFrame):
 
         # if given file path
         else:
-            data = Common.loadFile(path, skiprows = skiprows,  sep = sep)
+            data = loadFile(path, skiprows = skiprows,  sep = sep)
             if lowerBound and upperBound:
                 lb, ub = TOFFrame.find_time_idx(data[:,0], lowerbound, upperBound)
                 time = data[lb : ub, 0]

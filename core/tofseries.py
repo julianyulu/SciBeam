@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Jun 25 22:22:02 2018 (-0500)
+# Last-Updated: Tue Jun 26 16:22:45 2018 (-0500)
 #           By: yulu
-#     Update #: 628
+#     Update #: 631
 # 
 
 
@@ -22,7 +22,7 @@ import os
 import re
 
 from SciBeam.core.descriptor import DescriptorMixin
-from SciBeam.core.common import Common
+from SciBeam.core.common import winPathHandler, loadFile
 from SciBeam.core.regexp import RegMatch
 from SciBeam.core import base
 from SciBeam.core import numerical
@@ -66,14 +66,14 @@ class TOFSeries(pandas.Series):
         Current only works for '\t' seperated txt and lvm file
         """
 
-        file_path = Common.winPathHandler(file_path)
+        file_path = winPathHandler(file_path)
         # If given folder path
         if os.path.isdir(file_path):
             raise ValueError("[*] TOFSeries only take single file as series source!")
 
         # if given file path
         else:
-            data = Common.loadFile(file_path, cols = cols, usecols = usecols,skiprows = skiprows,  sep = sep)
+            data = loadFile(file_path, cols = cols, usecols = usecols,skiprows = skiprows,  sep = sep)
             if lowerBound and upperBound:
                 lb, ub = TOFSeries.find_time_idx(data[:,0], lowerbound, upperBound)
                 time = data[lb : ub, 0]

@@ -9,16 +9,17 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Jun 25 22:09:16 2018 (-0500)
+# Last-Updated: Tue Jun 26 16:30:44 2018 (-0500)
 #           By: yulu
-#     Update #: 203
+#     Update #: 207
 # 
 
-from SciBeam.core.common import Common
+from SciBeam.core.common import winPathHandler
+from SciBeam.util.dictfunc import buildDict
 from SciBeam.core import base
 import os, re
 
-class RegMatch(Common):
+class RegMatch:
     def __init__(self, regStr):
         self.regex = regStr
 
@@ -65,7 +66,7 @@ class RegMatch(Common):
             
             resDict = {}
             for key, s in zip(values, match_strings):
-                resDict = base.buildDict(resDict, key, s)
+                resDict = buildDict(resDict, key, s)
                 
             return resDict
 
@@ -133,7 +134,7 @@ class RegMatch(Common):
         regex is applied to the match result from the first one.
         """
         
-        path = self.winPathHandler(folder_path)
+        path = winPathHandler(folder_path)
         searchList = os.listdir(path)
         resDict = {}
         if type(self.regex) == list:
