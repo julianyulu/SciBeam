@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 16:25:47 2018 (-0500)
+# Last-Updated: Tue Jun 26 17:50:53 2018 (-0500)
 #           By: yulu
-#     Update #: 627
+#     Update #: 629
 # 
 
 
@@ -25,7 +25,6 @@ from scipy.integrate import quad
 
 from SciBeam.core import base
 from SciBeam.core import tofseries
-from SciBeam.core import numerical
 from SciBeam.core.common import winPathHandler, loadFile
 from SciBeam.core.regexp import RegMatch
 from SciBeam.core.descriptor import DescriptorMixin

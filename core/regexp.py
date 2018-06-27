@@ -9,9 +9,9 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 16:30:44 2018 (-0500)
+# Last-Updated: Tue Jun 26 16:46:06 2018 (-0500)
 #           By: yulu
-#     Update #: 207
+#     Update #: 209
 # 
 
 from SciBeam.core.common import winPathHandler
@@ -148,7 +148,3 @@ class RegMatch:
             resDict = self.single_regex_match(self.regex, searchList, group = group, asNumber = asNumber)
         return resDict
 
-        
-        
-                
-                  

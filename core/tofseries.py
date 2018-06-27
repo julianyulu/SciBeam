@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 16:22:45 2018 (-0500)
+# Last-Updated: Tue Jun 26 21:56:32 2018 (-0500)
 #           By: yulu
-#     Update #: 631
+#     Update #: 638
 # 
 
 
@@ -25,7 +25,7 @@ from SciBeam.core.descriptor import DescriptorMixin
 from SciBeam.core.common import winPathHandler, loadFile
 from SciBeam.core.regexp import RegMatch
 from SciBeam.core import base
-from SciBeam.core import numerical
+from SciBeam.core.gaussian import Gaussian
 from SciBeam.core import tofframe
 from SciBeam.core.plotseries import PlotTOFSeries
 
@@ -95,7 +95,7 @@ class TOFSeries(pandas.Series):
         return series
         """
         if gauss_fit:
-            return numerical.gausFit(x = self.index, y = self.values, offset = offset)[0][0]
+            return Gaussian.gausFit(x = self.index, y = self.values, offset = offset)[0][0]
         else:
             return self.max()
         
@@ -107,7 +107,7 @@ class TOFSeries(pandas.Series):
         return series
         """
         if gauss_fit:
-            return numerical.gausFit(x = self.index, y = self.values, offset = False)[0][1]
+            return Gaussian.gausFit(x = self.index, y = self.values, offset = False)[0][1]
         else:
             return self.idxmax()
 
@@ -118,8 +118,8 @@ class TOFSeries(pandas.Series):
         else return normal numerically integrated signal
         """
         if gauss_fit:
-            popt, pcov = numerical.gausFit(x = self.index, y = self.values, offset = False)
-            area = quad(lambda x:numerical.gaus(x, *popt), self.index.min(), self.index.max())[0]
+            popt, pcov = Gaussian.gausFit(x = self.index, y = self.values, offset = False)
+            area = quad(lambda x:Gaussian.gaus(x, *popt), self.index.min(), self.index.max())[0]
         else:
             area = np.trapz(x = self.index, y = self.values)
         return area
@@ -130,7 +130,7 @@ class TOFSeries(pandas.Series):
         else use literally caculated fwhm
         """
         if gauss_fit:
-            popt, pcov = numerical.gausFit(x = self.index, y = self.values, offset = False)
+            popt, pcov = Gaussian.gausFit(x = self.index, y = self.values, offset = False)
             fwhm = np.sqrt(2 * np.log(2)) * abs(popt[2])
         else:
             time = self.index
@@ -292,7 +292,7 @@ class TOFSeries(pandas.Series):
         hwhm_idx_left = np.argmin(abs(value[:peak_idx] - peak_value / 2))
         hwhm_idx_right = np.argmin(abs(value[peak_idx:] - peak_value / 2)) + peak_idx
         fwhm_index_range = hwhm_idx_right - hwhm_idx_left
-        ## This is the "index" of dataframe not index like 1,2,3,4, doesn't work
+        
         delta_idx = int(fwhm_index_range / np.sqrt(8 * np.log(2)) * n_sigmas)
         lb,ub  = peak_idx - delta_idx, peak_idx + delta_idx
         lb = 0 if lb < 0 else lb
@@ -340,7 +340,7 @@ class TOFSeries(pandas.Series):
         """
         1D gauss fit
         """
-        popt, pcov = numerical.gausFit(x = self.index, y = self.values, offset = offset)
+        popt, pcov = Gaussian.gausFit(x = self.index, y = self.values, offset = offset)
         return popt, pcov
     
     
