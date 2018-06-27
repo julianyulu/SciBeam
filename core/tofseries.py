@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 21:56:32 2018 (-0500)
+# Last-Updated: Tue Jun 26 23:38:59 2018 (-0500)
 #           By: yulu
-#     Update #: 638
+#     Update #: 641
 # 
 
 
@@ -28,6 +28,7 @@ from SciBeam.core import base
 from SciBeam.core.gaussian import Gaussian
 from SciBeam.core import tofframe
 from SciBeam.core.plotseries import PlotTOFSeries
+from SciBeam.core.peak import Peak
 
 class TOFSeries(pandas.Series):
     pandas.set_option('precision', 9)
@@ -86,62 +87,6 @@ class TOFSeries(pandas.Series):
                 value = data[:,1]
         return cls(values, index = time)
     
-
-    def height(self, gauss_fit = False, offset = False):
-        """
-        peakHeight
-        find peak height from dataframe
-        --------------------
-        return series
-        """
-        if gauss_fit:
-            return Gaussian.gausFit(x = self.index, y = self.values, offset = offset)[0][0]
-        else:
-            return self.max()
-        
-    def peakTime(self, gauss_fit = False):
-        """
-        peakTime
-        find peak arrival time 
-        ----------------------
-        return series
-        """
-        if gauss_fit:
-            return Gaussian.gausFit(x = self.index, y = self.values, offset = False)[0][1]
-        else:
-            return self.idxmax()
-
-    def area(self, gauss_fit = False):
-        """
-        integrated signal area
-        if gauss_fit is True, return area on fitted signal
-        else return normal numerically integrated signal
-        """
-        if gauss_fit:
-            popt, pcov = Gaussian.gausFit(x = self.index, y = self.values, offset = False)
-            area = quad(lambda x:Gaussian.gaus(x, *popt), self.index.min(), self.index.max())[0]
-        else:
-            area = np.trapz(x = self.index, y = self.values)
-        return area
-
-    def fwhm(self, gauss_fit = True):
-        """
-        find fwhm, if gauss_fit == True(default), using gauss fit fwhm
-        else use literally caculated fwhm
-        """
-        if gauss_fit:
-            popt, pcov = Gaussian.gausFit(x = self.index, y = self.values, offset = False)
-            fwhm = np.sqrt(2 * np.log(2)) * abs(popt[2])
-        else:
-            time = self.index
-            value = self.values
-            peak_values = max(value)
-            peak_idx = np.argmax(value)
-            half_max = peak_values / 2
-            hwhm_idx_left = np.argmin(abs(value[:peak_idx] - half_max))
-            hwhm_idx_right = np.argmin(abs(value[peak_idx : ] - half_max)) + peak_idx
-            fwhm = time[hwhm_idx_right] - time[hwhm_idx_left]
-        return fwhm
 
     
 
@@ -270,62 +215,7 @@ class TOFSeries(pandas.Series):
         else:
             return selected
 
-    @_toTOFSeries
-    def peakFinder(self, n_sigmas = 2, as_bounds = True, as_series = False, as_figure = False, removeOffset = False, lowerBound = None, upperBound = None):
-        if lowerBound or upperBound:
-            lb, ub = TOFSeries.find_time_idx(self.index, lowerBound, upperBound)
-            data = self.iloc[lb:ub, :].copy()
-        else:
-            data = self.copy()
-
-        time = data.index
-        value = data.values
-        
-        if removeOffset:
-            value = TOFSeries.remove_data_offset(value, how = 'inner', margin_size = 5)
-        else:
-            pass
-        
-        peak_idx = np.argmax(value)
-        peak_value = value[peak_idx]
-        
-        hwhm_idx_left = np.argmin(abs(value[:peak_idx] - peak_value / 2))
-        hwhm_idx_right = np.argmin(abs(value[peak_idx:] - peak_value / 2)) + peak_idx
-        fwhm_index_range = hwhm_idx_right - hwhm_idx_left
-        
-        delta_idx = int(fwhm_index_range / np.sqrt(8 * np.log(2)) * n_sigmas)
-        lb,ub  = peak_idx - delta_idx, peak_idx + delta_idx
-        lb = 0 if lb < 0 else lb
-        ub = len(value) if ub > len(value) else ub
-        
-        if as_figure:
-            self.iloc[lb:ub].plot(use_index = True, title = 'peakFinder result')
-        else:
-            pass
-        if as_series:
-            return self[lb:ub]
-        elif as_bounds:
-            return lb, ub 
-        else:
-            raise ValueError("[*] Please specify return method: as_bounds, as_series, as_figure")
-
-        
-    def selectPeakRegion(self, inplace = False, plot = False):
-        """
-        auto select peak region
-        """
-        if plot:
-            if inplace:
-                series = self.peakFinder(as_series = True, as_figure =True)
-                self.__init__(self.peakFinder(as_series = True))
-            else:
-                self.peakFinder(as_bounds = False, as_figure =True)
-        else:
-            if inplace:
-                self.__init__(self.peakFinder(as_series = True))
-            else:
-                return self.peakFinder(as_series = True)
-
+    
     def sec_to_microsec(self, offset_sec = 0, inplace = False):
         """
         convert seconds in index to microseconds
@@ -368,3 +258,4 @@ class TOFSeries(pandas.Series):
     
     # Descriptors
     plot1d = DescriptorMixin(PlotTOFSeries)
+    peak = DescriptorMixin(Peak)

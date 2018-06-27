@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 17:50:53 2018 (-0500)
+# Last-Updated: Tue Jun 26 23:43:21 2018 (-0500)
 #           By: yulu
-#     Update #: 629
+#     Update #: 632
 # 
 
 
@@ -270,20 +270,20 @@ class TOFFrame(pandas.DataFrame):
         return series
         """
         
-        return self.apply(tofseries.TOFSeries.height, gauss_fit = gauss_fit, offset = offset)
+        return self.apply(tofseries.TOFSeries.peak.peakValue, gauss_fit = gauss_fit, offset = offset)
         
     @_toTOFSeries
-    def peakTime(self, gauss_fit = False):
+    def peakTime(self, gauss_fit = False, offset = False):
         """
         peakTime
         find peak arrival time 
         ----------------------
         return series
         """
-        return self.apply(tofseries.TOFSeries.peakTime, gauss_fit = gauss_fit)
+        return self.apply(tofseries.TOFSeries.peak.peakLabel, gauss_fit = gauss_fit, offset = offset)
         
     @_toTOFSeries
-    def peakArea(self, gauss_fit = False):
+    def peakArea(self, gauss_fit = False, offset = False):
         """
         peakArea
         find peak integrated signal(area)
@@ -291,47 +291,52 @@ class TOFFrame(pandas.DataFrame):
         return series
         """
         
-        return  self.apply(tofseries.TOFSeries.area, gauss_fit = gauss_fit)
+        return  self.apply(tofseries.TOFSeries.peak.peakArea, gauss_fit = gauss_fit, offset = offset)
             
     @_toTOFSeries
-    def peakFWHM(self, gauss_fit = True):
+    def peakFWHM(self, gauss_fit = True, offset = False):
         """
         peakFWHM
         find peak FWHM
         ---------------------
         return series
         """
-        return self.apply(tofseries.TOFSeries.fwhm,  gauss_fit = gauss_fit)
+        return self.apply(tofseries.TOFSeries.peak.peakFWHM,  gauss_fit = gauss_fit, offset = offset)
 
-    @_toTOFFrame
-    def selectPeakRegion(self, n_sigmas = 2, lowerBound = None, upperBound = None, as_frame = False, as_bounds = False, as_figure = True, inplace = False):
-        """
-        Automatically detect and select peak region
-        """
-        lowerBoundIdx = []
-        upperBoundIdx = []
-        for col in self.columns:
-            lb, ub = self[col].peakFinder(as_bounds = True, n_sigmas = n_sigmas, lowerBound = lowerBound, upperBound = upperBound)
-            lowerBoundIdx.append(lb)
-            upperBoundIdx.append(ub)
-        lowerBoundIdx = int(np.mean(lowerBoundIdx))
-        upperBoundIdx = int(np.mean(upperBoundIdx))
+    ##
+    # Have to modify to adapt peak mixin in series
+    #
+    
+    # @_toTOFFrame
+    # def selectPeakRegion(self, n_sigmas = 2, lowerBound = None, upperBound = None, as_frame = False, as_bounds = False, as_figure = True, inplace = False):
+    #     """
+    #     Automatically detect and select peak region
+    #     """
+    #     lowerBoundIdx = []
+    #     upperBoundIdx = []
+    #     for col in self.columns:
+    #         lb, ub = self[col].peakFinder(as_bounds = True, n_sigmas = n_sigmas, lowerBound = lowerBound, upperBound = upperBound)
+    #         lowerBoundIdx.append(lb)
+    #         upperBoundIdx.append(ub)
+    #     lowerBoundIdx = int(np.mean(lowerBoundIdx))
+    #     upperBoundIdx = int(np.mean(upperBoundIdx))
 
-        if as_figure:
-            if len(self.columns) > 1:
-                PlotTOFFrame(self.iloc[lowerBoundIdx : upperBoundIdx, :]).image()
-            else:
-                self.iloc[lb:ub,:].plot(use_index = True, title = 'selectPeakRegion result')
+    #     if as_figure:
+    #         if len(self.columns) > 1:
+    #             PlotTOFFrame(self.iloc[lowerBoundIdx : upperBoundIdx, :]).image()
+    #         else:
+    #             self.iloc[lb:ub,:].plot(use_index = True, title = 'selectPeakRegion result')
 
-        elif as_bounds:
-            return lowerBoundIdx, upperBoundIdx
-        elif as_frame:
-            if inplace:
-                self.__init__(self.iloc[lowerBoundIdx : upperBoundIdx, :])
-            else:
-                return self.iloc[lowerBoundIdx : upperBoundIdx, :]
-        else:
-            raise ValueError("[*] Please specify return method: as_bounds, as_frame, as_figure")
+    #     elif as_bounds:
+    #         return lowerBoundIdx, upperBoundIdx
+    #     elif as_frame:
+    #         if inplace:
+    #             self.__init__(self.iloc[lowerBoundIdx : upperBoundIdx, :])
+    #         else:
+    #             return self.iloc[lowerBoundIdx : upperBoundIdx, :]
+    #     else:
+    #         raise ValueError("[*] Please specify return method: as_bounds, as_frame, as_figure")
+
     
     @_toTOFFrame
     def inch_to_mm(self, offset_inch = 0, inplace = False):

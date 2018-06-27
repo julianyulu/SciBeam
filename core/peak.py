@@ -9,15 +9,19 @@
 # 
 # Created: Tue Jun 26 16:50:12 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 21:56:34 2018 (-0500)
+# Last-Updated: Tue Jun 26 23:08:50 2018 (-0500)
 #           By: yulu
-#     Update #: 72
+#     Update #: 104
 # 
 
 
 import pandas
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.integrate import quad
+
+import SciBeam
+from SciBeam.core import base
 from SciBeam.core.gaussian import Gaussian
 
 class Peak:
@@ -26,8 +30,15 @@ class Peak:
     """
 
     def __init__(self, data, data_label = None):
-        self.data = data
-        self.data_label = data_label
+        self._is_mixin = base._is_mixin(data)
+        self.data = data._make_mixin if self._is_mixin else data
+        if type(data) in [pandas.core.series.Series, SciBeam.core.tofseries.TOFSeries]:
+        
+            self._data_label = list(data.index)
+        elif type(data) == pandas.core.frame.DataFrame:
+            self._data_label = [list(data.index), list(data.columns)]
+        else:
+            self.data_label = data_label
 
     def _only_for_1D(func):
         """
@@ -40,7 +51,10 @@ class Peak:
                 return func(*args, **kwargs)
         return wrapper
     
-        
+    @classmethod
+    def _constructor(cls, data):
+        return cls(data)
+
     @property
     def data(self):
         return self._data
@@ -82,6 +96,10 @@ class Peak:
                 label = data_label
             else:
                 raise ValueError("data_label dimention doesn't match data dimention")
+        # elif type(self._data) == pandas.core.series.Series:
+        #     label = np.array(self.index)
+        # elif type(self._data) == pandas.core.frame.DataFrame:
+        #     label = [np.array(self.index), np.array(self.columns)]
         elif self._ndim == 1:
             label = np.arange(self._shape[0])
         else:
@@ -89,8 +107,30 @@ class Peak:
 
         self._data_label = label
 
+    @_only_for_1D
+    def peakRegion(self, n_sigmas = 4, plot = False):
+        """
+        Locate the region where there exists a peak
+        return the bound index of the region
+        """
+        peak_idx = self.peakIndex()
+        peak_value = self._data[peak_idx]
+        
+        hwhm_idx_left = np.argmin(abs(self._data[:peak_idx] - peak_value / 2))
+        hwhm_idx_right = np.argmin(abs(self._data[peak_idx:] - peak_value / 2)) + peak_idx
+        fwhm_index_range = hwhm_idx_right - hwhm_idx_left
+        
+        delta_idx = int(fwhm_index_range / np.sqrt(8 * np.log(2)) * n_sigmas)
+        lb,ub  = peak_idx - delta_idx, peak_idx + delta_idx
+        lb = 0 if lb < 0 else lb
+        ub = len(self._data) if ub > len(self._data) else ub
 
-    
+        if plot:
+            plt.plot(self._data_label, self._data, '--', label = 'raw input')
+            plt.plot(self._data_label[lb:ub], self._data[lb:ub], '-', label = 'detected peak')
+            
+        return lb, ub 
+            
     def peakIndex(self):
         """
         find index that corresponds to peak value
