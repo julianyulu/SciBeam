@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 23:43:21 2018 (-0500)
+# Last-Updated: Wed Jun 27 11:47:49 2018 (-0500)
 #           By: yulu
-#     Update #: 632
+#     Update #: 653
 # 
 
 
@@ -21,7 +21,7 @@ import os
 import re
 import pandas
 import numpy as np
-from scipy.integrate import quad
+
 
 from SciBeam.core import base
 from SciBeam.core import tofseries
@@ -262,15 +262,15 @@ class TOFFrame(pandas.DataFrame):
         
     
     @_toTOFSeries
-    def peakHeight(self, gauss_fit = False, offset = False):
+    def peakValue(self, gauss_fit = False, offset = False):
         """
         peakHeight
         find peak height from dataframe
         --------------------
         return series
         """
-        
-        return self.apply(tofseries.TOFSeries.peak.peakValue, gauss_fit = gauss_fit, offset = offset)
+        values = [self[col].peak.peakValue(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
+        return tofseries.TOFSeries(values, index = self.columns)
         
     @_toTOFSeries
     def peakTime(self, gauss_fit = False, offset = False):
@@ -280,7 +280,9 @@ class TOFFrame(pandas.DataFrame):
         ----------------------
         return series
         """
-        return self.apply(tofseries.TOFSeries.peak.peakLabel, gauss_fit = gauss_fit, offset = offset)
+        values = [self[col].peak.peakLabel(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
+        return tofseries.TOFSeries(values, index = self.columns)
+        
         
     @_toTOFSeries
     def peakArea(self, gauss_fit = False, offset = False):
@@ -290,8 +292,9 @@ class TOFFrame(pandas.DataFrame):
         ---------------------
         return series
         """
+        values = [self[col].peak.peakArea(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
+        return tofseries.TOFSeries(values, index = self.columns)
         
-        return  self.apply(tofseries.TOFSeries.peak.peakArea, gauss_fit = gauss_fit, offset = offset)
             
     @_toTOFSeries
     def peakFWHM(self, gauss_fit = True, offset = False):
@@ -301,7 +304,8 @@ class TOFFrame(pandas.DataFrame):
         ---------------------
         return series
         """
-        return self.apply(tofseries.TOFSeries.peak.peakFWHM,  gauss_fit = gauss_fit, offset = offset)
+        values = [self[col].peak.peakFWHM(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
+        return tofseries.TOFSeries(values, index = self.columns)
 
     ##
     # Have to modify to adapt peak mixin in series

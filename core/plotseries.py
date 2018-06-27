@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Sun May 13 15:11:11 2018 (-0500)
+# Last-Updated: Wed Jun 27 11:51:42 2018 (-0500)
 #           By: yulu
-#     Update #: 284
+#     Update #: 286
 # 
 
 import numpy as np
@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import NullFormatter
 from SciBeam.core.formatter import format_dict
 from SciBeam.core import base
-from SciBeam.core import numerical
+from SciBeam.core.gaussian import Gaussian
 
 
 class PlotTOFSeries:
@@ -52,10 +52,10 @@ class PlotTOFSeries:
             plt.plot(self.data.index, self.data.values, 'o', **kwargs)
                         
             if gauss_fit:
-                popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values, offset = gauss_fit_offset)
+                popt, pcov = Gaussian.gausFit(x = self.data.index, y = self.data.values, offset = gauss_fit_offset)
                 fit_params = {'a': popt[0], 'x0': popt[1], '$\sigma$': popt[2]}
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
-                plt.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-')
+                plt.plot(smoothX, Gaussian.gaus(smoothX, *popt), 'r-')
                 plt.text(0.45 *  max(self.data.index), 0.9 * max(self.data.values),format_dict(fit_params, digits = params_digits), verticalalignment='top', horizontalalignment='right')
                 
                 plt.legend(['data', 'gauss fit'])
@@ -71,10 +71,10 @@ class PlotTOFSeries:
         else:
             ax.plot(self.data.index, self.data.values, 'o', **kwargs)
             if gauss_fit:
-                popt, pcov = numerical.gausFit(x = self.data.index, y = self.data.values , offset = gauss_fit_offset)
+                popt, pcov = Gaussian.gausFit(x = self.data.index, y = self.data.values , offset = gauss_fit_offset)
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
                 
-                ax.plot(smoothX, numerical.gaus(smoothX, *popt), 'r-', **kwargs)
+                ax.plot(smoothX, Gaussian.gaus(smoothX, *popt), 'r-', **kwargs)
                 ax.legend(['data', 'gauss fit'])
             else:
                 pass
@@ -96,7 +96,7 @@ class PlotTOFSeries:
         """
 
         if fit_tof:
-            popt_pcov_series = self.data.apply(lambda s: numerical.gausFit(y = s.values, x = s.index))
+            popt_pcov_series = self.data.apply(lambda s: Gaussian.gausFit(y = s.values, x = s.index))
             peaks = [popt_pcov_series.values[i][0][0] for i in range(len(popt_pcov_series))]
             
             
@@ -112,9 +112,9 @@ class PlotTOFSeries:
         ax.plot(self.position, peaks, 'o', label = 'peak')
 
         if fit_result:
-            popt, pcov = numerical.gausFit(x = self.position, y = peaks)
+            popt, pcov = Gaussian.gausFit(x = self.position, y = peaks)
             fitX = np.linspace(min(self.position), max(self.position), 100)
-            ax.plot(fitX, numerical.gaus(fitX, *popt), 'r-', label = "Gaussian Fit")
+            ax.plot(fitX, Gaussian.gaus(fitX, *popt), 'r-', label = "Gaussian Fit")
             ax.legend()
 
         if fit_result and print_fit_params:
@@ -137,7 +137,7 @@ def areaPlot(self, fit_tof = False, fit_result = True, print_fit_params = True, 
     """
 
     if fit_tof:
-        popt_pcov_series = self.data.apply(lambda s: numerical.gausFit(y = s.values, x = s.index))
+        popt_pcov_series = self.data.apply(lambda s: Gaussian.gausFit(y = s.values, x = s.index))
         peaks = [popt_pcov_series.values[i][0][0] for i in range(len(popt_pcov_series))]
         
         
@@ -153,9 +153,9 @@ def areaPlot(self, fit_tof = False, fit_result = True, print_fit_params = True, 
             ax.plot(self.position, peaks, 'o', label = 'peak')
             
             if fit_result:
-                popt, pcov = numerical.gausFit(x = self.position, y = peaks)
+                popt, pcov = Gaussian.gausFit(x = self.position, y = peaks)
                 fitX = np.linspace(min(self.position), max(self.position), 100)
-                ax.plot(fitX, numerical.gaus(fitX, *popt), 'r-', label = "Gaussian Fit")
+                ax.plot(fitX, Gaussian.gaus(fitX, *popt), 'r-', label = "Gaussian Fit")
                 ax.legend()
                 
                 if fit_result and print_fit_params:

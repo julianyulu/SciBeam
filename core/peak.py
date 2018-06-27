@@ -9,9 +9,9 @@
 # 
 # Created: Tue Jun 26 16:50:12 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 23:08:50 2018 (-0500)
+# Last-Updated: Wed Jun 27 11:49:10 2018 (-0500)
 #           By: yulu
-#     Update #: 104
+#     Update #: 105
 # 
 
 
@@ -195,7 +195,7 @@ class Peak:
         Can use gaussian function fitting to find area
         A seperate input for data label (e.g. x axis value) is optional
         """
-        data_label = data_label if data_label else self._data_label
+        data_label = data_label if not data_label is None else self._data_label
         if gauss_fit:
             popt, pcov = self.gausFit(data_label = data_label, offset = offset)
             if offset: 
@@ -217,7 +217,7 @@ class Peak:
         Can use gaussian function fitting to find fwhm
         A seperate input for data label (e.g. x axis value) is optional
         """
-        data_label = data_label if data_label else self._data_label
+        data_label = data_label if not data_label is None else self._data_label
         if gauss_fit:
             popt, pcov = self.gausFit(data_label = data_label, offset = offset)
             return np.sqrt(8 * np.log(2)) * popt[2]
