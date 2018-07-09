@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Wed Jun 27 11:47:49 2018 (-0500)
+# Last-Updated: Mon Jul  9 11:42:03 2018 (-0500)
 #           By: yulu
-#     Update #: 653
+#     Update #: 662
 # 
 
 
@@ -21,15 +21,13 @@ import os
 import re
 import pandas
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 from SciBeam.core import base
 from SciBeam.core import tofseries
 from SciBeam.core.common import winPathHandler, loadFile
 from SciBeam.core.regexp import RegMatch
 from SciBeam.core.descriptor import DescriptorMixin
-
-import matplotlib.pyplot as plt
 from SciBeam.core.plotframe import PlotTOFFrame
     
 class TOFFrame(pandas.DataFrame):
@@ -83,7 +81,7 @@ class TOFFrame(pandas.DataFrame):
                 return result
         return wrapper
 
-    
+
     @classmethod
     def fromtxt(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
                 offset_margin_how = 'outer', offset_margin_size = 20, skiprows = 0, sep = '\t'):
@@ -95,8 +93,8 @@ class TOFFrame(pandas.DataFrame):
         path = winPathHandler(path)
         # If given folder path
         if os.path.isdir(path):
-            if regStr:
-                matchDict = RegMatch(regStr).folderMatch(path)
+            matchDict = RegMatch(regStr).matchFolder(path)
+            if type(regStr) == str:
                 keys, files = zip(*sorted(matchDict.items(), key = lambda x: x[0]))
                 values = {}
                 for k, f in zip(keys, files):
@@ -111,8 +109,7 @@ class TOFFrame(pandas.DataFrame):
                     else:
                         time = data[:, 0]
                         value = data[:, 1]
-                    values[k] =  value
-            
+                    values[k] =  value    
             else:
                 raise ValueError("[*] Please provide regStr for file match in the path !")
 
@@ -199,7 +196,6 @@ class TOFFrame(pandas.DataFrame):
                 pass
         else:
             pass
-        
         
         if how == 'outer':
             offset = (np.mean(data[lowerBoundIdx-margin_size: lowerBoundIdx]) + np.mean(data[upperBoundIdx : upperBoundIdx + margin_size]))  / 2.

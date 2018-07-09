@@ -9,9 +9,9 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 16:46:06 2018 (-0500)
+# Last-Updated: Mon Jul  9 11:03:46 2018 (-0500)
 #           By: yulu
-#     Update #: 209
+#     Update #: 213
 # 
 
 from SciBeam.core.common import winPathHandler
@@ -126,7 +126,7 @@ class RegMatch:
         return trace
                     
 
-    def folderMatch(self, folder_path, asNumber = True, group = 1):
+    def matchFolder(self, folder_path, asNumber = True, group = 1):
         """
         Match files in the folder content with self.regex
         if two regex are in the self.regex, then the match is done
@@ -148,3 +148,4 @@ class RegMatch:
             resDict = self.single_regex_match(self.regex, searchList, group = group, asNumber = asNumber)
         return resDict
 
+    
