@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Jul  9 11:42:03 2018 (-0500)
+# Last-Updated: Mon Jul  9 14:23:30 2018 (-0500)
 #           By: yulu
-#     Update #: 662
+#     Update #: 687
 # 
 
 
@@ -83,54 +83,91 @@ class TOFFrame(pandas.DataFrame):
 
 
     @classmethod
-    def fromtxt(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
+    def from_path(cls, path, regStr, lowerBound = None, upperBound = None, removeOffset = True,
                 offset_margin_how = 'outer', offset_margin_size = 20, skiprows = 0, sep = '\t'):
         """
-        Buid TOF instance from given file
+        Buid TOFFrome instance from given file folder
         Current only works for '\t' seperated txt and lvm file
+        """
+
+        path = winPathHandler(path)
+        
+        matchDict = RegMatch(regStr).matchFolder(path)
+        if type(regStr) == str:
+            keys, files = zip(*sorted(matchDict.items(), key = lambda x: x[0]))
+            values = {}
+            for k, f in zip(keys, files):
+                data = loadFile(path + f, skiprows = skiprows, sep = sep)
+                if lowerBound and upperBound:
+                    lb, ub = TOFFrame.find_time_idx(data[:, 0], lowerBound, upperBound)
+                    time = data[lb:ub, 0]
+                    if removeOffset:
+                        value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
+                    else:
+                        value = data[lb:ub, 1]
+                else:
+                    time = data[:, 0]
+                    value = data[:, 1]
+                values[k] =  value    
+        else:
+            raise ValueError("[*] Please provide regStr for file match in the path !")
+        return cls(values, index = time)
+    
+    @classmethod
+    def from_file(cls, filePath,  lowerBound = None, upperBound = None, removeOffset = True,
+                offset_margin_how = 'outer', offset_margin_size = 20, skiprows = 0, sep = '\t'):
+        """
+        Generate TOFFrame object from a single given file
+        """
+        
+        filePath = winPathHandler(filePath)
+        data = loadFile(filePath, skiprows = skiprows,  sep = sep)
+        if lowerBound and upperBound:
+            lb, ub = TOFFrame.find_time_idx(data[:,0], lowerbound, upperBound)
+            time = data[lb : ub, 0]
+            if removeOffset:
+                value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
+            else:
+                value = data[lb:ub, 1]
+        else:
+            time = data[:,0]
+            value = data[:,1]
+        values = {'value':value}
+        return cls(values, index = time)
+
+    
+    @classmethod
+    def from_matchResult(cls, path, matchDict, lowerBound = None, upperBound = None, removeOffset = True,
+                offset_margin_how = 'outer', offset_margin_size = 20, skiprows = 0, sep = '\t'):
+        """
+        Creat TOFFrame from a RegMatch resutl dictionary
         """
 
         path = winPathHandler(path)
         # If given folder path
         if os.path.isdir(path):
-            matchDict = RegMatch(regStr).matchFolder(path)
-            if type(regStr) == str:
-                keys, files = zip(*sorted(matchDict.items(), key = lambda x: x[0]))
-                values = {}
-                for k, f in zip(keys, files):
-                    data = loadFile(path + f, skiprows = skiprows, sep = sep)
-                    if lowerBound and upperBound:
-                        lb, ub = TOFFrame.find_time_idx(data[:, 0], lowerBound, upperBound)
-                        time = data[lb:ub, 0]
-                        if removeOffset:
-                            value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
-                        else:
-                            value = data[lb:ub, 1]
+            
+            keys, files = zip(*sorted(matchDict.items(), key = lambda x: x[0]))
+            values = {}
+            for k, f in zip(keys, files):
+                data = loadFile(path + f, skiprows = skiprows, sep = sep)
+                if lowerBound and upperBound:
+                    lb, ub = TOFFrame.find_time_idx(data[:, 0], lowerBound, upperBound)
+                    time = data[lb:ub, 0]
+                    if removeOffset:
+                        value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
                     else:
-                        time = data[:, 0]
-                        value = data[:, 1]
-                    values[k] =  value    
-            else:
-                raise ValueError("[*] Please provide regStr for file match in the path !")
-
-        # if given file path
-        else:
-            data = loadFile(path, skiprows = skiprows,  sep = sep)
-            if lowerBound and upperBound:
-                lb, ub = TOFFrame.find_time_idx(data[:,0], lowerbound, upperBound)
-                time = data[lb : ub, 0]
-                if removeOffset:
-                    value = TOFFrame.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
+                        value = data[lb:ub, 1]
                 else:
-                    value = data[lb:ub, 1]
-            else:
-                time = data[:,0]
-                value = data[:,1]
-            values = dict('value', value)
-            
-        return cls(values, index = time)
-            
+                    time = data[:, 0]
+                    value = data[:, 1]
+                values[k] =  value
+            return cls(values, index = time)
+        else:
+            raise IsADirectoryError("[*] path not found!")
+        
 
+    
     @staticmethod
     def find_time_idx(time, *args):
         """
