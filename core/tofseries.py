@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 23:38:59 2018 (-0500)
+# Last-Updated: Mon Jul  9 19:02:02 2018 (-0500)
 #           By: yulu
-#     Update #: 641
+#     Update #: 642
 # 
 
 
@@ -155,7 +155,6 @@ class TOFSeries(pandas.Series):
                 pass
         else:
             pass
-        
         
         if how == 'outer':
             offset = (np.mean(data[lowerBoundIdx-margin_size: lowerBoundIdx]) + np.mean(data[upperBoundIdx : upperBoundIdx + margin_size]))  / 2.

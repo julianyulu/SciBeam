@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Jul  9 14:23:30 2018 (-0500)
+# Last-Updated: Mon Jul  9 19:30:02 2018 (-0500)
 #           By: yulu
-#     Update #: 687
+#     Update #: 693
 # 
 
 
@@ -292,54 +292,67 @@ class TOFFrame(pandas.DataFrame):
             self.__init__(selected)
         else:
             return selected
+
         
+    @_toTOFSeries
+    def sum(self, axis = 1):
+        index = self.columns if axis == 0 else self.index
+        sum_result = np.sum(self.values, axis = axis)
+        return tofseries.TOFSeries(sum_result, index = index)
     
-    @_toTOFSeries
-    def peakValue(self, gauss_fit = False, offset = False):
-        """
-        peakHeight
-        find peak height from dataframe
-        --------------------
-        return series
-        """
-        values = [self[col].peak.peakValue(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
-        return tofseries.TOFSeries(values, index = self.columns)
         
-    @_toTOFSeries
-    def peakTime(self, gauss_fit = False, offset = False):
-        """
-        peakTime
-        find peak arrival time 
-        ----------------------
-        return series
-        """
-        values = [self[col].peak.peakLabel(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
-        return tofseries.TOFSeries(values, index = self.columns)
+    # @_toTOFSeries
+    # def peakValue(self, gauss_fit = False, offset = False):
+    #     """
+    #     peakHeight
+    #     find peak height from dataframe
+    #     --------------------
+    #     return series
+    #     """
+    #     values = [self[col].peak.peakValue(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
+    #     return tofseries.TOFSeries(values, index = self.columns)
+        
+    # @_toTOFSeries
+    # def peakTime(self, gauss_fit = False, offset = False):
+    #     """
+    #     peakTime
+    #     find peak arrival time 
+    #     ----------------------
+    #     return series
+    #     """
+    #     values = [self[col].peak.peakLabel(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
+    #     return tofseries.TOFSeries(values, index = self.columns)
         
         
-    @_toTOFSeries
-    def peakArea(self, gauss_fit = False, offset = False):
-        """
-        peakArea
-        find peak integrated signal(area)
-        ---------------------
-        return series
-        """
-        values = [self[col].peak.peakArea(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
-        return tofseries.TOFSeries(values, index = self.columns)
+    # @_toTOFSeries
+    # def peakArea(self, gauss_fit = False, offset = False):
+    #     """
+    #     peakArea
+    #     find peak integrated signal(area)
+    #     ---------------------
+    #     return series
+    #     """
+    #     values = [self[col].peak.peakArea(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
+    #     return tofseries.TOFSeries(values, index = self.columns)
         
             
-    @_toTOFSeries
-    def peakFWHM(self, gauss_fit = True, offset = False):
-        """
-        peakFWHM
-        find peak FWHM
-        ---------------------
-        return series
-        """
-        values = [self[col].peak.peakFWHM(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
-        return tofseries.TOFSeries(values, index = self.columns)
+    # @_toTOFSeries
+    # def peakFWHM(self, gauss_fit = True, offset = False):
+    #     """
+    #     peakFWHM
+    #     find peak FWHM
+    #     ---------------------
+    #     return series
+    #     """
+    #     values = [self[col].peak.peakFWHM(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
+    #     return tofseries.TOFSeries(values, index = self.columns)
 
+
+
+
+
+
+    
     ##
     # Have to modify to adapt peak mixin in series
     #
