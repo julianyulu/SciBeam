@@ -9,9 +9,9 @@
 # 
 # Created: Tue Jun 26 17:18:28 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 18:23:53 2018 (-0500)
+# Last-Updated: Tue Jul 17 17:46:27 2018 (-0500)
 #           By: yulu
-#     Update #: 14
+#     Update #: 17
 # 
 
 
@@ -32,7 +32,7 @@ class Gaussian:
             return A * np.exp(-(x - x0)**2 / (2 * sigma**2))
 
     @staticmethod
-    def gausFit(x, y, offset = 0):
+    def gausFit(x, y, offset = 0, plot = False):
         """
         - Functions: [float, array]popt, [float, array]pcov = gausFit([2D array]data)
         - Description:
@@ -60,6 +60,11 @@ class Gaussian:
             popt, pcov = curve_fit(Gaussian.gaus, x, y, p0 = [a0, x0, halfWidth, y0])
         else:
             popt, pcov = curve_fit(Gaussian.gaus, x, y, p0 = [a0, x0, halfWidth])
+
+        if plot:
+            plt.plot(x, y, 'o', label = 'raw data')
+            plt.plot(x, self.gaus(x, *popt), '-', label = 'gauss fit')
+    
         
         #------------------------------------------------------------
         # leastsq implementation
