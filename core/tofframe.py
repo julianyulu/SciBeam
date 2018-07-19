@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Wed Jul 18 23:58:31 2018 (-0500)
+# Last-Updated: Thu Jul 19 10:38:44 2018 (-0500)
 #           By: yulu
-#     Update #: 709
+#     Update #: 710
 # 
 
 
@@ -28,7 +28,7 @@ from SciBeam.core import tofseries
 from SciBeam.core.common import winPathHandler, loadFile
 from SciBeam.core.regexp import RegMatch
 from SciBeam.core.descriptor import DescriptorMixin
-from SciBeam.core.plotframe import PlotTOFFrame
+from SciBeam.core.plot import PlotTOFFrame
 from SciBeam.core.peak import FramePeak
 
 class TOFFrame(pandas.DataFrame):

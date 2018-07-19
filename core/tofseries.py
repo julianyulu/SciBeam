@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Wed Jul 18 23:34:14 2018 (-0500)
+# Last-Updated: Thu Jul 19 10:39:18 2018 (-0500)
 #           By: yulu
-#     Update #: 652
+#     Update #: 653
 # 
 
 
@@ -27,7 +27,7 @@ from SciBeam.core.regexp import RegMatch
 from SciBeam.core import base
 from SciBeam.core.gaussian import Gaussian
 from SciBeam.core import tofframe
-from SciBeam.core.plotseries import PlotTOFSeries
+from SciBeam.core.plot import PlotTOFSeries
 from SciBeam.core.peak import SeriesPeak
 
 
