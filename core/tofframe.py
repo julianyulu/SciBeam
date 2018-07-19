@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jul 17 17:04:08 2018 (-0500)
+# Last-Updated: Wed Jul 18 23:58:31 2018 (-0500)
 #           By: yulu
-#     Update #: 694
+#     Update #: 709
 # 
 
 
@@ -29,7 +29,8 @@ from SciBeam.core.common import winPathHandler, loadFile
 from SciBeam.core.regexp import RegMatch
 from SciBeam.core.descriptor import DescriptorMixin
 from SciBeam.core.plotframe import PlotTOFFrame
-    
+from SciBeam.core.peak import FramePeak
+
 class TOFFrame(pandas.DataFrame):
     
     """
@@ -55,7 +56,7 @@ class TOFFrame(pandas.DataFrame):
     @property
     def _make_mixin(self):
         return self.copy()
-
+            
     def _toTOFSeries(func):
         """
         Decorator to wrap series returns for method chain 
@@ -447,5 +448,4 @@ class TOFFrame(pandas.DataFrame):
     #Descriptors:
     #single = DescriptorMixin(TimeSeries)
     plot2d = DescriptorMixin(PlotTOFFrame)
-
-    
+    peak = DescriptorMixin(FramePeak)

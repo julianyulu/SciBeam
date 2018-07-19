@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jul 17 20:24:14 2018 (-0500)
+# Last-Updated: Wed Jul 18 23:34:14 2018 (-0500)
 #           By: yulu
-#     Update #: 650
+#     Update #: 652
 # 
 
 
@@ -28,7 +28,7 @@ from SciBeam.core import base
 from SciBeam.core.gaussian import Gaussian
 from SciBeam.core import tofframe
 from SciBeam.core.plotseries import PlotTOFSeries
-from SciBeam.core.peak import Peak
+from SciBeam.core.peak import SeriesPeak
 
 
 class TOFSeries(pandas.Series):
@@ -258,5 +258,5 @@ class TOFSeries(pandas.Series):
     
     # Descriptors
     plot1d = DescriptorMixin(PlotTOFSeries)
-    peak = DescriptorMixin(Peak)
+    peak = DescriptorMixin(SeriesPeak)
     

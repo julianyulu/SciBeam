@@ -2,16 +2,16 @@
 # 
 # Filename: descriptor.py
 # Description: 
-# 
+#            class decorators 
 # Author:    Yu Lu
 # Email:     yulu@utexas.edu
 # Github:    https://github.com/SuperYuLu 
 # 
 # Created: Sat May  5 23:52:27 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May 12 15:51:37 2018 (-0500)
+# Last-Updated: Wed Jul 18 23:32:05 2018 (-0500)
 #           By: yulu
-#     Update #: 11
+#     Update #: 21
 # 
 
 
@@ -37,4 +37,3 @@ class DescriptorMixin:
         raise AttributeError("Cannot delete object!")
 
     
-        
