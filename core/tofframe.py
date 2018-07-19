@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 10:42:02 2018 (-0500)
+# Last-Updated: Thu Jul 19 11:04:07 2018 (-0500)
 #           By: yulu
-#     Update #: 713
+#     Update #: 715
 # 
 
 
@@ -98,7 +98,11 @@ class TOFFrame(pandas.DataFrame):
             keys, files = zip(*sorted(matchDict.items(), key = lambda x: x[0]))
             values = {}
             for k, f in zip(keys, files):
-                data = loadFile(path + f, skiprows = skiprows, sep = sep)
+                try:
+                    data = loadFile(path + f, skiprows = skiprows, sep = sep)
+                except TypeError:
+                    print("[*] Multiple files found under the same parameter, please check below files:\n", f)
+                    raise TypeError
                 if lowerBound and upperBound:
                     lb, ub = TOFFrame.find_time_idx(data[:, 0], lowerBound, upperBound)
                     time = data[lb:ub, 0]
