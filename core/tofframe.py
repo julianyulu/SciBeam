@@ -1,17 +1,17 @@
 # tofframe.py --- 
 # 
-# Filename: tof.py
+# Filename: tofframe.py
 # Description: 
-#            single time-of-flight data series analysis
+#            single time-of-flight data frame analysis
 # Author:    Yu Lu
 # Email:     yulu@utexas.edu
 # Github:    https://github.com/SuperYuLu 
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 10:38:44 2018 (-0500)
+# Last-Updated: Thu Jul 19 10:42:02 2018 (-0500)
 #           By: yulu
-#     Update #: 710
+#     Update #: 713
 # 
 
 
@@ -300,93 +300,6 @@ class TOFFrame(pandas.DataFrame):
         index = self.columns if axis == 0 else self.index
         sum_result = np.sum(self.values, axis = axis)
         return tofseries.TOFSeries(sum_result, index = index)
-    
-        
-    # @_toTOFSeries
-    # def peakValue(self, gauss_fit = False, offset = False):
-    #     """
-    #     peakHeight
-    #     find peak height from dataframe
-    #     --------------------
-    #     return series
-    #     """
-    #     values = [self[col].peak.peakValue(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
-    #     return tofseries.TOFSeries(values, index = self.columns)
-        
-    # @_toTOFSeries
-    # def peakTime(self, gauss_fit = False, offset = False):
-    #     """
-    #     peakTime
-    #     find peak arrival time 
-    #     ----------------------
-    #     return series
-    #     """
-    #     values = [self[col].peak.peakLabel(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
-    #     return tofseries.TOFSeries(values, index = self.columns)
-        
-        
-    # @_toTOFSeries
-    # def peakArea(self, gauss_fit = False, offset = False):
-    #     """
-    #     peakArea
-    #     find peak integrated signal(area)
-    #     ---------------------
-    #     return series
-    #     """
-    #     values = [self[col].peak.peakArea(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
-    #     return tofseries.TOFSeries(values, index = self.columns)
-        
-            
-    # @_toTOFSeries
-    # def peakFWHM(self, gauss_fit = True, offset = False):
-    #     """
-    #     peakFWHM
-    #     find peak FWHM
-    #     ---------------------
-    #     return series
-    #     """
-    #     values = [self[col].peak.peakFWHM(gauss_fit = gauss_fit, offset = offset, data_label = self.index) for col in self.columns]
-    #     return tofseries.TOFSeries(values, index = self.columns)
-
-
-
-
-
-
-    
-    ##
-    # Have to modify to adapt peak mixin in series
-    #
-    
-    # @_toTOFFrame
-    # def selectPeakRegion(self, n_sigmas = 2, lowerBound = None, upperBound = None, as_frame = False, as_bounds = False, as_figure = True, inplace = False):
-    #     """
-    #     Automatically detect and select peak region
-    #     """
-    #     lowerBoundIdx = []
-    #     upperBoundIdx = []
-    #     for col in self.columns:
-    #         lb, ub = self[col].peakFinder(as_bounds = True, n_sigmas = n_sigmas, lowerBound = lowerBound, upperBound = upperBound)
-    #         lowerBoundIdx.append(lb)
-    #         upperBoundIdx.append(ub)
-    #     lowerBoundIdx = int(np.mean(lowerBoundIdx))
-    #     upperBoundIdx = int(np.mean(upperBoundIdx))
-
-    #     if as_figure:
-    #         if len(self.columns) > 1:
-    #             PlotTOFFrame(self.iloc[lowerBoundIdx : upperBoundIdx, :]).image()
-    #         else:
-    #             self.iloc[lb:ub,:].plot(use_index = True, title = 'selectPeakRegion result')
-
-    #     elif as_bounds:
-    #         return lowerBoundIdx, upperBoundIdx
-    #     elif as_frame:
-    #         if inplace:
-    #             self.__init__(self.iloc[lowerBoundIdx : upperBoundIdx, :])
-    #         else:
-    #             return self.iloc[lowerBoundIdx : upperBoundIdx, :]
-    #     else:
-    #         raise ValueError("[*] Please specify return method: as_bounds, as_frame, as_figure")
 
     
     @_toTOFFrame

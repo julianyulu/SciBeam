@@ -9,9 +9,9 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 10:38:21 2018 (-0500)
+# Last-Updated: Thu Jul 19 10:57:38 2018 (-0500)
 #           By: yulu
-#     Update #: 288
+#     Update #: 314
 # 
 
 import numpy as np
@@ -56,7 +56,7 @@ class PlotTOFSeries:
                 fit_params = {'a': popt[0], 'x0': popt[1], '$\sigma$': popt[2]}
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
                 plt.plot(smoothX, Gaussian.gaus(smoothX, *popt), 'r-')
-                plt.text(0.45 *  max(self.data.index), 0.9 * max(self.data.values),format_dict(fit_params, digits = params_digits), verticalalignment='top', horizontalalignment='right')
+                plt.figtext(0.95, 0.85, 'fitting parameters:\n' + format_dict(fit_params, digits = params_digits), verticalalignment='top', horizontalalignment='left')
                 
                 plt.legend(['data', 'gauss fit'])
             else:
@@ -73,9 +73,10 @@ class PlotTOFSeries:
             if gauss_fit:
                 popt, pcov = Gaussian.gausFit(x = self.data.index, y = self.data.values , offset = gauss_fit_offset)
                 smoothX = np.linspace(popt[1] - 3* popt[2], popt[1] + 3 * popt[2], 5 * len(self.data.index))
-                
                 ax.plot(smoothX, Gaussian.gaus(smoothX, *popt), 'r-', **kwargs)
                 ax.legend(['data', 'gauss fit'])
+                fit_params = {'a': popt[0], 'x0': popt[1], '$\sigma$': popt[2]}
+                plt.figtext(0.95, 0.85, 'fitting parameters:\n' + format_dict(fit_params, digits = params_digits), verticalalignment='top', horizontalalignment='left')
             else:
                 pass
 
