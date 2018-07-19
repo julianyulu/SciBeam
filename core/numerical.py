@@ -9,9 +9,9 @@
 # 
 # Created: Tue May  8 23:19:52 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 17:31:46 2018 (-0500)
+# Last-Updated: Thu Jul 19 11:10:00 2018 (-0500)
 #           By: yulu
-#     Update #: 42
+#     Update #: 43
 # 
 
 import numpy as np
@@ -24,7 +24,6 @@ __all__ = [
     "bandPassFilter",
     "integrate"
     ]
-
 
 
 def bandPassFilter(data, tStep = None, lowFreq = 0, highFreq = 1e4):

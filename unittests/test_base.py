@@ -10,80 +10,25 @@
 # 
 # Created: Thu Mar 29 10:44:57 2018 (-0500)
 # Version: 
-# Last-Updated: Fri May  4 11:33:21 2018 (-0500)
+# Last-Updated: Thu Jul 19 11:47:59 2018 (-0500)
 #           By: yulu
-#     Update #: 23
+#     Update #: 44
 # 
 
 import unittest
-import os
-import numpy as np 
-#test_data_root = '../examples/data/'
-
-from SciBeam.core import base
+from SciBeam.core.base import _is_mixin, _mixin_class
+from SciBeam import TOFFrame, TOFSeries, Gaussian
 
 class TestFunctions(unittest.TestCase):
-    '''
-    def test_buildDict(self):
-        emptyDict = {}
-        popedDict = {'a': 1}
-        # insert to empty dict
-        testDict1 = base.buildDict(emptyDict, 'a', 1)
-        self.assertEqual(testDict1['a'], 1)
-        self.assertEqual(emptyDict['a'], 1)
-
-        # insert to populated dict
-        testDict2 = base.buildDict(popedDict, 'b', 2)
-        self.assertEqual(testDict2['b'], 2)
-        self.assertEqual(testDict2['a'], 1)
-        self.assertEqual(popedDict['b'], 2)
-        self.assertEqual(popedDict['a'], 1)
-
-        # insert with repeated key
-        testDict3 = base.buildDict(popedDict, 'a', 3)
-        self.assertEqual(testDict3['a'], [1,3])
-        self.assertEqual(testDict3['b'], 2)
-        self.assertEqual(popedDict['a'], [1,3])
-        self.assertEqual(popedDict['b'], 2)
-
-    @unittest.expectedFailure
-    def test_pathJoin(self):
-        test_path_win = r'C:\Documents\MyFolder\Whatever'
-        test_path_linux1 = '/home/MyFolder/Whatever'
-        test_path_linux2 = '/home/MyFolder/Whatever/'
-
-        test_target1 = 'folder1'
-        test_target2 = '/folder2'
-        test_target3 = 'folder3/'
-        test_target4 = '/folder4/'
-
-        #test windows raw path
-        self.assertEqual(base.pathJoin(test_path_win, test_target1), 'C:/Documents/MyFolder/Whatever/folder1/')
-        self.assertEqual(base.pathJoin(test_path_win, test_target2), 'C:/Documents/MyFolder/Whatever/folder2/')
-        self.assertEqual(base.pathJoin(test_path_win, test_target3), 'C:/Documents/MyFolder/Whatever/folder3/')
-        self.assertEqual(base.pathJoin(test_path_win, test_target4), 'C:/Documents/MyFolder/Whatever/folder4/')
-        self.assertEqual(base.pathJoin(test_path_win, test_target1, test_target2, test_target3, test_target4), 'C:/Documents/MyFolder/Whatever/folder1/folder2/folder3/folder4/')
-
-        # test linux path
-        self.assertEqual(base.pathJoin(test_path_linux1, test_target1), '/home/MyFolder/Whatever/folder1/')
-        self.assertEqual(base.pathJoin(test_path_linux1, test_target2), '/home/MyFolder/Whatever/folder2/')
-        self.assertEqual(base.pathJoin(test_path_linux1, test_target3), '/home/MyFolder/Whatever/folder3/')
-        self.assertEqual(base.pathJoin(test_path_linux1, test_target4), '/home/MyFolder/Whatever/folder4/')
-        self.assertEqual(base.pathJoin(test_path_linux1, test_target1, test_target2, test_target3, test_target4), '/home/MyFolder/Whatever/folder1/folder2/folder3/folder4/')
-        self.assertEqual(base.pathJoin(test_path_linux2, test_target1), '/home/MyFolder/Whatever/folder1/')
-        self.assertEqual(base.pathJoin(test_path_linux2, test_target2), '/home/MyFolder/Whatever/folder2/')
-        self.assertEqual(base.pathJoin(test_path_linux2, test_target3), '/home/MyFolder/Whatever/folder3/')
-        self.assertEqual(base.pathJoin(test_path_linux2, test_target4), '/home/MyFolder/Whatever/folder4/')
-        self.assertEqual(base.pathJoin(test_path_linux2, test_target1, test_target2, test_target3, test_target4), '/home/MyFolder/Whatever/folder1/folder2/folder3/folder4/')
-    '''
-    def test_winPathHandler(self):
-        test_path_win = r'C:\Documents\MyFolder\Whatever.txt'
-        test_path_linux = '/home/MyFolder/Whatever.txt'
-
-        self.assertEqual(base.winPathHandler(test_path_win), 'C:/Documents/MyFolder/Whatever.txt')
-        self.assertEqual(base.winPathHandler(test_path_linux), '/home/MyFolder/Whatever.txt')
-        self.assertEqual(base.winPathHandler([test_path_win, test_path_linux]),['C:/Documents/MyFolder/Whatever.txt','/home/MyFolder/Whatever.txt'])
-    
-
-    if __name__ == '__main__':
-        unittest.main()
+    def setUp(self):
+        self.tofseries = TOFSeries()
+        self.tofframe = TOFFrame()
+        self.gaussian = Gaussian
+        
+    def test_is_mixin(self):
+        self.assertTrue(_is_mixin(self.tofseries))
+        self.assertTrue(_is_mixin(self.tofframe))
+        self.assertFalse(_is_mixin(self.gaussian))
+        
+if __name__ == '__main__':
+    unittest.main()

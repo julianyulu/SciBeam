@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 11:32:04 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jun 26 16:20:37 2018 (-0500)
+# Last-Updated: Thu Jul 19 11:20:49 2018 (-0500)
 #           By: yulu
-#     Update #: 33
+#     Update #: 35
 # 
 import os
 import numpy as np
@@ -41,11 +41,11 @@ def winPathHandler(args):
     if isinstance(args, str):
         return strPathHandler(args)
         
-    elif hasattr(args, '__iter__'):
+    elif type(args) == list:
         result_path = []
         for element_arg in args:
             result_path.append(strPathHandler(element_arg))
-            return result_path
+        return result_path
     else:
         print("[*] Path not understood !")
         print("[!] Please make sure it's in Windows/Linux format")
