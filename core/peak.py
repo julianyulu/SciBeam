@@ -9,9 +9,9 @@
 # 
 # Created: Tue Jun 26 16:50:12 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 00:06:04 2018 (-0500)
+# Last-Updated: Fri Jul 20 23:37:45 2018 (-0500)
 #           By: yulu
-#     Update #: 250
+#     Update #: 251
 # 
 
 
@@ -72,7 +72,7 @@ class SeriesPeak(pandas.Series):
             return self.gausFit()[0][2]
         else:
             peak_values = max(self)
-            peak_idx = np.argmax(self)
+            peak_idx = np.argmax(self.values)
             half_max = peak_values / 2
             hwhm_idx_left = np.argmin(abs(self.iloc[:peak_idx] - half_max))
             hwhm_idx_right = np.argmin(abs(self.iloc[peak_idx : ] - half_max)) + peak_idx
