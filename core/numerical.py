@@ -9,9 +9,9 @@
 # 
 # Created: Tue May  8 23:19:52 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 11:10:00 2018 (-0500)
+# Last-Updated: Sat Jul 21 07:04:58 2018 (-0500)
 #           By: yulu
-#     Update #: 43
+#     Update #: 45
 # 
 
 import numpy as np
@@ -45,13 +45,13 @@ def bandPassFilter(data, tStep = None, lowFreq = 0, highFreq = 1e4):
     return(data)
 
 
-def integrate(x = 0, y = 0, kind = 'numerical', func = None, low = None, high = None, args = ()):
+def integrate(x = None, y = None, kind = 'numerical', func = None, args = ()):
     """
     numerical / function integration using numpy trapz / scipy quad
     """
     if kind == 'numerical':
         return np.trapz(y, x = x)
     elif kind == 'function':
-        return quad(func, low, high, args = args)[0]
+        return quad(func, x, y,  args = args)[0]
 
 

@@ -2,16 +2,16 @@
 # 
 # Filename: tofframe.py
 # Description: 
-#            single time-of-flight data frame analysis
+#            DataFrame for  time-of-flight data frame analysis
 # Author:    Yu Lu
 # Email:     yulu@utexas.edu
 # Github:    https://github.com/SuperYuLu 
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 11:04:07 2018 (-0500)
+# Last-Updated: Sat Jul 21 07:05:24 2018 (-0500)
 #           By: yulu
-#     Update #: 715
+#     Update #: 743
 # 
 
 
@@ -31,16 +31,133 @@ from SciBeam.core.descriptor import DescriptorMixin
 from SciBeam.core.plot import PlotTOFFrame
 from SciBeam.core.peak import FramePeak
 
+
+def read_folder(path, regStr,
+                lowerBound = None,
+                upperBound = None,
+                removeOffset = True,
+                offset_margin_how = 'outer',
+                offset_margin_size = 20, skiprows = 0, sep = '\t'):
+    """
+    Create TOFFrame class instance by reading in group of files in a folder matched by regex 
+    
+    Parameters
+    -----------
+
+    path: str 
+          folder path, linux style or windows style as "raw string", e.g. r"C:\\User\\Document\\FolderName"
+    lowerBound: int or float
+                time axis lower boundrary limit for data
+    upperBound: int or float 
+                time axis upper boundrary limit for data
+    removeOffset: bool 
+                  if True (default) remove data offset (set floor to 0 in no-signal region) 
+
+    offset_margin_how: {"outer", "outer left", "out right", "inner", "inner left", "inner right"}, default "outer"
+
+                       Specify the way to handle offset margin, offset floor value is calculated by averaging the 
+                       value in a given range relative to data lower and upper boundrary, with avaliable options:
+
+                       * "outer" (default):  from both left and right side out of the [lowerBound, upperBound] region
+                       * "outer left": like "outer" but from only left side 
+                       * "outer right": like "outer" but from only right side 
+                       * "inner": from both left and right side inside of the [lowerBound, upperBound] region
+                       * "inner left": like "inner" but from only left side 
+                       * "inner right": like "inner" but from only left side 
+
+    offset_margin_size: int 
+                        Number of values to use for averaging when calculating offset 
+    skiprows: int 
+              number of rows to skip when read in data 
+    sep: str, defult "\t"
+         seperator for columns in the data file
+
+    Returns:
+    --------
+    Instance of class TOFFrame 
+    """
+    return TOFFrame.from_path(path, regStr,
+                              lowerBound = lowerBound, upperBound = upperBound,
+                              removeOffset =removeOffset,
+                              offset_margin_how = offset_margin_how,
+                              offset_margin_size = offset_margin_size,
+                              skiprows = sikprows,  sep = sep)
+
+
+
+def read_regexp_match(path, matchDict,
+                      lowerBound = None,
+                      upperBound = None,
+                      removeOffset = True,
+                      offset_margin_how = 'outer',
+                      offset_margin_size = 20, skiprows = 0, sep = '\t'):
+    """
+    Create instance of TOFFrame from regular expression match result dictionary
+    using SciBeam class RegMatch 
+    
+    Parameters
+    ----------
+    path: str
+          path of the targeted data folder 
+    matchDict: dictionary 
+               result dictionary form SciBeam.regexp.RegMatch, or user specified 
+               dictionary with key as measurement label, value as file name string
+    lowerBound: int or float
+                time axis lower boundrary limit for data
+    upperBound: int or float 
+                time axis upper boundrary limit for data
+    removeOffset: bool 
+                  if True (default) remove data offset (set floor to 0 in no-signal region) 
+
+    offset_margin_how: {"outer", "outer left", "out right", "inner", "inner left", "inner right"}, default "outer"
+
+                       Specify the way to handle offset margin, offset floor value is calculated by averaging the 
+                       value in a given range relative to data lower and upper boundrary, with avaliable options:
+
+                       * "outer" (default):  from both left and right side out of the [lowerBound, upperBound] region
+                       * "outer left": like "outer" but from only left side 
+                       * "outer right": like "outer" but from only right side 
+                       * "inner": from both left and right side inside of the [lowerBound, upperBound] region
+                       * "inner left": like "inner" but from only left side 
+                       * "inner right": like "inner" but from only left side 
+
+    offset_margin_size: int 
+                        Number of values to use for averaging when calculating offset 
+    skiprows: int 
+              number of rows to skip when read in data 
+    sep: str, defult "\t"
+         seperator for columns in the data file
+
+    Returns
+    -------
+    Instance of TOFFrame
+    """
+    
+    return TOFFrame.from_matchResult(path, matchDict,
+                                     lowerBound = lowerBound, upperBound = upperBound,
+                                     removeOffset = removeOffset,
+                                     offset_margin_how = offset_margin_how,
+                                     offset_margin_size = offset_margin_size,
+                                     skiprows = skiprows, sep = sep)
+
+
+
 class TOFFrame(pandas.DataFrame):
     
     """
-    Single time-of-flight data analysis
-    data: value of tof measure, shape(len(labels), len(times))
-    time: time, 1D array of time for each tof data point
-    label: label of the tof measurement, for mulitple same tof measurement 
-           under different conditions, e.g. sensor position, etc. 
-    time_unit: unit for time, optional, default None
-    value_unit: unit for tof values, default None
+    Time-Of-Flight (TOF) DataFrame 
+    
+    Subclassing pandas.DataFrame with extral methods / properties for time-series analysis 
+
+    Parameters
+    -----------
+    data: numpy ndarray (structured or homogeneous), dict, or DataFrame                          
+          Dict can contain Series, arrays, constants, or list-like objectsSingle time-of-flight data analysis
+          Value of measurement, e.g. voltage, current, arbiturary unit signel, shape(len(labels), len(times))
+    index: numpy ndarray, iterables 
+          Time axis for time-of-flight 
+    columns: str, int, or float 
+             label of different tof measurement, e.g. pressure, temperature, etc
     """
     pandas.set_option('precision', 9)
     def __init__(self, *args, **kwargs):

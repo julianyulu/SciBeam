@@ -10,13 +10,18 @@
 # 
 # Created: Sun Mar 25 16:04:08 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 11:47:29 2018 (-0500)
+# Last-Updated: Sat Jul 21 07:03:11 2018 (-0500)
 #           By: yulu
-#     Update #: 42
+#     Update #: 47
 # 
 
 
-from SciBeam.core.tofframe import TOFFrame
+from SciBeam.core.tofframe import (
+    TOFFrame,
+    read_folder,
+    read_regexp_match,
+    )
+
 from SciBeam.core.tofseries import TOFSeries
 from SciBeam.core.regexp import RegMatch
 from SciBeam.core.plot import PlotTOFSeries
