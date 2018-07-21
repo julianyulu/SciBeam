@@ -9,13 +9,12 @@
 # 
 # Created: Fri May  4 11:14:42 2018 (-0500)
 # Version: 
-# Last-Updated: Sat May  5 13:46:16 2018 (-0500)
+# Last-Updated: Sat Jul 21 10:27:59 2018 (-0500)
 #           By: yulu
-#     Update #: 5
+#     Update #: 7
 # 
 
 
 test_data_1D = '/home/yulu/Github/SciBeam/examples/data/time_series_1D/single_time_series.lvm'
 test_data_2D = '/home/yulu/Github/SciBeam/examples/data/time_series_2D/'
-
 

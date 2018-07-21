@@ -9,21 +9,23 @@
 # 
 # Created: Sat Jul 21 07:25:44 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jul 21 10:00:10 2018 (-0500)
+# Last-Updated: Sat Jul 21 13:28:43 2018 (-0500)
 #           By: yulu
-#     Update #: 21
+#     Update #: 27
 # 
 
 import unittest
 from SciBeam import TOFSeries, read_file
+import pkg_resources
 
-__file__  = '../examples/data/time_series_1D/single_time_series.lvm'
+DATA_FILE = pkg_resources.resource_filename('SciBeam', 'examples/data/time_series_1D/single_time_series.lvm')
+
 
 class TestFunctions(unittest.TestCase):
     
     def test_read_defaults(self):
         try:
-            ds = read_file(__file__)
+            ds = read_file(DATA_FILE)
         except:
             self.fail("File read-in failed !")
         else:
@@ -32,7 +34,7 @@ class TestFunctions(unittest.TestCase):
         
     def test_read_with_bounds(self):
         try:
-            ds = read_file(__file__, lowerBound = 500e-6, upperBound = 600e-6)
+            ds = read_file(DATA_FILE, lowerBound = 500e-6, upperBound = 600e-6)
         except:
             self.fail("File read-in failed !")
         self.assertTrue(abs(ds.index[0] - 500e-6) < 1e-6)
@@ -40,8 +42,8 @@ class TestFunctions(unittest.TestCase):
 
     def test_read_without_offset(self):
         try:
-            ds = read_file(__file__, lowerBound = 500e-6, upperBound = 600e-6, removeOffset = False)
-            ds2 = read_file(__file__, lowerBound = 500e-6, upperBound = 600e-6, removeOffset = True)
+            ds = read_file(DATA_FILE, lowerBound = 500e-6, upperBound = 600e-6, removeOffset = False)
+            ds2 = read_file(DATA_FILE, lowerBound = 500e-6, upperBound = 600e-6, removeOffset = True)
         except:
             self.fail("File read-in failed !")
         self.assertTrue(abs(ds - ds2).sum() > 0.01)
