@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 10:39:18 2018 (-0500)
+# Last-Updated: Sat Jul 21 08:14:47 2018 (-0500)
 #           By: yulu
-#     Update #: 653
+#     Update #: 667
 # 
 
 
@@ -29,6 +29,63 @@ from SciBeam.core.gaussian import Gaussian
 from SciBeam.core import tofframe
 from SciBeam.core.plot import PlotTOFSeries
 from SciBeam.core.peak import SeriesPeak
+
+
+def read_file(file_path,
+              lowerBound = None,
+              upperBound = None,
+              removeOffset = True,
+              cols = 2, usecols = None,
+              offset_margin_how = 'outer',
+              offset_margin_size = 20,
+              skiprows = 0, sep = '\t'):
+    """
+    Read from sngle file and create an instance of TOFSeries
+
+    Parameters
+    ----------
+    file_path: str
+               path to file 
+    lowerBound: int or float
+                time axis lower boundrary limit for data
+    upperBound: int or float 
+                time axis upper boundrary limit for data
+    removeOffset: bool 
+                  if True (default) remove data offset (set floor to 0 in no-signal region) 
+    cols: int
+          Total number columns in the data file
+    usecols: int
+          The index of column that will be used out of total number of columns cols 
+    offset_margin_how: {"outer", "outer left", "out right", "inner", "inner left", "inner right"}, default "outer"
+
+                       Specify the way to handle offset margin, offset floor value is calculated by averaging the 
+                       value in a given range relative to data lower and upper boundrary, with avaliable options:
+
+                       * "outer" (default):  from both left and right side out of the [lowerBound, upperBound] region
+                       * "outer left": like "outer" but from only left side 
+                       * "outer right": like "outer" but from only right side 
+                       * "inner": from both left and right side inside of the [lowerBound, upperBound] region
+                       * "inner left": like "inner" but from only left side 
+                       * "inner right": like "inner" but from only left side 
+
+    offset_margin_size: int 
+                        Number of values to use for averaging when calculating offset 
+    skiprows: int 
+              number of rows to skip when read in data 
+    sep: str, defult "\t"
+         seperator for columns in the data file
+
+    Returns:
+    --------
+    Instance of class TOFSeries
+    
+    """
+    return  TOFSeries.fromtxt(file_path, lowerBound = lowerBound,
+                              upperBound = upperBound, removeOffset = removeOffset,
+                              cols = cols, usecols = usecols,
+                              offset_margin_how = offset_margin_how,
+                              offset_margin_size = offset_margin_size,
+                              skiprows = skiprows, sep = sep)
 
 
 class TOFSeries(pandas.Series):
@@ -62,7 +119,8 @@ class TOFSeries(pandas.Series):
     
     @classmethod
     def fromtxt(cls, file_path, lowerBound = None, upperBound = None, removeOffset = True,
-                offset_margin = 'outer', offset_margin_size = 20,skiprows = 0, sep = '\t'):
+                cols = 2, usecols = None, offset_margin_how = 'outer', offset_margin_size = 20,
+                skiprows = 0, sep = '\t'):
         """
         Buid TOF instance from given file
         Current only works for '\t' seperated txt and lvm file
@@ -77,16 +135,16 @@ class TOFSeries(pandas.Series):
         else:
             data = loadFile(file_path, cols = cols, usecols = usecols,skiprows = skiprows,  sep = sep)
             if lowerBound and upperBound:
-                lb, ub = TOFSeries.find_time_idx(data[:,0], lowerbound, upperBound)
+                lb, ub = TOFSeries.find_time_idx(data[:,0], lowerBound, upperBound)
                 time = data[lb : ub, 0]
                 if removeOffset:
-                    value = TOFSeries.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, offset_margin = offset_margin, offset_margin_size = offset_margin_size)
+                    value = TOFSeries.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
                 else:
                     value = data[lb:ub, 1]
             else:
                 time = data[:,0]
                 value = data[:,1]
-        return cls(values, index = time)
+        return cls(value, index = time)
     
 
     
