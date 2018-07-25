@@ -1,9 +1,9 @@
 # SciBeam
 A scientific data analyzing tool  for time series beam measuremnt / experiment.  
 
-**SciBeam** is an open source library for analyzing time series beam measurement data. Using pandas dataframe and series as it's base classing, additional time series related featured are added for quick analysis, such as file name matching, gaussian fitting, peak analysis, noise filtering, plotting, etc. It's flexible method chain enables you to perform fast data analysis on any beam-like data.   
+**SciBeam** is an open source library for analyzing time series beam measurement data. Using pandas dataframe and series as its base classing, additional time series related features are added for quick analysis, such as file name matching, gaussian fitting, peak analysis, noise filtering, plotting, etc. The flexible method chain enables fast data analysis on any time series data.   
 
-SciBeam is originally designed for experimental physics data analysis. The library has been tested in the daily data analysis and is under active development in terms of bredth and deepth of scientific computation.  
+SciBeam is originally designed for experimental physics data analysis. The library has been tested on the daily lab data analysis and is under active development in terms of bredth and deepth of scientific computation.  
 
 # Installation  
 -----  
@@ -19,11 +19,15 @@ SciBeam requires:
 
 ## User installation  
 Currently only avaliable through downloading from Github, will be avaliable for installation through pip soon:  
-Download the souce code:
+
+Download the souce code:  
+
 `git clone https://github.com/SuperYuLu/SciBeam`  
 Change to the package directory:  
+
 `cd scibeam`  
 Install the package:  
+
 `python setup.py install `
 
 # Development  

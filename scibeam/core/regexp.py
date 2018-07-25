@@ -9,9 +9,9 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jul 24 23:55:39 2018 (-0500)
+# Last-Updated: Wed Jul 25 00:55:31 2018 (-0500)
 #           By: yulu
-#     Update #: 214
+#     Update #: 215
 # 
 
 from scibeam.core.common import winPathHandler
@@ -81,7 +81,7 @@ class RegMatch:
                 raise LookupError("No match found ! regex *{}* doesn't match string *{}*".format(regStr, strings))
             # Check convert to number
             if asNumber:
-                value = int(value_string) if len(value_string.split('.') == 1) else float(value_string)
+                value = int(value_string) if len(value_string.split('.')) == 1 else float(value_string)
             else:
                 value = value_string
                 
