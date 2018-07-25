@@ -9,18 +9,18 @@
 # 
 # Created: Sun May  6 16:47:06 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 10:57:38 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:55:25 2018 (-0500)
 #           By: yulu
-#     Update #: 314
+#     Update #: 315
 # 
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import NullFormatter
-from SciBeam.core.formatter import format_dict
-from SciBeam.core import base
-from SciBeam.core.gaussian import Gaussian
-from SciBeam.core import numerical
+from scibeam.core.formatter import format_dict
+from scibeam.core import base
+from scibeam.core.gaussian import Gaussian
+from scibeam.core import numerical
 
 class PlotTOFSeries:
     """

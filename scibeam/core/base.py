@@ -9,14 +9,14 @@
 # 
 # Created: Sun Mar 25 22:03:54 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 11:43:26 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:54:02 2018 (-0500)
 #           By: yulu
-#     Update #: 70
+#     Update #: 71
 # 
 import os
 
-_mixin_class = ["<class 'SciBeam.core.tofseries.TOFSeries'>",
-                "<class 'SciBeam.core.tofframe.TOFFrame'>",
+_mixin_class = ["<class 'scibeam.core.tofseries.TOFSeries'>",
+                "<class 'scibeam.core.tofframe.TOFFrame'>",
                 ]
 
 

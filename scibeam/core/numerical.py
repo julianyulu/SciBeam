@@ -9,16 +9,16 @@
 # 
 # Created: Tue May  8 23:19:52 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jul 21 07:04:58 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:54:57 2018 (-0500)
 #           By: yulu
-#     Update #: 45
+#     Update #: 47
 # 
 
 import numpy as np
 from scipy.optimize import leastsq, curve_fit
 from scipy.fftpack import rfft, irfft
 from scipy.integrate import quad
-from SciBeam.core import base
+from scibeam.core import base
 
 __all__ = [
     "bandPassFilter",

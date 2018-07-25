@@ -9,37 +9,37 @@
 # 
 # Created: Sat Jul 21 07:07:02 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jul 21 07:36:58 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:52:33 2018 (-0500)
 #           By: yulu
-#     Update #: 15
+#     Update #: 17
 # 
 
 import unittest
-import SciBeam
+import scibeam
 
 class TestImports(unittest.TestCase):
     
             
     def test_import_TOFFrame(self):
-        self.assertEqual(SciBeam.TOFFrame, SciBeam.core.tofframe.TOFFrame)
+        self.assertEqual(scibeam.TOFFrame, scibeam.core.tofframe.TOFFrame)
 
     def test_import_TOFSeries(self):
-        self.assertEqual(SciBeam.TOFSeries, SciBeam.core.tofseries.TOFSeries)
+        self.assertEqual(scibeam.TOFSeries, scibeam.core.tofseries.TOFSeries)
         
     def test_import_read_folder(self):
-        self.assertEqual(SciBeam.read_folder, SciBeam.core.tofframe.read_folder)
+        self.assertEqual(scibeam.read_folder, scibeam.core.tofframe.read_folder)
 
     def test_import_read_file(self):
-        self.assertEqual(SciBeam.read_file, SciBeam.core.tofseries.read_file)
+        self.assertEqual(scibeam.read_file, scibeam.core.tofseries.read_file)
 
     def test_import_RegMatch(self):
-        self.assertEqual(SciBeam.RegMatch, SciBeam.core.regexp.RegMatch)
+        self.assertEqual(scibeam.RegMatch, scibeam.core.regexp.RegMatch)
 
     def test_import_PlotTOFSeries(self):
-        self.assertEqual(SciBeam.PlotTOFSeries, SciBeam.core.plot.PlotTOFSeries)
+        self.assertEqual(scibeam.PlotTOFSeries, scibeam.core.plot.PlotTOFSeries)
 
     def test_import_Gaussian(self):
-        self.assertEqual(SciBeam.Gaussian, SciBeam.core.gaussian.Gaussian)
+        self.assertEqual(scibeam.Gaussian, scibeam.core.gaussian.Gaussian)
     
 
 if __name__ == '__main__':

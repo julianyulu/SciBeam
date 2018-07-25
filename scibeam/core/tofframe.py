@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jul 21 07:31:24 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:55:54 2018 (-0500)
 #           By: yulu
-#     Update #: 744
+#     Update #: 745
 # 
 
 
@@ -23,13 +23,13 @@ import pandas
 import numpy as np
 import matplotlib.pyplot as plt
 
-from SciBeam.core import base
-from SciBeam.core import tofseries
-from SciBeam.core.common import winPathHandler, loadFile
-from SciBeam.core.regexp import RegMatch
-from SciBeam.core.descriptor import DescriptorMixin
-from SciBeam.core.plot import PlotTOFFrame
-from SciBeam.core.peak import FramePeak
+from scibeam.core import base
+from scibeam.core import tofseries
+from scibeam.core.common import winPathHandler, loadFile
+from scibeam.core.regexp import RegMatch
+from scibeam.core.descriptor import DescriptorMixin
+from scibeam.core.plot import PlotTOFFrame
+from scibeam.core.peak import FramePeak
 
 
 def read_folder(path, regStr,
@@ -93,14 +93,14 @@ def read_regexp_match(path, matchDict,
                       offset_margin_size = 20, skiprows = 0, sep = '\t'):
     """
     Create instance of TOFFrame from regular expression match result dictionary
-    using SciBeam class RegMatch 
+    using scibeam class RegMatch 
     
     Parameters
     ----------
     path: str
           path of the targeted data folder 
     matchDict: dictionary 
-               result dictionary form SciBeam.regexp.RegMatch, or user specified 
+               result dictionary form scibeam.regexp.RegMatch, or user specified 
                dictionary with key as measurement label, value as file name string
     lowerBound: int or float
                 time axis lower boundrary limit for data

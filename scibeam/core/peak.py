@@ -9,9 +9,9 @@
 # 
 # Created: Tue Jun 26 16:50:12 2018 (-0500)
 # Version: 
-# Last-Updated: Fri Jul 20 23:37:45 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:55:10 2018 (-0500)
 #           By: yulu
-#     Update #: 251
+#     Update #: 252
 # 
 
 
@@ -20,10 +20,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import quad
 
-import SciBeam
-from SciBeam.core import base
-from SciBeam.core.gaussian import Gaussian
-from SciBeam.core import tofseries
+import scibeam
+from scibeam.core import base
+from scibeam.core.gaussian import Gaussian
+from scibeam.core import tofseries
 
 
 __all__ = [

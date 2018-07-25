@@ -10,14 +10,14 @@
 # 
 # Created: Thu Mar 29 10:44:57 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 11:47:59 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:49:48 2018 (-0500)
 #           By: yulu
-#     Update #: 44
+#     Update #: 45
 # 
 
 import unittest
-from SciBeam.core.base import _is_mixin, _mixin_class
-from SciBeam import TOFFrame, TOFSeries, Gaussian
+from scibeam.core.base import _is_mixin, _mixin_class
+from scibeam import TOFFrame, TOFSeries, Gaussian
 
 class TestFunctions(unittest.TestCase):
     def setUp(self):

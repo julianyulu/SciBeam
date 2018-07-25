@@ -9,13 +9,13 @@
 # 
 # Created: Thu Jul 19 11:26:04 2018 (-0500)
 # Version: 
-# Last-Updated: Fri Jul 20 23:54:53 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:58:06 2018 (-0500)
 #           By: yulu
-#     Update #: 12
+#     Update #: 15
 # 
 
 import unittest
-from SciBeam.core.formatter import format_dict
+from scibeam.core.formatter import format_dict
 
 class TestFunctions(unittest.TestCase):
     testDict = {'d': 4,

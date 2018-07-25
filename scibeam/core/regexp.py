@@ -9,14 +9,14 @@
 # 
 # Created: Sat May  5 16:24:14 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Jul  9 11:03:46 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:55:39 2018 (-0500)
 #           By: yulu
-#     Update #: 213
+#     Update #: 214
 # 
 
-from SciBeam.core.common import winPathHandler
-from SciBeam.util.dictfunc import buildDict
-from SciBeam.core import base
+from scibeam.core.common import winPathHandler
+from scibeam.util.dictfunc import buildDict
+from scibeam.core import base
 import os, re
 
 class RegMatch:

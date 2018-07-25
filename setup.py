@@ -9,9 +9,9 @@
 # 
 # Created: Sat Jul 21 10:46:04 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jul 21 13:23:04 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:48:30 2018 (-0500)
 #           By: yulu
-#     Update #: 26
+#     Update #: 27
 # 
 
 from setuptools import setup
@@ -22,7 +22,7 @@ setup(
     author = 'Yu Lu',
     author_email = 'yulu@utexas.edu',
     url = 'https://github.com/SuperYuLu/SciBeam',
-    packages = ['SciBeam', 'SciBeam.tests'],
+    packages = ['scibeam', 'scibeam.tests'],
     license = 'LICENSE.txt',
     description = 'A Scientific time series analyzing tool on beam measurement',
     long_description = open('README.txt').read(), 

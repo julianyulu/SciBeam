@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jul 21 08:14:47 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:56:20 2018 (-0500)
 #           By: yulu
-#     Update #: 667
+#     Update #: 668
 # 
 
 
@@ -21,14 +21,14 @@ from scipy.integrate import quad
 import os
 import re
 
-from SciBeam.core.descriptor import DescriptorMixin
-from SciBeam.core.common import winPathHandler, loadFile
-from SciBeam.core.regexp import RegMatch
-from SciBeam.core import base
-from SciBeam.core.gaussian import Gaussian
-from SciBeam.core import tofframe
-from SciBeam.core.plot import PlotTOFSeries
-from SciBeam.core.peak import SeriesPeak
+from scibeam.core.descriptor import DescriptorMixin
+from scibeam.core.common import winPathHandler, loadFile
+from scibeam.core.regexp import RegMatch
+from scibeam.core import base
+from scibeam.core.gaussian import Gaussian
+from scibeam.core import tofframe
+from scibeam.core.plot import PlotTOFSeries
+from scibeam.core.peak import SeriesPeak
 
 
 def read_file(file_path,

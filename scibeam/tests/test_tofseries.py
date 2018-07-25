@@ -9,16 +9,16 @@
 # 
 # Created: Sat Jul 21 07:25:44 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jul 21 13:28:43 2018 (-0500)
+# Last-Updated: Tue Jul 24 23:53:31 2018 (-0500)
 #           By: yulu
-#     Update #: 27
+#     Update #: 28
 # 
 
 import unittest
-from SciBeam import TOFSeries, read_file
+from scibeam import TOFSeries, read_file
 import pkg_resources
 
-DATA_FILE = pkg_resources.resource_filename('SciBeam', 'examples/data/time_series_1D/single_time_series.lvm')
+DATA_FILE = pkg_resources.resource_filename('scibeam', 'examples/data/time_series_1D/single_time_series.lvm')
 
 
 class TestFunctions(unittest.TestCase):
