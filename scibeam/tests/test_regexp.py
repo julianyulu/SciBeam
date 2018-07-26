@@ -9,9 +9,9 @@
 # 
 # Created: Wed Jul 25 00:17:55 2018 (-0500)
 # Version: 
-# Last-Updated: Wed Jul 25 00:53:39 2018 (-0500)
+# Last-Updated: Thu Jul 26 00:48:06 2018 (-0500)
 #           By: yulu
-#     Update #: 23
+#     Update #: 31
 # 
 
 import unittest
@@ -27,7 +27,7 @@ class TestRegmatch(unittest.TestCase):
     def setUp(self):
         try:
             self.rgm_single = RegMatch('.*_(\d+\.\d+)in_.*.lvm$')
-            self.rgm_multi = RegMatch(['.*_(0.6\d+)in_.*.lvm$', '.*_(\d+\.\d+)in_.*.lvm$'])
+            self.rgm_multi = RegMatch(['.*_(APD\d+)_.*.lvm$', '.*_(\d+\.\d+)in_.*.lvm$'])
         except:
             self.fail("Initialize class RegMatch instance failed !")
         else:
@@ -49,6 +49,24 @@ class TestRegmatch(unittest.TestCase):
         self.assertEqual(self.rgm_single.single_regex_match(regex, sample, group = 2, asNumber = True), {0.775: '20180314_APD1_0.77500in_scan.lvm', 0.925: '20180314_APD1_0.92500in_scan.lvm'})
 
         
+    def test_match(self):
+        sample = ['20180314_APD1_0.77500in_scan.lvm', '20180314_APD1_0.92500in_scan.lvm']
+
+        # one to one
+        self.assertEqual(self.rgm_single.match(sample[0], group = 1, asNumber = True), {0.775: '20180314_APD1_0.77500in_scan.lvm'})
+        self.assertEqual(self.rgm_single.match(sample[0], group = 1, asNumber = False), {'0.77500': '20180314_APD1_0.77500in_scan.lvm'})
+
+        # one to multi 
+        self.assertEqual(self.rgm_single.match(sample, group = 1, asNumber = True), {0.775: '20180314_APD1_0.77500in_scan.lvm', 0.925: '20180314_APD1_0.92500in_scan.lvm'})
+        self.assertEqual(self.rgm_single.match(sample, group = 1, asNumber = False), {'0.77500': '20180314_APD1_0.77500in_scan.lvm', '0.92500': '20180314_APD1_0.92500in_scan.lvm'})
+
+        # multi to one
+        self.assertEqual(self.rgm_multi.match(sample[0], group = 1, asNumber = True), {0.775: '20180314_APD1_0.77500in_scan.lvm', 0.775: '20180314_APD1_0.77500in_scan.lvm'})
+
+        # multi to multi
+        self.assertEqual(self.rgm_multi.match(sample, group = 1, asNumber = True), {0.775: '20180314_APD1_0.77500in_scan.lvm', 0.775: '20180314_APD1_0.77500in_scan.lvm'})
+        
+
         
        
         
