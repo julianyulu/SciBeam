@@ -69,7 +69,7 @@ class SeriesPeak(pandas.Series):
         
     def sigma(self, n_sigmas = 1, gauss_fit = False):
         if gauss_fit:
-            return self.gausFit()[0][2]
+            return n_sigmas * self.gausFit()[0][2]
         else:
             peak_values = max(self)
             peak_idx = np.argmax(self.values)

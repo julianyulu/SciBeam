@@ -16,6 +16,7 @@
 
 
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
 class Gaussian:
@@ -63,7 +64,7 @@ class Gaussian:
 
         if plot:
             plt.plot(x, y, 'o', label = 'raw data')
-            plt.plot(x, self.gaus(x, *popt), '-', label = 'gauss fit')
+            plt.plot(x, Gaussian.gaus(x, *popt), '-', label = 'gauss fit')
     
         
         #------------------------------------------------------------
