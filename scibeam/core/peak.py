@@ -74,8 +74,8 @@ class SeriesPeak(pandas.Series):
             peak_values = max(self)
             peak_idx = np.argmax(self.values)
             half_max = peak_values / 2
-            hwhm_idx_left = np.argmin(abs(self.iloc[:peak_idx] - half_max))
-            hwhm_idx_right = np.argmin(abs(self.iloc[peak_idx : ] - half_max)) + peak_idx
+            hwhm_idx_left = np.argmin(abs(self.iloc[:peak_idx].values - half_max))
+            hwhm_idx_right = np.argmin(abs(self.iloc[peak_idx : ].values - half_max)) + peak_idx
             fwhm = self.index[hwhm_idx_right] - self.index[hwhm_idx_left]
             sigma = fwhm / np.sqrt(8*np.log(2))
             return sigma * n_sigmas
