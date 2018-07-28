@@ -9,9 +9,9 @@
 # 
 # Created: Tue May  8 23:19:52 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jul 24 23:54:57 2018 (-0500)
+# Last-Updated: Fri Jul 27 20:52:36 2018 (-0500)
 #           By: yulu
-#     Update #: 47
+#     Update #: 48
 # 
 
 import numpy as np
@@ -34,7 +34,7 @@ def bandPassFilter(data, tStep = None, lowFreq = 0, highFreq = 1e4):
     if tStep:
         pass
     else:
-        tStep = data[1, 0] - daa[0, 0]
+        tStep = data[1, 0] - data[0, 0]
     yf = rfft(data[:,1])
     xf = np.linspace(0, 1 / tStep, len(yf))
     for i, z in enumerate(yf):

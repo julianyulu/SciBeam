@@ -9,9 +9,9 @@
 # 
 # Created: Wed Jul 25 00:17:55 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 26 00:48:06 2018 (-0500)
+# Last-Updated: Fri Jul 27 22:30:18 2018 (-0500)
 #           By: yulu
-#     Update #: 31
+#     Update #: 34
 # 
 
 import unittest
@@ -39,14 +39,22 @@ class TestRegmatch(unittest.TestCase):
         regex = '.*(APD\d+)_(\d+\.\d+)in_.*.lvm$'
 
         # Test when being matched is a single string 
-        self.assertEqual(self.rgm_single.single_regex_match(regex, sample[0], group = 1, asNumber = False), {'APD1': '20180314_APD1_0.77500in_scan.lvm'})
-        self.assertEqual(self.rgm_single.single_regex_match(regex, sample[0], group = 2, asNumber = False), {'0.77500': '20180314_APD1_0.77500in_scan.lvm'})
-        self.assertEqual(self.rgm_single.single_regex_match(regex, sample[0], group = 2, asNumber = True), {0.775: '20180314_APD1_0.77500in_scan.lvm'})
+        self.assertEqual(self.rgm_single.single_regex_match(regex, sample[0], group = 1, asNumber = False),
+                         {'APD1': '20180314_APD1_0.77500in_scan.lvm'})
+        
+        self.assertEqual(self.rgm_single.single_regex_match(regex, sample[0], group = 2, asNumber = False),
+                         {'0.77500': '20180314_APD1_0.77500in_scan.lvm'})
+        
+        self.assertEqual(self.rgm_single.single_regex_match(regex, sample[0], group = 2, asNumber = True),
+                         {0.775: '20180314_APD1_0.77500in_scan.lvm'})
 
         # Test when being matched is a list of strings
-        self.assertEqual(self.rgm_single.single_regex_match(regex, sample, group = 1, asNumber = False), {'APD1': ['20180314_APD1_0.77500in_scan.lvm', '20180314_APD1_0.92500in_scan.lvm']})
-        self.assertEqual(self.rgm_single.single_regex_match(regex, sample, group = 2, asNumber = False), {'0.77500': '20180314_APD1_0.77500in_scan.lvm', '0.92500':  '20180314_APD1_0.92500in_scan.lvm'})
-        self.assertEqual(self.rgm_single.single_regex_match(regex, sample, group = 2, asNumber = True), {0.775: '20180314_APD1_0.77500in_scan.lvm', 0.925: '20180314_APD1_0.92500in_scan.lvm'})
+        self.assertEqual(self.rgm_single.single_regex_match(regex, sample, group = 1, asNumber = False),
+                         {'APD1': ['20180314_APD1_0.77500in_scan.lvm', '20180314_APD1_0.92500in_scan.lvm']})
+        self.assertEqual(self.rgm_single.single_regex_match(regex, sample, group = 2, asNumber = False),
+                         {'0.77500': '20180314_APD1_0.77500in_scan.lvm', '0.92500':  '20180314_APD1_0.92500in_scan.lvm'})
+        self.assertEqual(self.rgm_single.single_regex_match(regex, sample, group = 2, asNumber = True),
+                         {0.775: '20180314_APD1_0.77500in_scan.lvm', 0.925: '20180314_APD1_0.92500in_scan.lvm'})
 
         
     def test_match(self):
