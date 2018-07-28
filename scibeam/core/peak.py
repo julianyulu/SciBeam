@@ -9,9 +9,9 @@
 # 
 # Created: Tue Jun 26 16:50:12 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jul 24 23:55:10 2018 (-0500)
+# Last-Updated: Sat Jul 28 14:18:25 2018 (-0500)
 #           By: yulu
-#     Update #: 252
+#     Update #: 285
 # 
 
 
@@ -154,31 +154,43 @@ class FramePeak(pandas.DataFrame):
         return cls(*args, **kwargs)
 
     @_toTOFSeries
-    def idx(self, gauss_fit = False):
+    def idx(self, axis = 0, gauss_fit = False, normalize = False):
+        selfCopy = self.copy() if axis == 0 else self.copy().T
         if gauss_fit:
-            return self.apply(lambda s: Gaussian.gausFit(x = s.index, y = s.values, offset = False)[0][1])
+            idx =  selfCopy.apply(lambda s: Gaussian.gausFit(x = s.index, y = s.values, offset = False)[0][1])
         else:
-            return self.idxmax()
+            idx =  selfCopy.idxmax()
+        if normalize:
+            idx = idx / idx.max()
+        return idx 
 
     @_toTOFSeries
-    def nidx(self, gauss_fit = False):
+    def nidx(self, axis = 0, gauss_fit = False, normalize = False):
+        selfCopy = self.copy() if axis == 0 else self.copy().T
         if gauss_fit:
-            height = self.height(gauss_fit)
-            n_idx = [np.argmin(abs(self[x].values - h)) for x, h in zip(self.columns, height)]
+            height = selfCopy.height(gauss_fit)
+            n_idx = [np.argmin(abs(selfCopy[x].values - h)) for x, h in zip(selfCopy.columns, height)]
         else:
-            n_idx = [np.argmax(self[x].values) for x in self.columns]
-        n_idx = pandas.Series(n_idx, self.columns)
+            n_idx = [np.argmax(selfCopy[x].values) for x in selfCopy.columns]
+        n_idx = pandas.Series(n_idx, selfCopy.columns)
+        if normalize:
+            n_idx = n_idx / n_idx.max()
         return n_idx
 
     @_toTOFSeries
-    def height(self, gauss_fit = False):
+    def height(self, axis = 0, gauss_fit = False, normalize = False):
+        selfCopy = self.copy() if axis == 0 else self.copy().T
         if gauss_fit:
-            return self.apply(lambda s: Gaussian.gausFit(x = s.index, y = s.values, offset = False)[0][0])
+            height =  selfCopy.apply(lambda s: Gaussian.gausFit(x = s.index, y = s.values, offset = False)[0][0])
         else:
-            return self.max()
+            height =  selfCopy.max()
+        if normalize:
+            height = height / height.max()
+        return height
 
     @_toTOFSeries
-    def sigma(self, n_sigmas = 1, gauss_fit = False):
+    def sigma(self, n_sigmas = 1, axis = 0, gauss_fit = False, normalize = False):
+        selfCopy = self.copy() if axis == 0 else self.copy().T
         
         def col_sigma(series):
             if gauss_fit:
@@ -187,21 +199,31 @@ class FramePeak(pandas.DataFrame):
                 peak_values = max(series)
                 peak_idx = np.argmax(series.values)
                 half_max = peak_values / 2
-                hwhm_idx_left = np.argmin(abs(series.iloc[:peak_idx].values - half_max))
-                hwhm_idx_right = np.argmin(abs(series.iloc[peak_idx : ].values - half_max)) + peak_idx
+                try:
+                    hwhm_idx_left = np.argmin(abs(series.iloc[:peak_idx].values - half_max))
+                    hwhm_idx_right = np.argmin(abs(series.iloc[peak_idx : ].values - half_max)) + peak_idx
+                except ValueError: # When there is no peak found 
+                    return 0
                 fwhm = series.index[hwhm_idx_right] - series.index[hwhm_idx_left]
                 sigma = fwhm / np.sqrt(8*np.log(2))
             return sigma * n_sigmas
         
-        return self.apply(col_sigma)
+        sigma =  selfCopy.apply(col_sigma)
+        if normalize:
+            sigma = sigma / sigma.max()
+        return sigma 
         
     @_toTOFSeries
-    def fwhm(self, gauss_fit = False):
-        sigma = self.sigma(n_sigmas = 1, gauss_fit = gauss_fit)
-        return sigma * np.sqrt(8 * np.log(2))
+    def fwhm(self, axis = 0, gauss_fit = False, normalize = False):
+        sigma = self.sigma(n_sigmas = 1, axis = axis, gauss_fit = gauss_fit, normalize = False)
+        fwhm = sigma * np.sqrt(8 * np.log(2))
+        if normalize:
+            fwhm  = fwhm / fwhm.max()
+        return fwhm
 
     @_toTOFSeries
-    def area(self, gauss_fit = False):
+    def area(self, axis = 0, gauss_fit = False, normalize = False):
+        selfCopy = self.copy() if axis == 0 else self.copy().T
         def col_area(series):
             if gauss_fit:
                 for col in series.columns:
@@ -211,22 +233,32 @@ class FramePeak(pandas.DataFrame):
             else:
                 area = np.trapz(x = series.index, y = series.values)
             return area
-        return self.apply(col_area)
+        
+        area = selfCopy.apply(col_area)
+        
+        if normalize:
+            area = area / area.max()
+        return area
+    
 
     @_toTOFSeries
-    def region(self, n_sigmas = 4, plot = False):
+    def region(self, axis = 0, n_sigmas = 4, plot = False):
         """
         Locate the region where there exists a peak
         return the bound index of the region
         """
-        def col_region(series):
+        selfCopy = self.copy()
+        def col_region(series, plot = False):
             series = SeriesPeak(series.copy())
             peak_nidx = series.nidx()
             peak_value = series.iloc[peak_nidx]
-        
-            hwhm_nidx_left = peak_nidx - np.argmin(abs(series.iloc[peak_nidx:0:-1].values - peak_value / 2))
-            hwhm_nidx_right = np.argmin(abs(series.iloc[peak_nidx:].values - peak_value / 2)) + peak_nidx
-            fwhm_nidx_range = hwhm_nidx_right - hwhm_nidx_left
+
+            try:
+                hwhm_nidx_left = peak_nidx - np.argmin(abs(series.iloc[peak_nidx:0:-1].values - peak_value / 2))
+                hwhm_nidx_right = np.argmin(abs(series.iloc[peak_nidx:].values - peak_value / 2)) + peak_nidx
+                fwhm_nidx_range = hwhm_nidx_right - hwhm_nidx_left
+            except ValueError: # incase the peak is on the edge, e.g. no peak in the region
+                return (int(len(series) / 2), int(len(series) / 2))
         
             delta_nidx = int(fwhm_nidx_range / np.sqrt(8 * np.log(2)) * n_sigmas)
             lb,ub  = peak_nidx - delta_nidx, peak_nidx + delta_nidx
@@ -238,8 +270,15 @@ class FramePeak(pandas.DataFrame):
                 plt.plot(series.index[lb:ub], series.values[lb:ub], '-', label = 'detected peak')
             return lb, ub
         
-        return self.apply(col_region)
-
+        if axis == 0:
+            return selfCopy.apply(col_region)
+        elif axis == 1:
+            return selfCopy.T.apply(col_region)
+        else: # Currently the 2D peak detect doesn't work well
+            lb0 = min([x[0] for x in selfCopy.apply(col_region)])
+            ub0 = max([x[1] for x in selfCopy.apply(col_region)])
+            lb1 = min([x[0] for x in selfCopy.T.apply(col_region)])
+            ub1 = max([x[1] for x in selfCopy.T.apply(col_region)])
+            return lb0, ub0, lb1, ub1
     
-
 
