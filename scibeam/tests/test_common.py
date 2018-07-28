@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 11:33:37 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jul 24 23:58:52 2018 (-0500)
+# Last-Updated: Sat Jul 28 15:00:42 2018 (-0500)
 #           By: yulu
-#     Update #: 23
+#     Update #: 24
 # 
 
 import unittest
@@ -22,7 +22,7 @@ import numpy as np
 from scibeam.core.common  import winPathHandler, loadFile
 import pkg_resources
 
-DATA_FILE = pkg_resources.resource_filename('scibeam', 'examples/data/time_series_1D/single_time_series.lvm')
+DATA_FILE = pkg_resources.resource_filename('scibeam', 'data/test/time_series_1D/single_time_series.lvm')
     
 
 
