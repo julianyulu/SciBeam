@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jul 24 23:55:54 2018 (-0500)
+# Last-Updated: Tue Jul 31 18:14:12 2018 (-0500)
 #           By: yulu
-#     Update #: 745
+#     Update #: 746
 # 
 
 
@@ -81,7 +81,7 @@ def read_folder(path, regStr,
                               removeOffset =removeOffset,
                               offset_margin_how = offset_margin_how,
                               offset_margin_size = offset_margin_size,
-                              skiprows = sikprows,  sep = sep)
+                              skiprows = skiprows,  sep = sep)
 
 
 
