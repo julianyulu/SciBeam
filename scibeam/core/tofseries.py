@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jul 24 23:56:20 2018 (-0500)
+# Last-Updated: Mon Jul 30 22:38:39 2018 (-0500)
 #           By: yulu
-#     Update #: 668
+#     Update #: 678
 # 
 
 
@@ -80,7 +80,7 @@ def read_file(file_path,
     Instance of class TOFSeries
     
     """
-    return  TOFSeries.fromtxt(file_path, lowerBound = lowerBound,
+    return  TOFSeries.from_file(file_path, lowerBound = lowerBound,
                               upperBound = upperBound, removeOffset = removeOffset,
                               cols = cols, usecols = usecols,
                               offset_margin_how = offset_margin_how,
@@ -118,7 +118,7 @@ class TOFSeries(pandas.Series):
         return wrapper
     
     @classmethod
-    def fromtxt(cls, file_path, lowerBound = None, upperBound = None, removeOffset = True,
+    def from_file(cls, file_path, lowerBound = None, upperBound = None, removeOffset = True,
                 cols = 2, usecols = None, offset_margin_how = 'outer', offset_margin_size = 20,
                 skiprows = 0, sep = '\t'):
         """
@@ -138,7 +138,7 @@ class TOFSeries(pandas.Series):
                 lb, ub = TOFSeries.find_time_idx(data[:,0], lowerBound, upperBound)
                 time = data[lb : ub, 0]
                 if removeOffset:
-                    value = TOFSeries.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)
+                    value = TOFSeries.remove_data_offset(data[:, 1], lowerBoundIdx = lb, upperBoundIdx = ub, how = offset_margin_how, margin_size = offset_margin_size)[lb:ub]
                 else:
                     value = data[lb:ub, 1]
             else:
@@ -153,14 +153,14 @@ class TOFSeries(pandas.Series):
     def find_time_idx(time, *args):
         """
         Generator of time index for a given time value
-        args: can be 1,2,3, or [1,2] or [1,2,3]
+        args: can be a single number, e.g. 1000e-6
+              or a few numbers, e.g.  100e-6, 200e-6, 300e-6
+
         """
         time = np.array(time)
         t_max_gap = np.max(np.diff(time))
         for arg_elem in args:
-            
             if hasattr(arg_elem, '__iter__'):
-                idx = []
                 for t in arg_elem:
                     candi_idx = np.argmin(abs(t - time))
                     if abs(t - time[candi_idx]) > t_max_gap:
@@ -168,8 +168,7 @@ class TOFSeries(pandas.Series):
                                          "[!] Searching for time %f while the closest match is %f, you may consider check the unit!"
                                          %(t, time[candi_idx]))
                     else: 
-                        idx.append(candi_idx)
-                    yield idx
+                        yield candi_idx
                     
             else:
                 candi_idx = np.argmin(abs(arg_elem - time))
@@ -178,8 +177,8 @@ class TOFSeries(pandas.Series):
                                          "[!] Searching for time %f while the closest match is %f, you may consider check the unit!"
                                          %(arg_elem, time[candi_idx]))
                 else:
-                    idx = candi_idx
-                yield idx
+                    candi_idx
+                    yield candi_idx
     
     @staticmethod
     def remove_data_offset(data, lowerBoundIdx = None, upperBoundIdx = None, how = 'outer', margin_size = 10):
@@ -231,7 +230,7 @@ class TOFSeries(pandas.Series):
             raise ValueError(("[*] how: %s not understood !\n" +
                               "[!] possible values of how: 'outer', 'outer left', 'outer right', 'inner', 'inner left', 'inner right'") % how)
         
-        data = data[lowerBoundIdx:upperBoundIdx] - offset
+        data = np.array(data) - offset
         return data
 
     @_toTOFSeries
