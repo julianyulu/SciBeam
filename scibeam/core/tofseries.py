@@ -9,9 +9,9 @@
 # 
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Jul 30 22:38:39 2018 (-0500)
+# Last-Updated: Tue Jul 31 22:11:08 2018 (-0500)
 #           By: yulu
-#     Update #: 678
+#     Update #: 683
 # 
 
 
@@ -240,13 +240,14 @@ class TOFSeries(pandas.Series):
         -------------
         Create descrete time sliced series, if want continus range, use makeTimeRange()
         [Input]
-        :args: descrete time slicing values, can use timeSlice(1,2,3,4) or timeSlice([1,2,3,4])
+        :args: descrete time slicing values, can use timeSlice(1,2,3,4))
         [Output]
         Series of sliced data
         """
         
         slice_value = []
-        for arg_elem in self.find_time_idx(self.index, args):
+        for arg_elem in args:
+            arg_elem = self.find_time_idx(self.index, arg_elem)
             if hasattr(arg_elem, '__iter__'):
                 for t in arg_elem:
                     slice_value.append(self.iloc[t])

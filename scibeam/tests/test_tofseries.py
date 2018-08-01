@@ -9,9 +9,9 @@
 # 
 # Created: Sat Jul 21 07:25:44 2018 (-0500)
 # Version: 
-# Last-Updated: Mon Jul 30 22:34:52 2018 (-0500)
+# Last-Updated: Tue Jul 31 22:30:18 2018 (-0500)
 #           By: yulu
-#     Update #: 60
+#     Update #: 87
 # 
 
 import unittest
@@ -81,13 +81,20 @@ class TestTOFSeries(unittest.TestCase):
         self.assertTrue((sample_data_offset_removed2[450:550] == 9).any())
         self.assertTrue((sample_data_offset_removed2[:200] == 0).any())
 
-    
+    def test_selectTimeSlice(self):
+        self.assertEqual(self.series.selectTimeSlice(1000e-6)[0], -0.001125382)
+        self.assertTrue((np.array(self.series.selectTimeSlice(1000e-6, 1100e-6))
+                         - np.array([-0.001125382, 0.002536727])
+                         == 0).all())
+
+        self.assertEqual(list(self.series.selectTimeSlice([1000e-6, 1100e-6])),
+                         [-0.001125382, 0.002536727])
 
         
-
-    
         
         
+                         
+                
 
 if __name__ == '__main__':
     unittest.main()
