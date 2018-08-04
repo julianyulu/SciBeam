@@ -9,9 +9,9 @@
 # 
 # Created: Tue Jun 26 16:50:12 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Jul 28 14:18:25 2018 (-0500)
+# Last-Updated: Sat Aug  4 10:31:38 2018 (-0500)
 #           By: yulu
-#     Update #: 285
+#     Update #: 287
 # 
 
 
@@ -194,7 +194,7 @@ class FramePeak(pandas.DataFrame):
         
         def col_sigma(series):
             if gauss_fit:
-                return series.gausFit()[0][2]
+                return Gaussian.gausFit(x = series.index, y = series.values, offset = False)[0][2]
             else:
                 peak_values = max(series)
                 peak_idx = np.argmax(series.values)
@@ -227,7 +227,7 @@ class FramePeak(pandas.DataFrame):
         def col_area(series):
             if gauss_fit:
                 for col in series.columns:
-                    popt, pcov = series[col].gausFit()
+                    popt, pcov = Gaussian.gausFit(x = series.index, y = series[col].values)
                     area = quad(lambda x:Gaussian.gaus(x, *popt), min(series[col].index), max(series[col].index))[0]
                            
             else:
