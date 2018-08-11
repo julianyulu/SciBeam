@@ -18,7 +18,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-
+import warnings
 class Gaussian:
     
     @staticmethod
@@ -58,9 +58,19 @@ class Gaussian:
         halfWidth = x[idxMax + np.argmin(abs(y[idxMax:] - a0 / 2))] - x[idxMax]
         
         if offset:
-            popt, pcov = curve_fit(Gaussian.gaus, x, y, p0 = [a0, x0, halfWidth, y0])
+            try:
+                popt, pcov = curve_fit(Gaussian.gaus, x, y, p0 = [a0, x0, halfWidth, y0])
+            except RuntimeError:
+                warnings.warn("curve_fit optimal parameters not found, set as nan")
+                popt = np.array([float('NaN')] * 4)
+                pcov = np.ones(4, 4) * float('NaN')
         else:
-            popt, pcov = curve_fit(Gaussian.gaus, x, y, p0 = [a0, x0, halfWidth])
+            try:
+                popt, pcov = curve_fit(Gaussian.gaus, x, y, p0 = [a0, x0, halfWidth])
+            except RuntimeError:
+                warnings.warn("curve_fit optimal parameters not found, set as nan")
+                popt = np.array([float('NaN')] * 3)
+                pcov = np.ones(3, 3) * float('NaN')
 
         if plot:
             plt.plot(x, y, 'o', label = 'raw data')
