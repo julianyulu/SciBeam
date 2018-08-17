@@ -111,7 +111,7 @@ class PlotTOFFrame:
     def _constructor(cls, data):
         return cls(data)
     
-    def image(self, sideplots = True, add_contour = False, **kwargs):
+    def image(self, sideplots = True, contour = False, **kwargs):
         """
         image plot of tof data measured multiplot positions
         """
@@ -173,7 +173,7 @@ class PlotTOFFrame:
             cbar = plt.colorbar(im)
             #cbar.ax.set_ylabel('Signal')
             
-        if add_contour:
+        if contour:
             if sideplots:
                 self.contour(colors = 'w', ax = axImg, title = '', xlabel = '', ylabel = '')
             else:
@@ -181,24 +181,37 @@ class PlotTOFFrame:
                
         
     def contour(self, n_contours = 5, n_sigma = 2, xlabel = 'time', ylabel = 'value', title = 'contour plot', label = None,
-           ax = None, **kwargs):
+           ax = None, image = False, **kwargs):
         """
         contour plots for 2D self.data
 
         """
         popt = self.data.peak.height().gausFit()[0]
         n_sigma_levels = Gaussian.gaus(popt[1] + np.linspace(n_sigma, 0.2 ,  n_contours)* popt[2], *popt)
+        
         if ax:
             ax.contour(self.data.index, self.data.columns, self.data.T, n_sigma_levels, **kwargs)
             ax.set_title(title)
             ax.set_xlabel(xlabel)
             ax.set_ylabel(ylabel)
+            if image:
+                ax.imshow(np.flipud(self.data.values.T), 
+                          aspect = 'auto',
+                          extent=[self.data.index[0], self.data.index[-1], self.data.columns[0], self.data.columns[-1]],
+                         )
+                
+            
             
         else:
             plt.contour(self.data.index, self.data.columns, self.data.T, n_sigma_levels, **kwargs)
             plt.title(title)
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
+            if image:
+                plt.imshow(np.flipud(self.data.values.T), 
+                          aspect = 'auto',
+                          extent=[self.data.index[0], self.data.index[-1], self.data.columns[0], self.data.columns[-1]],
+                         )
    
     def contourf(self, n_contours = 5, n_sigma = 2, xlabel = 'time', ylabel = 'value', title = 'contour plot', label = None,
            ax = None, **kwargs):
