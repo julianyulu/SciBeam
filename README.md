@@ -7,6 +7,7 @@ A scientific data analyzing tool  for time series beam measuremnt / experiment.
 SciBeam is originally designed for experimental physics data analysis. The library has been tested on the daily lab data analysis and is under active development in terms of bredth and deepth of scientific computation.  
 
 # Installation  
+
 -----  
 ## Dependencies  
 SciBeam requires:  
@@ -29,8 +30,8 @@ git clone https://github.com/SuperYuLu/SciBeam`
 
 Change to the package directory:  
 
-```
-cd scibeam`  
+```bash
+cd scibeam  
 ```
 
 Install the package:  

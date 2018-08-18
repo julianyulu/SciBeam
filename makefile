@@ -46,6 +46,10 @@ status:
 test:
 	python setup.py test
 
+
+doc:
+	pandoc --from=markdown  --to=rst --output=README.rst README.md
+
 coverage:
 	coverage rum setup.py test
 	coverage report -m 

@@ -9,19 +9,19 @@
 # 
 # Created: Sat Jul 21 10:46:04 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Aug 18 16:01:04 2018 (-0500)
+# Last-Updated: Sat Aug 18 16:18:42 2018 (-0500)
 #           By: yulu
-#     Update #: 45
+#     Update #: 48
 # 
 
 from setuptools import setup
 
-with open("README.md") as f:
+with open("README.rst") as f:
     README = f.read()
 
 setup(
     name = 'scibeam',
-    version = '0.1.1dev1',
+    version = '0.1.1dev2',
     author = 'Yu Lu',
     author_email = 'yulu@utexas.edu',
     url = 'https://github.com/SuperYuLu/SciBeam',
@@ -29,7 +29,7 @@ setup(
     license = 'LICENSE.txt',
     description = 'A scientific time series analyzing tool on beam measurement',
     long_description = README,
-    long_description_content_type='text/markdown',
+    #long_description_content_type='text/markdown',
     install_requires = ['numpy',
                         'pandas',
                         'scipy',
