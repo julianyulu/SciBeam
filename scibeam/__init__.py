@@ -10,10 +10,12 @@
 # 
 # Created: Sun Mar 25 16:04:08 2018 (-0500)
 # Version: 
-# Last-Updated: Tue Jul 24 23:49:15 2018 (-0500)
+# Last-Updated: Sat Aug 18 14:26:54 2018 (-0500)
 #           By: yulu
-#     Update #: 49
+#     Update #: 50
 # 
+
+name = "scibeam"
 
 
 from scibeam.core.tofframe import (

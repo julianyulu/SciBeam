@@ -1,4 +1,7 @@
-# SciBeam [![Build Status](https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master)](https://travis-ci.org/SuperYuLu/SciBeam)  
+# SciBeam [![Build Status](https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master)](https://travis-ci.org/SuperYuLu/SciBeam) [![codecov](https://codecov.io/gh/SuperYuLu/SciBeam/branch/master/graph/badge.svg)](https://codecov.io/gh/SuperYuLu/SciBeam)  
+
+
+  
 A scientific data analyzing tool  for time series beam measuremnt / experiment.  
 
 **SciBeam** is an open source library for analyzing time series beam measurement data. Using pandas dataframe and series as its base classing, additional time series related features are added for quick analysis, such as file name matching, gaussian fitting, peak analysis, noise filtering, plotting, etc. The flexible method chain enables fast data analysis on any time series data.   
