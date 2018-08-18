@@ -10,6 +10,7 @@ branches:
 install:
   - pip install -r requirements.txt
   - pip install coverage
+  - pip install codecov
   
 before_script:
   - uname -a
@@ -20,7 +21,9 @@ before_script:
 
   
 script:
-  - coverage run python setup.py test
+  - coverage run setup.py test
 
 after_success:
   - coverage report
+
+codecov
