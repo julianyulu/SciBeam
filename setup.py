@@ -9,31 +9,32 @@
 # 
 # Created: Sat Jul 21 10:46:04 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Aug 18 15:07:18 2018 (-0500)
+# Last-Updated: Sat Aug 18 16:01:04 2018 (-0500)
 #           By: yulu
-#     Update #: 39
+#     Update #: 45
 # 
 
 from setuptools import setup
 
+with open("README.md") as f:
+    README = f.read()
 
 setup(
     name = 'scibeam',
-    version = '0.1.1',
+    version = '0.1.1dev1',
     author = 'Yu Lu',
     author_email = 'yulu@utexas.edu',
     url = 'https://github.com/SuperYuLu/SciBeam',
     packages = ['scibeam', 'scibeam.tests'],
     license = 'LICENSE.txt',
     description = 'A scientific time series analyzing tool on beam measurement',
-    long_description = open('README.md').read(),
+    long_description = README,
     long_description_content_type='text/markdown',
     install_requires = ['numpy',
                         'pandas',
                         'scipy',
                         'matplotlib'],
     
-                        
     test_suite = 'nose.collector',
     #test_suite = 'tests',
     tests_require = ['nose'],
@@ -44,7 +45,7 @@ setup(
         'Topic :: Scientific/Engineering :: Physics',
         'License :: OSI Approved :: MIT License',
         ],
-    keywords = 'physics time series data analyzing tool',
+    keywords = 'physics time-series data-analysis pandas',
         package_data = {
         'example': ['examples/data/time_series_1D/single_time_series.lvm']
         }

@@ -1,35 +1,3 @@
-#FILES :=                              
-
-# ifeq ($(shell uname), Darwin)          # Apple
-#     PYTHON   := python3.6
-#     PIP      := pip10.0
-#     PYLINT   := pylint
-#     COVERAGE := coverage-3.5
-#     PYDOC    := pydoc3.5
-#     AUTOPEP8 := autopep8
-# else ifeq ($(CI), true)                # Travis CI
-#     PYTHON   := python3.6
-#     PIP      := pip10.0
-#     PYLINT   := pylint
-#     COVERAGE := coverage-3.5
-#     PYDOC    := pydoc3
-#     AUTOPEP8 := autopep8
-# else ifeq ($(shell uname -p), unknown) # Docker
-#     PYTHON   := python                # on my machine it's python
-#     PIP      := pip10.0
-#     PYLINT   := pylint
-#     COVERAGE := coverage-3.5
-#     PYDOC    := python -m pydoc        # on my machine it's pydoc 
-#     AUTOPEP8 := autopep8
-# else                                   # UTCS
-#     PYTHON   := python3.6
-#     PIP      := pip10
-#     PYLINT   := pylint3
-#     COVERAGE := coverage-3.5
-#     PYDOC    := pydoc3.5
-#     AUTOPEP8 := autopep8
-# endif
-
 PYTHON	:= python3.6
 PIP	:= PIP10.0
 
@@ -38,6 +6,11 @@ PIP	:= PIP10.0
 ScieBeam:
 	git clone https://github.com/SuperYuLu/scibeam
 
+##
+# To be implemented
+##
+
+#FILES :=
 # check:
 # 	@not_found=0;                                 \
 #     for i in $(FILES);                            \
@@ -59,7 +32,6 @@ ScieBeam:
 
 clean:
 	rm *~
-#	rm -rf __pycache__
 
 config:
 	git config -l
@@ -71,7 +43,19 @@ status:
 	git remote -v
 	git status
 
-test:	
-	python unittests/test_base.py
-	python unittests/test_core_common.py
-	python unittests/test_core_tof.py
+test:
+	python setup.py test
+
+coverage:
+	coverage rum setup.py test
+	coverage report -m 
+build:
+	python setup.py sdist bdist_wheel
+
+rbuild:
+	rm -r build dist
+
+test-pypi:
+	twine upload --repository-url https://test.pypi.org/legacy/ ./dist/*
+
+
