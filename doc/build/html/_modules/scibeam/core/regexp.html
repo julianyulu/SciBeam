@@ -1,0 +1,244 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>scibeam.core.regexp &#8212; scibeam 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for scibeam.core.regexp</h1><div class="highlight"><pre>
+<span></span><span class="c1"># regexp.py --- </span>
+<span class="c1"># </span>
+<span class="c1"># Filename: regexp.py</span>
+<span class="c1"># Description: </span>
+<span class="c1">#            Python regex related functions </span>
+<span class="c1"># Author:    Yu Lu</span>
+<span class="c1"># Email:     yulu@utexas.edu</span>
+<span class="c1"># Github:    https://github.com/SuperYuLu </span>
+<span class="c1"># </span>
+<span class="c1"># Created: Sat May  5 16:24:14 2018 (-0500)</span>
+<span class="c1"># Version: </span>
+<span class="c1"># Last-Updated: Sat Jul 28 15:01:30 2018 (-0500)</span>
+<span class="c1">#           By: yulu</span>
+<span class="c1">#     Update #: 216</span>
+<span class="c1"># </span>
+
+<span class="kn">from</span> <span class="nn">scibeam.core.common</span> <span class="k">import</span> <span class="n">winPathHandler</span>
+<span class="kn">from</span> <span class="nn">scibeam.util.dictfunc</span> <span class="k">import</span> <span class="n">buildDict</span>
+<span class="kn">from</span> <span class="nn">scibeam.core</span> <span class="k">import</span> <span class="n">base</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">re</span>
+
+<div class="viewcode-block" id="RegMatch"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.regexp.RegMatch">[docs]</a><span class="k">class</span> <span class="nc">RegMatch</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regStr</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regex</span> <span class="o">=</span> <span class="n">regStr</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">regex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_regex</span>
+
+    <span class="nd">@regex</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">regex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regStr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">regStr</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_regex</span> <span class="o">=</span>  <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">regStr</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">regStr</span><span class="p">)</span>
+
+    
+<div class="viewcode-block" id="RegMatch.single_regex_match"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.regexp.RegMatch.single_regex_match">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">single_regex_match</span><span class="p">(</span><span class="n">regStr</span><span class="p">,</span> <span class="n">strings</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">asNumber</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Match python regex pattern in a given string or list of strings</span>
+<span class="sd">        Based on python re package and uses group to locate the value </span>
+
+<span class="sd">        returns pairs of (value, string) matched pairs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">strings</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span> <span class="c1"># for list of strings to be matched </span>
+            <span class="n">matched</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">oneStr</span> <span class="ow">in</span> <span class="n">strings</span><span class="p">:</span>
+                <span class="n">mch</span> <span class="o">=</span> <span class="n">regStr</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">oneStr</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">regStr</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regStr</span><span class="p">,</span> <span class="n">oneStr</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">mch</span><span class="p">:</span>
+                    <span class="n">matched</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mch</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                
+            <span class="c1"># check if match is empty </span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">matched</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">value_strings</span> <span class="o">=</span> <span class="p">[</span><span class="n">mch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span> <span class="k">for</span> <span class="n">mch</span> <span class="ow">in</span> <span class="n">matched</span><span class="p">]</span>
+                <span class="n">match_strings</span> <span class="o">=</span> <span class="p">[</span><span class="n">mch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">mch</span> <span class="ow">in</span> <span class="n">matched</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">asNumber</span><span class="p">:</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">value_string</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">value_string</span><span class="p">)</span> <span class="k">for</span> <span class="n">value_string</span> <span class="ow">in</span> <span class="n">value_strings</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="n">value_strings</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="s2">&quot;No match found ! regex *</span><span class="si">{}</span><span class="s2">* doesn&#39;t match string *</span><span class="si">{}</span><span class="s2">*&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regStr</span><span class="p">,</span> <span class="n">strings</span><span class="p">))</span>
+            
+            <span class="n">resDict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">match_strings</span><span class="p">):</span>
+                <span class="n">resDict</span> <span class="o">=</span> <span class="n">buildDict</span><span class="p">(</span><span class="n">resDict</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+                
+            <span class="k">return</span> <span class="n">resDict</span>
+
+        
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># for a single string to be matched</span>
+            <span class="n">mch</span> <span class="o">=</span> <span class="n">regStr</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">strings</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">regStr</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regStr</span><span class="p">,</span> <span class="n">strings</span><span class="p">)</span>
+            <span class="c1"># check if match is found </span>
+            <span class="k">if</span> <span class="n">mch</span><span class="p">:</span>
+                <span class="n">value_string</span> <span class="o">=</span> <span class="n">mch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+                <span class="n">match_string</span> <span class="o">=</span> <span class="n">mch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="s2">&quot;No match found ! regex *</span><span class="si">{}</span><span class="s2">* doesn&#39;t match string *</span><span class="si">{}</span><span class="s2">*&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regStr</span><span class="p">,</span> <span class="n">strings</span><span class="p">))</span>
+            <span class="c1"># Check convert to number</span>
+            <span class="k">if</span> <span class="n">asNumber</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value_string</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">value_string</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value_string</span>
+                
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">value</span><span class="p">,</span> <span class="n">match_string</span><span class="p">)])</span></div>
+
+
+
+<div class="viewcode-block" id="RegMatch.match"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.regexp.RegMatch.match">[docs]</a>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strings</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">asNumber</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Match a single or list of regularizations to a single or list of strings</span>
+<span class="sd">        Return as a dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">matched_dicts</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">single_regex_match</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">strings</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">asNumber</span> <span class="o">=</span> <span class="n">asNumber</span><span class="p">)</span> <span class="k">for</span> <span class="n">regex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">matched_dicts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">single_regex_match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">,</span> <span class="n">strings</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">asNumber</span> <span class="o">=</span> <span class="n">asNumber</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">matched_dicts</span></div>
+
+    
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_trace_dict_value</span><span class="p">(</span><span class="n">dictIn</span><span class="p">,</span> <span class="n">trace_list</span><span class="p">):</span>
+        <span class="n">dictOut</span> <span class="o">=</span> <span class="n">dictIn</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">trace_list</span><span class="p">:</span>
+            <span class="n">dictOut</span> <span class="o">=</span> <span class="n">dictOut</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">dictOut</span>
+        
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_trace_dict_key</span><span class="p">(</span><span class="n">dictIn</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trace the key path of a nested dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dictIn</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dictIn</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+</span> <span class="n">RegMatch</span><span class="o">.</span><span class="n">_trace_dict_key0</span><span class="p">(</span><span class="n">dictIn</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="n">trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>     
+        <span class="k">return</span> <span class="n">trace</span>
+                    
+
+<div class="viewcode-block" id="RegMatch.matchFolder"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.regexp.RegMatch.matchFolder">[docs]</a>    <span class="k">def</span> <span class="nf">matchFolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_path</span><span class="p">,</span> <span class="n">asNumber</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Match files in the folder content with self.regex</span>
+<span class="sd">        if two regex are in the self.regex, then the match is done</span>
+<span class="sd">        in a recursive way, that first regex get matched, and the 2nd</span>
+<span class="sd">        regex is applied to the match result from the first one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">path</span> <span class="o">=</span> <span class="n">winPathHandler</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span>
+        <span class="n">searchList</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">resDict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">regex</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">resDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">single_regex_match</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">searchList</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">group</span><span class="p">,</span> <span class="n">asNumber</span> <span class="o">=</span> <span class="n">asNumber</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">resDict</span><span class="p">:</span>
+                        <span class="n">resDict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">single_regex_match</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">resDict</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">group</span> <span class="o">=</span> <span class="n">group</span><span class="p">,</span> <span class="n">asNumber</span> <span class="o">=</span> <span class="n">asNumber</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">resDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">single_regex_match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="p">,</span> <span class="n">searchList</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="n">group</span><span class="p">,</span> <span class="n">asNumber</span> <span class="o">=</span> <span class="n">asNumber</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">resDict</span></div></div>
+
+    
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">scibeam</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Yu Lu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

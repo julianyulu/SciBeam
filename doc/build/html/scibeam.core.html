@@ -1,0 +1,826 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>scibeam.core package &#8212; scibeam 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="scibeam-core-package">
+<h1>scibeam.core package<a class="headerlink" href="#scibeam-core-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-scibeam.core.base">
+<span id="scibeam-core-base-module"></span><h2>scibeam.core.base module<a class="headerlink" href="#module-scibeam.core.base" title="Permalink to this headline">¶</a></h2>
+<p>Base functions for mixin classes and module width constants</p>
+<dl class="attribute">
+<dt id="scibeam.core.base._mixin_class">
+<code class="descclassname">scibeam.core.base.</code><code class="descname">_mixin_class</code><a class="headerlink" href="#scibeam.core.base._mixin_class" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list(str)</em> – Specify allowed mixin class for method chain.
+The two basic data structures are TOFSeries and TOFFrame,
+current.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">TODO: Move Defaults to a seperate config.py file for easy
+configuration</p>
+</div>
+<dl class="class">
+<dt id="scibeam.core.base.Defaults">
+<em class="property">class </em><code class="descclassname">scibeam.core.base.</code><code class="descname">Defaults</code><a class="reference internal" href="_modules/scibeam/core/base.html#Defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.base.Defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Module level default values</p>
+<p>Settings for global default values</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">TODO: realize these using a seperate config.py file</p>
+</div>
+<dl class="attribute">
+<dt id="scibeam.core.base.Defaults.data_file_extenstion">
+<code class="descname">data_file_extenstion</code><em class="property"> = '.lvm'</em><a class="headerlink" href="#scibeam.core.base.Defaults.data_file_extenstion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scibeam.core.base.Defaults.data_file_num_column">
+<code class="descname">data_file_num_column</code><em class="property"> = 2</em><a class="headerlink" href="#scibeam.core.base.Defaults.data_file_num_column" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scibeam.core.base.Defaults.file_regex">
+<code class="descname">file_regex</code><em class="property"> = '.*_(\\d+\\.?\\d+).*.lvm$'</em><a class="headerlink" href="#scibeam.core.base.Defaults.file_regex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scibeam.core.base.Defaults.subfolder_regex">
+<code class="descname">subfolder_regex</code><em class="property"> = '.*(\\d+\\.?\\d+).*'</em><a class="headerlink" href="#scibeam.core.base.Defaults.subfolder_regex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.common">
+<span id="scibeam-core-common-module"></span><h2>scibeam.core.common module<a class="headerlink" href="#module-scibeam.core.common" title="Permalink to this headline">¶</a></h2>
+<p>Common functions used across classes and modules</p>
+<dl class="function">
+<dt id="scibeam.core.common.winPathHandler">
+<code class="descclassname">scibeam.core.common.</code><code class="descname">winPathHandler</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/common.html#winPathHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.common.winPathHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert windows path variables to python/linux compatible</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="scibeam.core.common.loadFile">
+<code class="descclassname">scibeam.core.common.</code><code class="descname">loadFile</code><span class="sig-paren">(</span><em>filename</em>, <em>cols=2</em>, <em>usecols=None</em>, <em>skiprows=0</em>, <em>kind='txt'</em>, <em>sep='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/common.html#loadFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.common.loadFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.descriptor">
+<span id="scibeam-core-descriptor-module"></span><h2>scibeam.core.descriptor module<a class="headerlink" href="#module-scibeam.core.descriptor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scibeam.core.descriptor.DescriptorMixin">
+<em class="property">class </em><code class="descclassname">scibeam.core.descriptor.</code><code class="descname">DescriptorMixin</code><span class="sig-paren">(</span><em>descriptor_cls</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/descriptor.html#DescriptorMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.descriptor.DescriptorMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Read-only descriptor for class cross reference</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.formatter">
+<span id="scibeam-core-formatter-module"></span><h2>scibeam.core.formatter module<a class="headerlink" href="#module-scibeam.core.formatter" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="scibeam.core.formatter.format_dict">
+<code class="descclassname">scibeam.core.formatter.</code><code class="descname">format_dict</code><span class="sig-paren">(</span><em>rawdict</em>, <em>alphabetical=True</em>, <em>digits=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/formatter.html#format_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.formatter.format_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format dictionarys to strings as seperate rows for printing, annotation on plot, etc</p>
+<p>[Input]
+rawdict: (dict) raw input dictionary
+alphabetialy: (bool) if true (default) arrange dict key alphabetical
+digits: (int) number of digits to keep if the value the key is numerical</p>
+<p>[Output]
+(str) formated string in seperate rows</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.gaussian">
+<span id="scibeam-core-gaussian-module"></span><h2>scibeam.core.gaussian module<a class="headerlink" href="#module-scibeam.core.gaussian" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scibeam.core.gaussian.Gaussian">
+<em class="property">class </em><code class="descclassname">scibeam.core.gaussian.</code><code class="descname">Gaussian</code><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="scibeam.core.gaussian.Gaussian.doubleGaus">
+<em class="property">static </em><code class="descname">doubleGaus</code><span class="sig-paren">(</span><em>x</em>, <em>a1</em>, <em>x1</em>, <em>sigma1</em>, <em>a2</em>, <em>x2</em>, <em>sigma2</em>, <em>y0=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.doubleGaus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.doubleGaus" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Function: doubleGaus([float]x, [float]a1, [float]x1, [float]sigma1, [float]a2, [float]x2, [float]sigma2, [flaot]y0=0)</li>
+<li><dl class="first docutils">
+<dt>Description:</dt>
+<dd>Double gaussian function with offset
+y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Input:</dt>
+<dd><ul class="first last">
+<li>x: [float] input variable for the double gaussian function</li>
+<li>a1, a2: [float] Amplitude of the two gaussian peaks</li>
+<li>x1, x2: [float] Peak center for the two gaussian peaks</li>
+<li>sigma1, sigma2: [float] sigma vlaues for the two gaussian peaks</li>
+<li>y0: [float] y offset, optional, default y0 = 0</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>output</dt>
+<dd>Calculated double gaussian function</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="scibeam.core.gaussian.Gaussian.doubleGausFit">
+<em class="property">static </em><code class="descname">doubleGausFit</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>guessPara</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.doubleGausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.doubleGausFit" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Function: [array]popt, [array]pcov = doubleGausFit([array]x, [array]y, [array]guessPara)</li>
+<li><dl class="first docutils">
+<dt>Description:</dt>
+<dd>This function to fit the data with a double gaussian function. x, y are the corresponding x, y value of the initial data and initial guess parameters.
+This function is using least square method to fit the double gaussian function and get the fitting parameters.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Input:</dt>
+<dd><ul class="first last">
+<li>x: [array] input data x axis value</li>
+<li>y: [array] input data y axis value</li>
+<li>guessPara: [array/list] initial guess parameter list[a1, x1, sigma1, a2, x2, sigma2, y0]</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Output:</dt>
+<dd><ul class="first last">
+<li>popt: [array] fitted parameter array [a1, x1, simga1, a2, x2, simga1]</li>
+<li>pcov: [array] corresponding converiance of popt</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="scibeam.core.gaussian.Gaussian.gaus">
+<em class="property">static </em><code class="descname">gaus</code><span class="sig-paren">(</span><em>x</em>, <em>A</em>, <em>x0</em>, <em>sigma</em>, <em>offset=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.gaus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.gaus" title="Permalink to this definition">¶</a></dt>
+<dd><p>gaussian function with or without offset</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="scibeam.core.gaussian.Gaussian.gausFit">
+<em class="property">static </em><code class="descname">gausFit</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>offset=0</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.gausFit" title="Permalink to this definition">¶</a></dt>
+<dd><ul>
+<li><p class="first">Functions: [float, array]popt, [float, array]pcov = gausFit([2D array]data)</p>
+</li>
+<li><dl class="first docutils">
+<dt>Description:</dt>
+<dd><blockquote class="first">
+<div><p>This function is to fit data with 1D gausian equation:</p>
+</div></blockquote>
+<p class="last">y = a * exp((x - x0)^2 / (2 * sigma)) + y0
+it’s calling funciton gaus and curve_fit (from scipy.optimize lib) to fit the
+data. Sometimes (merely) it cannot find the optimized prarameters to fit the
+data, that could be due to the range of peak giving in variable ‘data’. It returns
+optimized parameters and their error.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Input:</dt>
+<dd><ul class="first last simple">
+<li>x, y: 2D array, column gives x, while column gives y</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Output:</dt>
+<dd><ul class="first last simple">
+<li>popt: [float,array] array of optmized data [a, x0, sigma, y0]</li>
+<li>pcov: [float, array] covariant of the corresponding optmized data</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scibeam.core.gaussian.Gaussian2D">
+<em class="property">class </em><code class="descclassname">scibeam.core.gaussian.</code><code class="descname">Gaussian2D</code><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>2 dimentional gaussian funtion
+TO BE IMPLEMENTED</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.numerical">
+<span id="scibeam-core-numerical-module"></span><h2>scibeam.core.numerical module<a class="headerlink" href="#module-scibeam.core.numerical" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="scibeam.core.numerical.bandPassFilter">
+<code class="descclassname">scibeam.core.numerical.</code><code class="descname">bandPassFilter</code><span class="sig-paren">(</span><em>data</em>, <em>tStep=None</em>, <em>lowFreq=0</em>, <em>highFreq=10000.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/numerical.html#bandPassFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.numerical.bandPassFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>band pass filter based on fourier transform</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="scibeam.core.numerical.integrate">
+<code class="descclassname">scibeam.core.numerical.</code><code class="descname">integrate</code><span class="sig-paren">(</span><em>x=None</em>, <em>y=None</em>, <em>kind='numerical'</em>, <em>func=None</em>, <em>args=()</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/numerical.html#integrate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.numerical.integrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>numerical / function integration using numpy trapz / scipy quad</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.peak">
+<span id="scibeam-core-peak-module"></span><h2>scibeam.core.peak module<a class="headerlink" href="#module-scibeam.core.peak" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scibeam.core.peak.SeriesPeak">
+<em class="property">class </em><code class="descclassname">scibeam.core.peak.</code><code class="descname">SeriesPeak</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code></p>
+<p>Peak analysis on 1D labeled / unlabeled data</p>
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.area">
+<code class="descname">area</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.area" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.autocrop">
+<code class="descname">autocrop</code><span class="sig-paren">(</span><em>n_sigmas=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.autocrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.autocrop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.fwhm">
+<code class="descname">fwhm</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.fwhm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.fwhm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.gausFit">
+<code class="descname">gausFit</code><span class="sig-paren">(</span><em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.gausFit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.height">
+<code class="descname">height</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.idx">
+<code class="descname">idx</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.idx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.nidx">
+<code class="descname">nidx</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.nidx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.nidx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.region">
+<code class="descname">region</code><span class="sig-paren">(</span><em>n_sigmas=4</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Locate the region where there exists a peak
+return the bound index of the region</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.sigma">
+<code class="descname">sigma</code><span class="sig-paren">(</span><em>n_sigmas=1</em>, <em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.sigma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.sigma" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scibeam.core.peak.FramePeak">
+<em class="property">class </em><code class="descclassname">scibeam.core.peak.</code><code class="descname">FramePeak</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#FramePeak"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.FramePeak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
+<p>Peak analysis on 1D labeled / unlabeled data</p>
+<dl class="method">
+<dt id="scibeam.core.peak.FramePeak.area">
+<code class="descname">area</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#FramePeak.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.FramePeak.area" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.FramePeak.fwhm">
+<code class="descname">fwhm</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#FramePeak.fwhm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.FramePeak.fwhm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.FramePeak.height">
+<code class="descname">height</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#FramePeak.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.FramePeak.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.FramePeak.idx">
+<code class="descname">idx</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#FramePeak.idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.FramePeak.idx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.FramePeak.nidx">
+<code class="descname">nidx</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#FramePeak.nidx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.FramePeak.nidx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.FramePeak.region">
+<code class="descname">region</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#FramePeak.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.FramePeak.region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.FramePeak.sigma">
+<code class="descname">sigma</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#FramePeak.sigma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.FramePeak.sigma" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.plot">
+<span id="scibeam-core-plot-module"></span><h2>scibeam.core.plot module<a class="headerlink" href="#module-scibeam.core.plot" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scibeam.core.plot.PlotTOFFrame">
+<em class="property">class </em><code class="descclassname">scibeam.core.plot.</code><code class="descname">PlotTOFFrame</code><span class="sig-paren">(</span><em>dataframe</em>, <em>lowerBound=None</em>, <em>upperBound=None</em>, <em>index_label=None</em>, <em>column_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/plot.html#PlotTOFFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.plot.PlotTOFFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Plot dataframe with time as index and another numerical variable as
+column labels</p>
+<dl class="method">
+<dt id="scibeam.core.plot.PlotTOFFrame.contour">
+<code class="descname">contour</code><span class="sig-paren">(</span><em>n_contours=5</em>, <em>n_sigma=2</em>, <em>xlabel='time'</em>, <em>ylabel='value'</em>, <em>title='contour plot'</em>, <em>label=None</em>, <em>ax=None</em>, <em>image=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/plot.html#PlotTOFFrame.contour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.plot.PlotTOFFrame.contour" title="Permalink to this definition">¶</a></dt>
+<dd><p>contour plots for 2D self.data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.plot.PlotTOFFrame.contourf">
+<code class="descname">contourf</code><span class="sig-paren">(</span><em>n_contours=5</em>, <em>n_sigma=2</em>, <em>xlabel='time'</em>, <em>ylabel='value'</em>, <em>title='contour plot'</em>, <em>label=None</em>, <em>ax=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/plot.html#PlotTOFFrame.contourf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.plot.PlotTOFFrame.contourf" title="Permalink to this definition">¶</a></dt>
+<dd><p>contourf plots for 2D self.data</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scibeam.core.plot.PlotTOFFrame.data">
+<code class="descname">data</code><a class="headerlink" href="#scibeam.core.plot.PlotTOFFrame.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.plot.PlotTOFFrame.image">
+<code class="descname">image</code><span class="sig-paren">(</span><em>sideplots=True</em>, <em>contour=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/plot.html#PlotTOFFrame.image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.plot.PlotTOFFrame.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>image plot of tof data measured multiplot positions</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scibeam.core.plot.PlotTOFSeries">
+<em class="property">class </em><code class="descclassname">scibeam.core.plot.</code><code class="descname">PlotTOFSeries</code><span class="sig-paren">(</span><em>dataseries</em>, <em>lowerBound=None</em>, <em>upperBound=None</em>, <em>index_label=None</em>, <em>column_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/plot.html#PlotTOFSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.plot.PlotTOFSeries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Plot dataframe with time as index and another numerical variable as
+column labels</p>
+<dl class="attribute">
+<dt id="scibeam.core.plot.PlotTOFSeries.data">
+<code class="descname">data</code><a class="headerlink" href="#scibeam.core.plot.PlotTOFSeries.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.plot.PlotTOFSeries.plot">
+<code class="descname">plot</code><span class="sig-paren">(</span><em>ax=None</em>, <em>gauss_fit=True</em>, <em>gauss_fit_offset=0</em>, <em>print_fit_params=True</em>, <em>title=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>label=None</em>, <em>params_digits=3</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/plot.html#PlotTOFSeries.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.plot.PlotTOFSeries.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.regexp">
+<span id="scibeam-core-regexp-module"></span><h2>scibeam.core.regexp module<a class="headerlink" href="#module-scibeam.core.regexp" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scibeam.core.regexp.RegMatch">
+<em class="property">class </em><code class="descclassname">scibeam.core.regexp.</code><code class="descname">RegMatch</code><span class="sig-paren">(</span><em>regStr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/regexp.html#RegMatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.regexp.RegMatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="scibeam.core.regexp.RegMatch.match">
+<code class="descname">match</code><span class="sig-paren">(</span><em>strings</em>, <em>group=1</em>, <em>asNumber=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/regexp.html#RegMatch.match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.regexp.RegMatch.match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match a single or list of regularizations to a single or list of strings
+Return as a dictionary</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.regexp.RegMatch.matchFolder">
+<code class="descname">matchFolder</code><span class="sig-paren">(</span><em>folder_path</em>, <em>asNumber=True</em>, <em>group=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/regexp.html#RegMatch.matchFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.regexp.RegMatch.matchFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match files in the folder content with self.regex
+if two regex are in the self.regex, then the match is done
+in a recursive way, that first regex get matched, and the 2nd
+regex is applied to the match result from the first one.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scibeam.core.regexp.RegMatch.regex">
+<code class="descname">regex</code><a class="headerlink" href="#scibeam.core.regexp.RegMatch.regex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="scibeam.core.regexp.RegMatch.single_regex_match">
+<em class="property">static </em><code class="descname">single_regex_match</code><span class="sig-paren">(</span><em>regStr</em>, <em>strings</em>, <em>group=1</em>, <em>asNumber=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/regexp.html#RegMatch.single_regex_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.regexp.RegMatch.single_regex_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match python regex pattern in a given string or list of strings
+Based on python re package and uses group to locate the value</p>
+<p>returns pairs of (value, string) matched pairs</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.tofframe">
+<span id="scibeam-core-tofframe-module"></span><h2>scibeam.core.tofframe module<a class="headerlink" href="#module-scibeam.core.tofframe" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scibeam.core.tofframe.TOFFrame">
+<em class="property">class </em><code class="descclassname">scibeam.core.tofframe.</code><code class="descname">TOFFrame</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
+<p>Time-Of-Flight (TOF) DataFrame</p>
+<p>Subclassing pandas.DataFrame with extral methods / properties for time-series analysis</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>numpy ndarray</em><em> (</em><em>structured</em><em> or </em><em>homogeneous</em><em>)</em><em>, </em><em>dict</em><em>, or </em><em>DataFrame</em>) – Dict can contain Series, arrays, constants, or list-like objectsSingle time-of-flight data analysis
+Value of measurement, e.g. voltage, current, arbiturary unit signel, shape(len(labels), len(times))</li>
+<li><strong>index</strong> (<em>numpy ndarray</em><em>, </em><em>iterables</em>) – Time axis for time-of-flight</li>
+<li><strong>columns</strong> (<em>str</em><em>, </em><em>int</em><em>, or </em><em>float</em>) – label of different tof measurement, e.g. pressure, temperature, etc</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="staticmethod">
+<dt id="scibeam.core.tofframe.TOFFrame.find_time_idx">
+<em class="property">static </em><code class="descname">find_time_idx</code><span class="sig-paren">(</span><em>time</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.find_time_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.find_time_idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator of time index for a given time value
+args: can be 1,2,3, or [1,2] or [1,2,3]</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="scibeam.core.tofframe.TOFFrame.from_file">
+<em class="property">classmethod </em><code class="descname">from_file</code><span class="sig-paren">(</span><em>filePath</em>, <em>lowerBound=None</em>, <em>upperBound=None</em>, <em>removeOffset=True</em>, <em>offset_margin_how='outer'</em>, <em>offset_margin_size=20</em>, <em>skiprows=0</em>, <em>sep='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate TOFFrame object from a single given file</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="scibeam.core.tofframe.TOFFrame.from_matchResult">
+<em class="property">classmethod </em><code class="descname">from_matchResult</code><span class="sig-paren">(</span><em>path</em>, <em>matchDict</em>, <em>lowerBound=None</em>, <em>upperBound=None</em>, <em>removeOffset=True</em>, <em>offset_margin_how='outer'</em>, <em>offset_margin_size=20</em>, <em>skiprows=0</em>, <em>sep='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.from_matchResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.from_matchResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creat TOFFrame from a RegMatch resutl dictionary</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="scibeam.core.tofframe.TOFFrame.from_path">
+<em class="property">classmethod </em><code class="descname">from_path</code><span class="sig-paren">(</span><em>path</em>, <em>regStr</em>, <em>lowerBound=None</em>, <em>upperBound=None</em>, <em>removeOffset=True</em>, <em>offset_margin_how='outer'</em>, <em>offset_margin_size=20</em>, <em>skiprows=0</em>, <em>sep='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.from_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.from_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buid TOFFrome instance from given file folder
+Current only works for ‘        ‘ seperated txt and lvm file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofframe.TOFFrame.inch_to_mm">
+<code class="descname">inch_to_mm</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.inch_to_mm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.inch_to_mm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofframe.TOFFrame.microsec_to_sec">
+<code class="descname">microsec_to_sec</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.microsec_to_sec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.microsec_to_sec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofframe.TOFFrame.mm_to_inch">
+<code class="descname">mm_to_inch</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.mm_to_inch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.mm_to_inch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scibeam.core.tofframe.TOFFrame.peak">
+<code class="descname">peak</code><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.peak" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#scibeam.core.peak.FramePeak" title="scibeam.core.peak.FramePeak"><code class="xref py py-class docutils literal notranslate"><span class="pre">scibeam.core.peak.FramePeak</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scibeam.core.tofframe.TOFFrame.plot2d">
+<code class="descname">plot2d</code><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.plot2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#scibeam.core.plot.PlotTOFFrame" title="scibeam.core.plot.PlotTOFFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">scibeam.core.plot.PlotTOFFrame</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofframe.TOFFrame.reduce">
+<code class="descname">reduce</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.reduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.reduce" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="scibeam.core.tofframe.TOFFrame.remove_data_offset">
+<em class="property">static </em><code class="descname">remove_data_offset</code><span class="sig-paren">(</span><em>data</em>, <em>lowerBoundIdx=None</em>, <em>upperBoundIdx=None</em>, <em>how='outer'</em>, <em>margin_size=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.remove_data_offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.remove_data_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove offset in 1D array data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofframe.TOFFrame.sec_to_microsec">
+<code class="descname">sec_to_microsec</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.sec_to_microsec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.sec_to_microsec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofframe.TOFFrame.selectTimeRange">
+<code class="descname">selectTimeRange</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.selectTimeRange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.selectTimeRange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofframe.TOFFrame.selectTimeSlice">
+<code class="descname">selectTimeSlice</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.selectTimeSlice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.selectTimeSlice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofframe.TOFFrame.sum">
+<code class="descname">sum</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#TOFFrame.sum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.TOFFrame.sum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="scibeam.core.tofframe.read_folder">
+<code class="descclassname">scibeam.core.tofframe.</code><code class="descname">read_folder</code><span class="sig-paren">(</span><em>path</em>, <em>regStr</em>, <em>lowerBound=None</em>, <em>upperBound=None</em>, <em>removeOffset=True</em>, <em>offset_margin_how='outer'</em>, <em>offset_margin_size=20</em>, <em>skiprows=0</em>, <em>sep='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#read_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.read_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create TOFFrame class instance by reading in group of files in a folder matched by regex</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<em>str</em>) – folder path, linux style or windows style as “raw string”, e.g. r”C:UserDocumentFolderName”</li>
+<li><strong>lowerBound</strong> (<em>int</em><em> or </em><em>float</em>) – time axis lower boundrary limit for data</li>
+<li><strong>upperBound</strong> (<em>int</em><em> or </em><em>float</em>) – time axis upper boundrary limit for data</li>
+<li><strong>removeOffset</strong> (<em>bool</em>) – if True (default) remove data offset (set floor to 0 in no-signal region)</li>
+<li><strong>offset_margin_how</strong> (<em>{&quot;outer&quot;</em><em>, </em><em>&quot;outer left&quot;</em><em>, </em><em>&quot;out right&quot;</em><em>, </em><em>&quot;inner&quot;</em><em>, </em><em>&quot;inner left&quot;</em><em>, </em><em>&quot;inner right&quot;}</em><em>, </em><em>default &quot;outer&quot;</em>) – <p>Specify the way to handle offset margin, offset floor value is calculated by averaging the
+value in a given range relative to data lower and upper boundrary, with avaliable options:</p>
+<ul>
+<li>”outer” (default):  from both left and right side out of the [lowerBound, upperBound] region</li>
+<li>”outer left”: like “outer” but from only left side</li>
+<li>”outer right”: like “outer” but from only right side</li>
+<li>”inner”: from both left and right side inside of the [lowerBound, upperBound] region</li>
+<li>”inner left”: like “inner” but from only left side</li>
+<li>”inner right”: like “inner” but from only left side</li>
+</ul>
+</li>
+<li><strong>offset_margin_size</strong> (<em>int</em>) – Number of values to use for averaging when calculating offset</li>
+<li><strong>skiprows</strong> (<em>int</em>) – number of rows to skip when read in data</li>
+<li><strong>sep</strong> (<em>str</em><em>, </em><em>defult &quot;  &quot;</em>) – seperator for columns in the data file</li>
+<li><strong>Returns</strong> – </li>
+<li><strong>--------</strong> – </li>
+<li><strong>of class TOFFrame</strong> (<em>Instance</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scibeam.core.tofframe.read_regexp_match">
+<code class="descclassname">scibeam.core.tofframe.</code><code class="descname">read_regexp_match</code><span class="sig-paren">(</span><em>path</em>, <em>matchDict</em>, <em>lowerBound=None</em>, <em>upperBound=None</em>, <em>removeOffset=True</em>, <em>offset_margin_how='outer'</em>, <em>offset_margin_size=20</em>, <em>skiprows=0</em>, <em>sep='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofframe.html#read_regexp_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofframe.read_regexp_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create instance of TOFFrame from regular expression match result dictionary
+using scibeam class RegMatch</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path</strong> (<em>str</em>) – path of the targeted data folder</li>
+<li><strong>matchDict</strong> (<em>dictionary</em>) – result dictionary form scibeam.regexp.RegMatch, or user specified
+dictionary with key as measurement label, value as file name string</li>
+<li><strong>lowerBound</strong> (<em>int</em><em> or </em><em>float</em>) – time axis lower boundrary limit for data</li>
+<li><strong>upperBound</strong> (<em>int</em><em> or </em><em>float</em>) – time axis upper boundrary limit for data</li>
+<li><strong>removeOffset</strong> (<em>bool</em>) – if True (default) remove data offset (set floor to 0 in no-signal region)</li>
+<li><strong>offset_margin_how</strong> (<em>{&quot;outer&quot;</em><em>, </em><em>&quot;outer left&quot;</em><em>, </em><em>&quot;out right&quot;</em><em>, </em><em>&quot;inner&quot;</em><em>, </em><em>&quot;inner left&quot;</em><em>, </em><em>&quot;inner right&quot;}</em><em>, </em><em>default &quot;outer&quot;</em>) – <p>Specify the way to handle offset margin, offset floor value is calculated by averaging the
+value in a given range relative to data lower and upper boundrary, with avaliable options:</p>
+<ul>
+<li>”outer” (default):  from both left and right side out of the [lowerBound, upperBound] region</li>
+<li>”outer left”: like “outer” but from only left side</li>
+<li>”outer right”: like “outer” but from only right side</li>
+<li>”inner”: from both left and right side inside of the [lowerBound, upperBound] region</li>
+<li>”inner left”: like “inner” but from only left side</li>
+<li>”inner right”: like “inner” but from only left side</li>
+</ul>
+</li>
+<li><strong>offset_margin_size</strong> (<em>int</em>) – Number of values to use for averaging when calculating offset</li>
+<li><strong>skiprows</strong> (<em>int</em>) – number of rows to skip when read in data</li>
+<li><strong>sep</strong> (<em>str</em><em>, </em><em>defult &quot;  &quot;</em>) – seperator for columns in the data file</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Instance of TOFFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.tofseries">
+<span id="scibeam-core-tofseries-module"></span><h2>scibeam.core.tofseries module<a class="headerlink" href="#module-scibeam.core.tofseries" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="scibeam.core.tofseries.TOFSeries">
+<em class="property">class </em><code class="descclassname">scibeam.core.tofseries.</code><code class="descname">TOFSeries</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code></p>
+<dl class="staticmethod">
+<dt id="scibeam.core.tofseries.TOFSeries.find_time_idx">
+<em class="property">static </em><code class="descname">find_time_idx</code><span class="sig-paren">(</span><em>time</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.find_time_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.find_time_idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator of time index for a given time value
+args: can be a single number, e.g. 1000e-6</p>
+<blockquote>
+<div>or a few numbers, e.g.  100e-6, 200e-6, 300e-6</div></blockquote>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="scibeam.core.tofseries.TOFSeries.from_file">
+<em class="property">classmethod </em><code class="descname">from_file</code><span class="sig-paren">(</span><em>file_path</em>, <em>lowerBound=None</em>, <em>upperBound=None</em>, <em>removeOffset=True</em>, <em>cols=2</em>, <em>usecols=None</em>, <em>offset_margin_how='outer'</em>, <em>offset_margin_size=20</em>, <em>skiprows=0</em>, <em>sep='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buid TOF instance from given file
+Current only works for ‘        ‘ seperated txt and lvm file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofseries.TOFSeries.gausCenter">
+<code class="descname">gausCenter</code><span class="sig-paren">(</span><em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.gausCenter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.gausCenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>gaus fit center</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofseries.TOFSeries.gausFit">
+<code class="descname">gausFit</code><span class="sig-paren">(</span><em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.gausFit" title="Permalink to this definition">¶</a></dt>
+<dd><p>1D gauss fit</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofseries.TOFSeries.gausStd">
+<code class="descname">gausStd</code><span class="sig-paren">(</span><em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.gausStd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.gausStd" title="Permalink to this definition">¶</a></dt>
+<dd><p>gaus fit std</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scibeam.core.tofseries.TOFSeries.peak">
+<code class="descname">peak</code><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.peak" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#scibeam.core.peak.SeriesPeak" title="scibeam.core.peak.SeriesPeak"><code class="xref py py-class docutils literal notranslate"><span class="pre">scibeam.core.peak.SeriesPeak</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scibeam.core.tofseries.TOFSeries.plot1d">
+<code class="descname">plot1d</code><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.plot1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#scibeam.core.plot.PlotTOFSeries" title="scibeam.core.plot.PlotTOFSeries"><code class="xref py py-class docutils literal notranslate"><span class="pre">scibeam.core.plot.PlotTOFSeries</span></code></a></p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="scibeam.core.tofseries.TOFSeries.remove_data_offset">
+<em class="property">static </em><code class="descname">remove_data_offset</code><span class="sig-paren">(</span><em>data</em>, <em>lowerBoundIdx=None</em>, <em>upperBoundIdx=None</em>, <em>how='outer'</em>, <em>margin_size=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.remove_data_offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.remove_data_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove offset in 1D array data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofseries.TOFSeries.sec_to_microsec">
+<code class="descname">sec_to_microsec</code><span class="sig-paren">(</span><em>offset_sec=0</em>, <em>inplace=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.sec_to_microsec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.sec_to_microsec" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert seconds in index to microseconds</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofseries.TOFSeries.selectTimeRange">
+<code class="descname">selectTimeRange</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.selectTimeRange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.selectTimeRange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.tofseries.TOFSeries.selectTimeSlice">
+<code class="descname">selectTimeSlice</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.selectTimeSlice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.selectTimeSlice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="scibeam.core.tofseries.read_file">
+<code class="descclassname">scibeam.core.tofseries.</code><code class="descname">read_file</code><span class="sig-paren">(</span><em>file_path</em>, <em>lowerBound=None</em>, <em>upperBound=None</em>, <em>removeOffset=True</em>, <em>cols=2</em>, <em>usecols=None</em>, <em>offset_margin_how='outer'</em>, <em>offset_margin_size=20</em>, <em>skiprows=0</em>, <em>sep='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#read_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.read_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read from sngle file and create an instance of TOFSeries</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_path</strong> (<em>str</em>) – path to file</li>
+<li><strong>lowerBound</strong> (<em>int</em><em> or </em><em>float</em>) – time axis lower boundrary limit for data</li>
+<li><strong>upperBound</strong> (<em>int</em><em> or </em><em>float</em>) – time axis upper boundrary limit for data</li>
+<li><strong>removeOffset</strong> (<em>bool</em>) – if True (default) remove data offset (set floor to 0 in no-signal region)</li>
+<li><strong>cols</strong> (<em>int</em>) – Total number columns in the data file</li>
+<li><strong>usecols</strong> (<em>int</em>) – The index of column that will be used out of total number of columns cols</li>
+<li><strong>offset_margin_how</strong> (<em>{&quot;outer&quot;</em><em>, </em><em>&quot;outer left&quot;</em><em>, </em><em>&quot;out right&quot;</em><em>, </em><em>&quot;inner&quot;</em><em>, </em><em>&quot;inner left&quot;</em><em>, </em><em>&quot;inner right&quot;}</em><em>, </em><em>default &quot;outer&quot;</em>) – <p>Specify the way to handle offset margin, offset floor value is calculated by averaging the
+value in a given range relative to data lower and upper boundrary, with avaliable options:</p>
+<ul>
+<li>”outer” (default):  from both left and right side out of the [lowerBound, upperBound] region</li>
+<li>”outer left”: like “outer” but from only left side</li>
+<li>”outer right”: like “outer” but from only right side</li>
+<li>”inner”: from both left and right side inside of the [lowerBound, upperBound] region</li>
+<li>”inner left”: like “inner” but from only left side</li>
+<li>”inner right”: like “inner” but from only left side</li>
+</ul>
+</li>
+<li><strong>offset_margin_size</strong> (<em>int</em>) – Number of values to use for averaging when calculating offset</li>
+<li><strong>skiprows</strong> (<em>int</em>) – number of rows to skip when read in data</li>
+<li><strong>sep</strong> (<em>str</em><em>, </em><em>defult &quot;  &quot;</em>) – seperator for columns in the data file</li>
+<li><strong>Returns</strong> – </li>
+<li><strong>--------</strong> – </li>
+<li><strong>of class TOFSeries</strong> (<em>Instance</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scibeam.core" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">scibeam</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Yu Lu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/scibeam.core.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

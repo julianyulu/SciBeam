@@ -9,5 +9,6 @@ scibeam/__internal__/
 .eggs/
 dist/
 build/
+!doc/build/ # exclude
 
 
