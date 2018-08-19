@@ -1,6 +1,7 @@
 *~
 venv/
 __pycache__/
+scibeam/__internal__/
 .ipynb_checkpoints/
 .coverage
 
