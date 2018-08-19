@@ -10,10 +10,16 @@
 # 
 # Created: Sun Mar 25 16:04:08 2018 (-0500)
 # Version: 
-# Last-Updated: Sat Aug 18 14:26:54 2018 (-0500)
+# Last-Updated: Sun Aug 19 15:03:24 2018 (-0500)
 #           By: yulu
-#     Update #: 50
+#     Update #: 53
 # 
+
+"""Scibeam
+For scientific time series analysis and visualization.
+
+
+"""
 
 name = "scibeam"
 
@@ -29,8 +35,13 @@ from scibeam.core.tofseries import (
     read_file,
     )
 
+from scibeam.core.plot import (
+    PlotTOFSeries,
+    PlotTOFFrame,
+    )
+
 from scibeam.core.regexp import RegMatch
-from scibeam.core.plot import PlotTOFSeries
+
 from scibeam.core.gaussian import Gaussian
 
 

@@ -1,8 +1,7 @@
+|logo|
+
 SciBeam |Build Status| |codecov|
 ================================
-
-A scientific data analyzing tool for time series beam measuremnt /
-experiment.
 
 **SciBeam** is an open source library for analyzing time series beam
 measurement data. Using pandas dataframe and series as its base
@@ -19,14 +18,18 @@ computation.
 Installation
 ============
 
---------------
-
 Dependencies
 ------------
 
-| SciBeam requires:
-| + Python( >= 3.4) + Numpy( >= 1.8.2) + Scipy( >= 0.13.3) + pandas ( >=
-  0.23.0) + matplotlib ( >= 1.5.1) + re + os
+SciBeam requires:
+
+-  Python( >= 3.4)
+-  Numpy( >= 1.8.2)
+-  Scipy( >= 0.13.3)
+-  pandas ( >= 0.23.0)
+-  matplotlib ( >= 1.5.1)
+-  re
+-  os
 
 User installation
 -----------------
@@ -77,16 +80,11 @@ or
 Status
 ------
 
-Under testing, release soon on PIPY.
+Under testing on Test PIPY.
 
-Project History
-===============
-
-This library is base on the an early library *SlowBeamLib* that I wrote
-for internal use in the group, which has been using and developped since
-2015. In the summer of 2018, the original code has been gradually
-transfered to a new structure build on top of pandas.
-
+.. |logo| image:: https://raw.githubusercontent.com/SuperYuLu/SciBeam/master/img/logo.png
+   :target: https://github.com/SuperYuLu/SciBeam
+   :width: 500pt
 .. |Build Status| image:: https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master
    :target: https://travis-ci.org/SuperYuLu/SciBeam
 .. |codecov| image:: https://codecov.io/gh/SuperYuLu/SciBeam/branch/master/graph/badge.svg

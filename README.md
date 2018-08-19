@@ -1,4 +1,5 @@
-[![logo](https://github.com/SuperYuLu/SciBeam/blob/master/img/logo.png)](https://github.com/SuperYuLu/SciBeam)  
+
+[![logo](https://raw.githubusercontent.com/SuperYuLu/SciBeam/master/img/logo.png)](https://github.com/SuperYuLu/SciBeam)  
 
 # SciBeam [![Build Status](https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master)](https://travis-ci.org/SuperYuLu/SciBeam) [![codecov](https://codecov.io/gh/SuperYuLu/SciBeam/branch/master/graph/badge.svg)](https://codecov.io/gh/SuperYuLu/SciBeam)  
 
@@ -9,9 +10,9 @@ SciBeam is originally designed for experimental physics data analysis. The libra
 
 # Installation  
 
------  
 ## Dependencies  
 SciBeam requires:  
+
 + Python( >= 3.4)
 + Numpy( >= 1.8.2)
 + Scipy( >= 0.13.3)
@@ -22,6 +23,14 @@ SciBeam requires:
 
 ## User installation  
 Currently only avaliable through downloading from Github, will be avaliable for installation through pip soon:  
+
+### Using PyPI  
+
+```bash
+pip install scibeam  
+```
+
+### Using souce code   
 
 Download the souce code:  
 
@@ -40,11 +49,22 @@ Install the package:
 ```
 python setup.py install  
 ```
+# Release  
++ v0.1.0: 08/19/2018  first release !
 
 # Development  
-Currently working on writting up testing while adding more features, the library is being tested in the lab on real-time data analysis when experiment is on.   
+Under active development. 
 
-## Testing 
+## TODO:  
++ Increase test coverage 
++ Add more plotting functions
++ Add config.py for global configurature 
++ Add AppVeyor 
+
+## Contribute  
+Coming soon...  
+
+## Testing  
 The testing part is based on unittest and can be run through setuptools:  
 
 ```python
@@ -59,7 +79,4 @@ make test
 
 
 ## Status  
-Under testing on Test PIPY.   
-
-
-
+Version 0.1.0 on [PyPI](https://pypi.org/project/scibeam/)

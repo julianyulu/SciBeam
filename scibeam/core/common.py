@@ -9,10 +9,16 @@
 # 
 # Created: Fri May  4 11:32:04 2018 (-0500)
 # Version: 
-# Last-Updated: Thu Jul 19 11:20:49 2018 (-0500)
+# Last-Updated: Sun Aug 19 15:31:59 2018 (-0500)
 #           By: yulu
-#     Update #: 35
-# 
+#     Update #: 36
+#
+
+"""
+Common functions used across classes and modules
+"""
+
+
 import os
 import numpy as np
 
