@@ -1,7 +1,7 @@
 |logo|
 
-SciBeam |Build Status| |codecov|
-================================
+SciBeam |Build Status| |codecov| |PyPI version|
+===============================================
 
 **SciBeam** is an open source library for analyzing time series beam
 measurement data. Using pandas dataframe and series as its base
@@ -37,6 +37,16 @@ User installation
 Currently only avaliable through downloading from Github, will be
 avaliable for installation through pip soon:
 
+Using PyPI
+~~~~~~~~~~
+
+.. code:: bash
+
+   pip install scibeam  
+
+Using souce code
+~~~~~~~~~~~~~~~~
+
 Download the souce code:
 
 .. code:: bash
@@ -55,12 +65,28 @@ Install the package:
 
    python setup.py install  
 
+Release
+=======
+
+-  v0.1.0: 08/19/2018 first release !
+
 Development
 ===========
 
-Currently working on writting up testing while adding more features, the
-library is being tested in the lab on real-time data analysis when
-experiment is on.
+Under active development.
+
+TODO:
+-----
+
+-  Increase test coverage
+-  Add more plotting functions
+-  Add config.py for global configurature
+-  Add AppVeyor
+
+Contribute
+----------
+
+Coming soon…
 
 Testing
 -------
@@ -80,12 +106,13 @@ or
 Status
 ------
 
-Under testing on Test PIPY.
+Version 0.1.0 on `PyPI <https://pypi.org/project/scibeam/>`__
 
 .. |logo| image:: https://raw.githubusercontent.com/SuperYuLu/SciBeam/master/img/logo.png
    :target: https://github.com/SuperYuLu/SciBeam
-   :width: 500pt
 .. |Build Status| image:: https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master
    :target: https://travis-ci.org/SuperYuLu/SciBeam
 .. |codecov| image:: https://codecov.io/gh/SuperYuLu/SciBeam/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/SuperYuLu/SciBeam
+.. |PyPI version| image:: https://badge.fury.io/py/scibeam.svg
+   :target: https://badge.fury.io/py/scibeam
