@@ -9,9 +9,9 @@
 # 
 # Created: Sat Jul 21 10:46:04 2018 (-0500)
 # Version: 
-# Last-Updated: Wed Aug 22 11:36:12 2018 (-0500)
+# Last-Updated: Wed Aug 22 11:51:24 2018 (-0500)
 #           By: yulu
-#     Update #: 82
+#     Update #: 85
 # 
 
 from setuptools import setup
@@ -21,7 +21,7 @@ with open("README.rst") as f:
 
 setup(
     name = 'scibeam',
-    version = '0.1.1',
+    version = '0.1.1', 
     author = 'Yu Lu',
     author_email = 'yulu@utexas.edu',
     url = 'https://github.com/SuperYuLu/SciBeam',
