@@ -1,18 +1,18 @@
-# peak.py --- 
-# 
+# peak.py ---
+#
 # Filename: peak.py
-# Description: 
+# Description:
 #            peak analysis
 # Author:    Yu Lu
 # Email:     yulu@utexas.edu
-# Github:    https://github.com/SuperYuLu 
-# 
+# Github:    https://github.com/SuperYuLu
+#
 # Created: Tue Jun 26 16:50:12 2018 (-0500)
-# Version: 
+# Version:
 # Last-Updated: Sat Aug  4 10:31:38 2018 (-0500)
 #           By: yulu
 #     Update #: 287
-# 
+#
 
 
 import pandas
@@ -21,9 +21,9 @@ import matplotlib.pyplot as plt
 from scipy.integrate import quad
 
 import scibeam
-from scibeam.core import base
-from scibeam.core.gaussian import Gaussian
-from scibeam.core import tofseries
+from . import base
+from .gaussian import Gaussian
+from . import tofseries
 
 
 __all__ = [
@@ -37,7 +37,7 @@ class SeriesPeak(pandas.Series):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-            
+
     @classmethod
     def _constructor(cls, *args, **kwargs):
         return cls(*args, **kwargs)
@@ -46,7 +46,7 @@ class SeriesPeak(pandas.Series):
     def gausFit(self, plot = False):
         popt, pcov = Gaussian.gausFit(x = self.index, y = self.values, offset = False, plot = plot)
         return popt, pcov
-    
+
     def idx(self, gauss_fit = False):
         if gauss_fit:
             return self.gausFit()[0][1]
@@ -60,13 +60,13 @@ class SeriesPeak(pandas.Series):
         else:
             nidx = np.argmax(self.values)
         return nidx
-        
+
     def height(self, gauss_fit = False):
         if gauss_fit:
             return self.gausFit()[0][0]
         else:
             return self.max()
-        
+
     def sigma(self, n_sigmas = 1, gauss_fit = False):
         if gauss_fit:
             return n_sigmas * self.gausFit()[0][2]
@@ -87,14 +87,14 @@ class SeriesPeak(pandas.Series):
     def area(self, gauss_fit = False):
         if gauss_fit:
             popt, pcov = self.gausFit()
-            # if with offset 
+            # if with offset
             #area = quad(lambda x:Gaussian.gaus(x, *popt) - popt[-1], min(data_label), max(data_label))[0]
             # assume no offset
             area = quad(lambda x:Gaussian.gaus(x, *popt), min(self.index), max(self.index))[0]
         else:
             # if with offset
             # area = np.trapz(x = data_label, y = self - np.min(self))
-            
+
             # assume no offset
             area = np.trapz(x = self.index, y = self.values)
         return area
@@ -106,11 +106,11 @@ class SeriesPeak(pandas.Series):
         """
         peak_nidx = self.nidx()
         peak_value = self.iloc[peak_nidx]
-        
+
         hwhm_nidx_left = peak_nidx - np.argmin(abs(self.iloc[peak_nidx:0:-1].values - peak_value / 2))
         hwhm_nidx_right = np.argmin(abs(self.iloc[peak_nidx:].values - peak_value / 2)) + peak_nidx
         fwhm_nidx_range = hwhm_nidx_right - hwhm_nidx_left
-        
+
         delta_nidx = int(fwhm_nidx_range / np.sqrt(8 * np.log(2)) * n_sigmas)
         lb,ub  = peak_nidx - delta_nidx, peak_nidx + delta_nidx
         lb = 0 if lb < 0 else lb
@@ -119,7 +119,7 @@ class SeriesPeak(pandas.Series):
         if plot:
             plt.plot(self.index, self.values, '--', label = 'raw input')
             plt.plot(self.index[lb:ub], self.values[lb:ub], '-', label = 'detected peak')
-        return lb, ub 
+        return lb, ub
 
     def autocrop(self, n_sigmas = 4):
         lb, ub =  self.region(n_sigmas = n_sigmas, plot = False)
@@ -128,7 +128,7 @@ class SeriesPeak(pandas.Series):
 
 
 
-    
+
 
 class FramePeak(pandas.DataFrame):
     """
@@ -139,7 +139,7 @@ class FramePeak(pandas.DataFrame):
 
     def _toTOFSeries(func):
         """
-        Decorator to wrap series returns for method chain 
+        Decorator to wrap series returns for method chain
         """
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
@@ -162,7 +162,7 @@ class FramePeak(pandas.DataFrame):
             idx =  selfCopy.idxmax()
         if normalize:
             idx = idx / idx.max()
-        return idx 
+        return idx
 
     @_toTOFSeries
     def nidx(self, axis = 0, gauss_fit = False, normalize = False):
@@ -191,7 +191,7 @@ class FramePeak(pandas.DataFrame):
     @_toTOFSeries
     def sigma(self, n_sigmas = 1, axis = 0, gauss_fit = False, normalize = False):
         selfCopy = self.copy() if axis == 0 else self.copy().T
-        
+
         def col_sigma(series):
             if gauss_fit:
                 return Gaussian.gausFit(x = series.index, y = series.values, offset = False)[0][2]
@@ -202,17 +202,17 @@ class FramePeak(pandas.DataFrame):
                 try:
                     hwhm_idx_left = np.argmin(abs(series.iloc[:peak_idx].values - half_max))
                     hwhm_idx_right = np.argmin(abs(series.iloc[peak_idx : ].values - half_max)) + peak_idx
-                except ValueError: # When there is no peak found 
+                except ValueError: # When there is no peak found
                     return 0
                 fwhm = series.index[hwhm_idx_right] - series.index[hwhm_idx_left]
                 sigma = fwhm / np.sqrt(8*np.log(2))
             return sigma * n_sigmas
-        
+
         sigma =  selfCopy.apply(col_sigma)
         if normalize:
             sigma = sigma / sigma.max()
-        return sigma 
-        
+        return sigma
+
     @_toTOFSeries
     def fwhm(self, axis = 0, gauss_fit = False, normalize = False):
         sigma = self.sigma(n_sigmas = 1, axis = axis, gauss_fit = gauss_fit, normalize = False)
@@ -229,17 +229,17 @@ class FramePeak(pandas.DataFrame):
                 for col in series.columns:
                     popt, pcov = Gaussian.gausFit(x = series.index, y = series[col].values)
                     area = quad(lambda x:Gaussian.gaus(x, *popt), min(series[col].index), max(series[col].index))[0]
-                           
+
             else:
                 area = np.trapz(x = series.index, y = series.values)
             return area
-        
+
         area = selfCopy.apply(col_area)
-        
+
         if normalize:
             area = area / area.max()
         return area
-    
+
 
     @_toTOFSeries
     def region(self, axis = 0, n_sigmas = 4, plot = False):
@@ -259,7 +259,7 @@ class FramePeak(pandas.DataFrame):
                 fwhm_nidx_range = hwhm_nidx_right - hwhm_nidx_left
             except ValueError: # incase the peak is on the edge, e.g. no peak in the region
                 return (int(len(series) / 2), int(len(series) / 2))
-        
+
             delta_nidx = int(fwhm_nidx_range / np.sqrt(8 * np.log(2)) * n_sigmas)
             lb,ub  = peak_nidx - delta_nidx, peak_nidx + delta_nidx
             lb = 0 if lb < 0 else lb
@@ -269,7 +269,7 @@ class FramePeak(pandas.DataFrame):
                 plt.plot(series.index, series.values, '--', label = 'raw input')
                 plt.plot(series.index[lb:ub], series.values[lb:ub], '-', label = 'detected peak')
             return lb, ub
-        
+
         if axis == 0:
             return selfCopy.apply(col_region)
         elif axis == 1:
@@ -280,5 +280,3 @@ class FramePeak(pandas.DataFrame):
             lb1 = min([x[0] for x in selfCopy.T.apply(col_region)])
             ub1 = max([x[1] for x in selfCopy.T.apply(col_region)])
             return lb0, ub0, lb1, ub1
-    
-
