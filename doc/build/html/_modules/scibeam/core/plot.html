@@ -33,34 +33,34 @@
           <div class="body" role="main">
             
   <h1>Source code for scibeam.core.plot</h1><div class="highlight"><pre>
-<span></span><span class="c1"># plotseries.py --- </span>
-<span class="c1"># </span>
+<span></span><span class="c1"># plotseries.py ---</span>
+<span class="c1">#</span>
 <span class="c1"># Filename: plotseries.py</span>
-<span class="c1"># Description: </span>
-<span class="c1"># </span>
+<span class="c1"># Description:</span>
+<span class="c1">#</span>
 <span class="c1"># Author:    Yu Lu</span>
 <span class="c1"># Email:     yulu@utexas.edu</span>
-<span class="c1"># Github:    https://github.com/SuperYuLu </span>
-<span class="c1"># </span>
+<span class="c1"># Github:    https://github.com/SuperYuLu</span>
+<span class="c1">#</span>
 <span class="c1"># Created: Sun May  6 16:47:06 2018 (-0500)</span>
-<span class="c1"># Version: </span>
+<span class="c1"># Version:</span>
 <span class="c1"># Last-Updated: Tue Jul 24 23:55:25 2018 (-0500)</span>
 <span class="c1">#           By: yulu</span>
 <span class="c1">#     Update #: 315</span>
-<span class="c1"># </span>
+<span class="c1">#</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="k">import</span> <span class="n">NullFormatter</span>
-<span class="kn">from</span> <span class="nn">scibeam.core.formatter</span> <span class="k">import</span> <span class="n">format_dict</span>
-<span class="kn">from</span> <span class="nn">scibeam.core</span> <span class="k">import</span> <span class="n">base</span>
-<span class="kn">from</span> <span class="nn">scibeam.core.gaussian</span> <span class="k">import</span> <span class="n">Gaussian</span>
-<span class="kn">from</span> <span class="nn">scibeam.core</span> <span class="k">import</span> <span class="n">numerical</span>
+<span class="kn">from</span> <span class="nn">.formatter</span> <span class="k">import</span> <span class="n">format_dict</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">base</span>
+<span class="kn">from</span> <span class="nn">.gaussian</span> <span class="k">import</span> <span class="n">Gaussian</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">numerical</span>
 
 <div class="viewcode-block" id="PlotTOFSeries"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.plot.PlotTOFSeries">[docs]</a><span class="k">class</span> <span class="nc">PlotTOFSeries</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plot dataframe with time as index and another numerical variable as </span>
-<span class="sd">    column labels </span>
+<span class="sd">    Plot dataframe with time as index and another numerical variable as</span>
+<span class="sd">    column labels</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataseries</span><span class="p">,</span> <span class="n">lowerBound</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">upperBound</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index_label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">column_name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__is_mixin</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">_is_mixin</span><span class="p">(</span><span class="n">dataseries</span><span class="p">)</span>
@@ -82,17 +82,17 @@
 
 <div class="viewcode-block" id="PlotTOFSeries.plot"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.plot.PlotTOFSeries.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">gauss_fit</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">gauss_fit_offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">print_fit_params</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params_digits</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-        
+
         <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-                        
+
             <span class="k">if</span> <span class="n">gauss_fit</span><span class="p">:</span>
                 <span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">Gaussian</span><span class="o">.</span><span class="n">gausFit</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">gauss_fit_offset</span><span class="p">)</span>
                 <span class="n">fit_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;x0&#39;</span><span class="p">:</span> <span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;$\sigma$&#39;</span><span class="p">:</span> <span class="n">popt</span><span class="p">[</span><span class="mi">2</span><span class="p">]}</span>
                 <span class="n">smoothX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span> <span class="n">popt</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">popt</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">smoothX</span><span class="p">,</span> <span class="n">Gaussian</span><span class="o">.</span><span class="n">gaus</span><span class="p">(</span><span class="n">smoothX</span><span class="p">,</span> <span class="o">*</span><span class="n">popt</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">figtext</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="s1">&#39;fitting parameters:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">format_dict</span><span class="p">(</span><span class="n">fit_params</span><span class="p">,</span> <span class="n">digits</span> <span class="o">=</span> <span class="n">params_digits</span><span class="p">),</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-                
+
                 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;gauss fit&#39;</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">pass</span>
@@ -102,7 +102,7 @@
             <span class="k">if</span> <span class="n">ylabel</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">xlabel</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">title</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-            
+
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">gauss_fit</span><span class="p">:</span>
@@ -126,15 +126,15 @@
 
 <div class="viewcode-block" id="PlotTOFFrame"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.plot.PlotTOFFrame">[docs]</a><span class="k">class</span> <span class="nc">PlotTOFFrame</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plot dataframe with time as index and another numerical variable as </span>
-<span class="sd">    column labels </span>
+<span class="sd">    Plot dataframe with time as index and another numerical variable as</span>
+<span class="sd">    column labels</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">,</span> <span class="n">lowerBound</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">upperBound</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index_label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">column_label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__is_mixin</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">_is_mixin</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">_make_mixin</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_mixin</span> <span class="k">else</span> <span class="n">dataframe</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index_label</span> <span class="o">=</span> <span class="n">index_label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">column_label</span> <span class="o">=</span> <span class="n">column_label</span>
-    
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span>
@@ -145,17 +145,17 @@
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_constructor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    
+
 <div class="viewcode-block" id="PlotTOFFrame.image"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.plot.PlotTOFFrame.image">[docs]</a>    <span class="k">def</span> <span class="nf">image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sideplots</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">contour</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        image plot of tof data measured multiplot positions</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
+
         <span class="k">if</span> <span class="s1">&#39;figsize&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;figsize&#39;</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-        
+
         <span class="k">if</span> <span class="n">sideplots</span><span class="p">:</span>
             <span class="n">nullfmt</span> <span class="o">=</span> <span class="n">NullFormatter</span><span class="p">()</span>         <span class="c1"># no labels</span>
 
@@ -183,10 +183,10 @@
             <span class="n">areaDataX</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">,:])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
             <span class="n">axDistrx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">areaDataX</span><span class="p">)</span>
             <span class="n">axDistry</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">areaDataY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-            <span class="c1">#axDistry.invert_yaxis() # don&#39;t need to invert anymore </span>
+            <span class="c1">#axDistry.invert_yaxis() # don&#39;t need to invert anymore</span>
 
-            <span class="c1"># has to flip data so that lower position starts from lower part of the image </span>
-            <span class="n">im</span> <span class="o">=</span> <span class="n">axImg</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> 
+            <span class="c1"># has to flip data so that lower position starts from lower part of the image</span>
+            <span class="n">im</span> <span class="o">=</span> <span class="n">axImg</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">),</span>
                             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
                             <span class="n">aspect</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
                             <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
@@ -197,7 +197,7 @@
             <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span>  <span class="n">cax</span> <span class="o">=</span> <span class="n">cax</span><span class="p">)</span>
             <span class="c1">#cbar.ax.set_ylabel(&#39;Signal&#39;)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> 
+            <span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">),</span>
                             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
                             <span class="n">aspect</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
                             <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
@@ -207,14 +207,14 @@
             <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_label</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_label</span> <span class="k">else</span> <span class="s1">&#39;Position&#39;</span><span class="p">)</span>
             <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
             <span class="c1">#cbar.ax.set_ylabel(&#39;Signal&#39;)</span>
-            
+
         <span class="k">if</span> <span class="n">contour</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">sideplots</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axImg</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
-               
-        
+
+
 <div class="viewcode-block" id="PlotTOFFrame.contour"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.plot.PlotTOFFrame.contour">[docs]</a>    <span class="k">def</span> <span class="nf">contour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_contours</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_sigma</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;contour plot&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
            <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -223,31 +223,31 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">popt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">peak</span><span class="o">.</span><span class="n">height</span><span class="p">()</span><span class="o">.</span><span class="n">gausFit</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">n_sigma_levels</span> <span class="o">=</span> <span class="n">Gaussian</span><span class="o">.</span><span class="n">gaus</span><span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">n_sigma</span><span class="p">,</span> <span class="mf">0.2</span> <span class="p">,</span>  <span class="n">n_contours</span><span class="p">)</span><span class="o">*</span> <span class="n">popt</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">*</span><span class="n">popt</span><span class="p">)</span>
-        
+
         <span class="k">if</span> <span class="n">ax</span><span class="p">:</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">n_sigma_levels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">image</span><span class="p">:</span>
-                <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> 
+                <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">),</span>
                           <span class="n">aspect</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
                           <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
                          <span class="p">)</span>
-                
-            
-            
+
+
+
         <span class="k">else</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">n_sigma_levels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">image</span><span class="p">:</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> 
+                <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">),</span>
                           <span class="n">aspect</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
                           <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
                          <span class="p">)</span></div>
-   
+
 <div class="viewcode-block" id="PlotTOFFrame.contourf"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.plot.PlotTOFFrame.contourf">[docs]</a>    <span class="k">def</span> <span class="nf">contourf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_contours</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n_sigma</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;contour plot&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
            <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -266,9 +266,6 @@
             <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span></div></div>
-
-
-
 </pre></div>
 
           </div>

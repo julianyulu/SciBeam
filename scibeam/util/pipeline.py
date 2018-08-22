@@ -9,9 +9,9 @@
 # 
 # Created: Tue May 15 00:55:01 2018 (-0500)
 # Version: 
-# Last-Updated: Wed May 23 16:38:10 2018 (-0500)
+# Last-Updated: Wed Aug 22 11:42:46 2018 (-0500)
 #           By: yulu
-#     Update #: 30
+#     Update #: 31
 # 
 
 import pandas
@@ -92,7 +92,7 @@ class Pipeline:
             if t is None:
                 continue
 
-            if not (isinstance(t, pandas.DataFrame) of isinstance(t, pandas.Series)):
+            if not (isinstance(t, pandas.DataFrame) ==  isinstance(t, pandas.Series)):
                 raise TypeError("All pipeline tasks should be instance of padas.Dataframe of pandas.Series"
                                 " '%s' (type %s) doesn't" % (t, type(t)))
             

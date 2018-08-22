@@ -33,22 +33,22 @@
           <div class="body" role="main">
             
   <h1>Source code for scibeam.tests.test_base</h1><div class="highlight"><pre>
-<span></span><span class="c1"># test_base.py --- </span>
-<span class="c1"># </span>
+<span></span><span class="c1"># test_base.py ---</span>
+<span class="c1">#</span>
 <span class="c1"># Filename: test_base.py</span>
 <span class="c1"># Description:</span>
 <span class="c1">#           Unit test case for base.py</span>
-<span class="c1"># </span>
+<span class="c1">#</span>
 <span class="c1"># Author:    Yu Lu</span>
 <span class="c1"># Email:     yulu@utexas.edu</span>
-<span class="c1"># Github:    https://github.com/SuperYuLu </span>
-<span class="c1"># </span>
+<span class="c1"># Github:    https://github.com/SuperYuLu</span>
+<span class="c1">#</span>
 <span class="c1"># Created: Thu Mar 29 10:44:57 2018 (-0500)</span>
-<span class="c1"># Version: </span>
+<span class="c1"># Version:</span>
 <span class="c1"># Last-Updated: Tue Jul 24 23:49:48 2018 (-0500)</span>
 <span class="c1">#           By: yulu</span>
 <span class="c1">#     Update #: 45</span>
-<span class="c1"># </span>
+<span class="c1">#</span>
 
 <span class="kn">import</span> <span class="nn">unittest</span>
 <span class="kn">from</span> <span class="nn">scibeam.core.base</span> <span class="k">import</span> <span class="n">_is_mixin</span><span class="p">,</span> <span class="n">_mixin_class</span>
@@ -59,12 +59,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tofseries</span> <span class="o">=</span> <span class="n">TOFSeries</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tofframe</span> <span class="o">=</span> <span class="n">TOFFrame</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gaussian</span> <span class="o">=</span> <span class="n">Gaussian</span></div>
-        
+
 <div class="viewcode-block" id="TestFunctions.test_is_mixin"><a class="viewcode-back" href="../../../scibeam.tests.html#scibeam.tests.test_base.TestFunctions.test_is_mixin">[docs]</a>    <span class="k">def</span> <span class="nf">test_is_mixin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">_is_mixin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tofseries</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">_is_mixin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tofframe</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">_is_mixin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gaussian</span><span class="p">))</span></div></div>
-        
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 </pre></div>

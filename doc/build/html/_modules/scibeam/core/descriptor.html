@@ -33,28 +33,31 @@
           <div class="body" role="main">
             
   <h1>Source code for scibeam.core.descriptor</h1><div class="highlight"><pre>
-<span></span><span class="c1"># descriptor.py --- </span>
-<span class="c1"># </span>
+<span></span><span class="c1"># descriptor.py ---</span>
+<span class="c1">#</span>
 <span class="c1"># Filename: descriptor.py</span>
-<span class="c1"># Description: </span>
-<span class="c1">#            class decorators </span>
+<span class="c1"># Description:</span>
+<span class="c1">#            class decorators</span>
 <span class="c1"># Author:    Yu Lu</span>
 <span class="c1"># Email:     yulu@utexas.edu</span>
-<span class="c1"># Github:    https://github.com/SuperYuLu </span>
-<span class="c1"># </span>
+<span class="c1"># Github:    https://github.com/SuperYuLu</span>
+<span class="c1">#</span>
 <span class="c1"># Created: Sat May  5 23:52:27 2018 (-0500)</span>
-<span class="c1"># Version: </span>
+<span class="c1"># Version:</span>
 <span class="c1"># Last-Updated: Wed Jul 18 23:32:05 2018 (-0500)</span>
 <span class="c1">#           By: yulu</span>
 <span class="c1">#     Update #: 21</span>
-<span class="c1"># </span>
+<span class="c1">#</span>
 
 
 <div class="viewcode-block" id="DescriptorMixin"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.descriptor.DescriptorMixin">[docs]</a><span class="k">class</span> <span class="nc">DescriptorMixin</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Read-only descriptor for class cross reference </span>
+    <span class="sd">&quot;&quot;&quot;Meta class for method chain mixin</span>
+
+<span class="sd">    This is a meta class to realize method chain in other classes</span>
+<span class="sd">    Read-only descriptor for class cross reference</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">descriptor_cls</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">descriptor_cls</span> <span class="o">=</span> <span class="n">descriptor_cls</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">construct_descriptor</span> <span class="o">=</span> <span class="n">descriptor_cls</span><span class="o">.</span><span class="n">_constructor</span>
@@ -70,8 +73,6 @@
 
     <span class="k">def</span> <span class="nf">__delete__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Cannot delete object!&quot;</span><span class="p">)</span></div>
-
-    
 </pre></div>
 
           </div>

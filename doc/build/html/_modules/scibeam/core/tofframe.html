@@ -33,21 +33,21 @@
           <div class="body" role="main">
             
   <h1>Source code for scibeam.core.tofframe</h1><div class="highlight"><pre>
-<span></span><span class="c1"># tofframe.py --- </span>
-<span class="c1"># </span>
+<span></span><span class="c1"># tofframe.py ---</span>
+<span class="c1">#</span>
 <span class="c1"># Filename: tofframe.py</span>
-<span class="c1"># Description: </span>
+<span class="c1"># Description:</span>
 <span class="c1">#            DataFrame for  time-of-flight data frame analysis</span>
 <span class="c1"># Author:    Yu Lu</span>
 <span class="c1"># Email:     yulu@utexas.edu</span>
-<span class="c1"># Github:    https://github.com/SuperYuLu </span>
-<span class="c1"># </span>
+<span class="c1"># Github:    https://github.com/SuperYuLu</span>
+<span class="c1">#</span>
 <span class="c1"># Created: Fri May  4 10:53:40 2018 (-0500)</span>
-<span class="c1"># Version: </span>
+<span class="c1"># Version:</span>
 <span class="c1"># Last-Updated: Tue Jul 31 18:14:12 2018 (-0500)</span>
 <span class="c1">#           By: yulu</span>
 <span class="c1">#     Update #: 746</span>
-<span class="c1"># </span>
+<span class="c1">#</span>
 
 
 
@@ -58,13 +58,13 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">scibeam.core</span> <span class="k">import</span> <span class="n">base</span>
-<span class="kn">from</span> <span class="nn">scibeam.core</span> <span class="k">import</span> <span class="n">tofseries</span>
-<span class="kn">from</span> <span class="nn">scibeam.core.common</span> <span class="k">import</span> <span class="n">winPathHandler</span><span class="p">,</span> <span class="n">loadFile</span>
-<span class="kn">from</span> <span class="nn">scibeam.core.regexp</span> <span class="k">import</span> <span class="n">RegMatch</span>
-<span class="kn">from</span> <span class="nn">scibeam.core.descriptor</span> <span class="k">import</span> <span class="n">DescriptorMixin</span>
-<span class="kn">from</span> <span class="nn">scibeam.core.plot</span> <span class="k">import</span> <span class="n">PlotTOFFrame</span>
-<span class="kn">from</span> <span class="nn">scibeam.core.peak</span> <span class="k">import</span> <span class="n">FramePeak</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">base</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">tofseries</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="k">import</span> <span class="n">winPathHandler</span><span class="p">,</span> <span class="n">loadFile</span>
+<span class="kn">from</span> <span class="nn">.regexp</span> <span class="k">import</span> <span class="n">RegMatch</span>
+<span class="kn">from</span> <span class="nn">.descriptor</span> <span class="k">import</span> <span class="n">DescriptorMixin</span>
+<span class="kn">from</span> <span class="nn">.plot</span> <span class="k">import</span> <span class="n">PlotTOFFrame</span>
+<span class="kn">from</span> <span class="nn">.peak</span> <span class="k">import</span> <span class="n">FramePeak</span>
 
 
 <div class="viewcode-block" id="read_folder"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.read_folder">[docs]</a><span class="k">def</span> <span class="nf">read_folder</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">regStr</span><span class="p">,</span>
@@ -74,42 +74,42 @@
                 <span class="n">offset_margin_how</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">,</span>
                 <span class="n">offset_margin_size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create TOFFrame class instance by reading in group of files in a folder matched by regex </span>
-<span class="sd">    </span>
+<span class="sd">    Create TOFFrame class instance by reading in group of files in a folder matched by regex</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
 
-<span class="sd">    path: str </span>
+<span class="sd">    path: str</span>
 <span class="sd">          folder path, linux style or windows style as &quot;raw string&quot;, e.g. r&quot;C:\\User\\Document\\FolderName&quot;</span>
 <span class="sd">    lowerBound: int or float</span>
 <span class="sd">                time axis lower boundrary limit for data</span>
-<span class="sd">    upperBound: int or float </span>
+<span class="sd">    upperBound: int or float</span>
 <span class="sd">                time axis upper boundrary limit for data</span>
-<span class="sd">    removeOffset: bool </span>
-<span class="sd">                  if True (default) remove data offset (set floor to 0 in no-signal region) </span>
+<span class="sd">    removeOffset: bool</span>
+<span class="sd">                  if True (default) remove data offset (set floor to 0 in no-signal region)</span>
 
 <span class="sd">    offset_margin_how: {&quot;outer&quot;, &quot;outer left&quot;, &quot;out right&quot;, &quot;inner&quot;, &quot;inner left&quot;, &quot;inner right&quot;}, default &quot;outer&quot;</span>
 
-<span class="sd">                       Specify the way to handle offset margin, offset floor value is calculated by averaging the </span>
+<span class="sd">                       Specify the way to handle offset margin, offset floor value is calculated by averaging the</span>
 <span class="sd">                       value in a given range relative to data lower and upper boundrary, with avaliable options:</span>
 
 <span class="sd">                       * &quot;outer&quot; (default):  from both left and right side out of the [lowerBound, upperBound] region</span>
-<span class="sd">                       * &quot;outer left&quot;: like &quot;outer&quot; but from only left side </span>
-<span class="sd">                       * &quot;outer right&quot;: like &quot;outer&quot; but from only right side </span>
+<span class="sd">                       * &quot;outer left&quot;: like &quot;outer&quot; but from only left side</span>
+<span class="sd">                       * &quot;outer right&quot;: like &quot;outer&quot; but from only right side</span>
 <span class="sd">                       * &quot;inner&quot;: from both left and right side inside of the [lowerBound, upperBound] region</span>
-<span class="sd">                       * &quot;inner left&quot;: like &quot;inner&quot; but from only left side </span>
-<span class="sd">                       * &quot;inner right&quot;: like &quot;inner&quot; but from only left side </span>
+<span class="sd">                       * &quot;inner left&quot;: like &quot;inner&quot; but from only left side</span>
+<span class="sd">                       * &quot;inner right&quot;: like &quot;inner&quot; but from only left side</span>
 
-<span class="sd">    offset_margin_size: int </span>
-<span class="sd">                        Number of values to use for averaging when calculating offset </span>
-<span class="sd">    skiprows: int </span>
-<span class="sd">              number of rows to skip when read in data </span>
+<span class="sd">    offset_margin_size: int</span>
+<span class="sd">                        Number of values to use for averaging when calculating offset</span>
+<span class="sd">    skiprows: int</span>
+<span class="sd">              number of rows to skip when read in data</span>
 <span class="sd">    sep: str, defult &quot;\t&quot;</span>
 <span class="sd">         seperator for columns in the data file</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">    --------</span>
-<span class="sd">    Instance of class TOFFrame </span>
+<span class="sd">    Instance of class TOFFrame</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">TOFFrame</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">regStr</span><span class="p">,</span>
                               <span class="n">lowerBound</span> <span class="o">=</span> <span class="n">lowerBound</span><span class="p">,</span> <span class="n">upperBound</span> <span class="o">=</span> <span class="n">upperBound</span><span class="p">,</span>
@@ -128,38 +128,38 @@
                       <span class="n">offset_margin_size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create instance of TOFFrame from regular expression match result dictionary</span>
-<span class="sd">    using scibeam class RegMatch </span>
-<span class="sd">    </span>
+<span class="sd">    using scibeam class RegMatch</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    path: str</span>
-<span class="sd">          path of the targeted data folder </span>
-<span class="sd">    matchDict: dictionary </span>
-<span class="sd">               result dictionary form scibeam.regexp.RegMatch, or user specified </span>
+<span class="sd">          path of the targeted data folder</span>
+<span class="sd">    matchDict: dictionary</span>
+<span class="sd">               result dictionary form scibeam.regexp.RegMatch, or user specified</span>
 <span class="sd">               dictionary with key as measurement label, value as file name string</span>
 <span class="sd">    lowerBound: int or float</span>
 <span class="sd">                time axis lower boundrary limit for data</span>
-<span class="sd">    upperBound: int or float </span>
+<span class="sd">    upperBound: int or float</span>
 <span class="sd">                time axis upper boundrary limit for data</span>
-<span class="sd">    removeOffset: bool </span>
-<span class="sd">                  if True (default) remove data offset (set floor to 0 in no-signal region) </span>
+<span class="sd">    removeOffset: bool</span>
+<span class="sd">                  if True (default) remove data offset (set floor to 0 in no-signal region)</span>
 
 <span class="sd">    offset_margin_how: {&quot;outer&quot;, &quot;outer left&quot;, &quot;out right&quot;, &quot;inner&quot;, &quot;inner left&quot;, &quot;inner right&quot;}, default &quot;outer&quot;</span>
 
-<span class="sd">                       Specify the way to handle offset margin, offset floor value is calculated by averaging the </span>
+<span class="sd">                       Specify the way to handle offset margin, offset floor value is calculated by averaging the</span>
 <span class="sd">                       value in a given range relative to data lower and upper boundrary, with avaliable options:</span>
 
 <span class="sd">                       * &quot;outer&quot; (default):  from both left and right side out of the [lowerBound, upperBound] region</span>
-<span class="sd">                       * &quot;outer left&quot;: like &quot;outer&quot; but from only left side </span>
-<span class="sd">                       * &quot;outer right&quot;: like &quot;outer&quot; but from only right side </span>
+<span class="sd">                       * &quot;outer left&quot;: like &quot;outer&quot; but from only left side</span>
+<span class="sd">                       * &quot;outer right&quot;: like &quot;outer&quot; but from only right side</span>
 <span class="sd">                       * &quot;inner&quot;: from both left and right side inside of the [lowerBound, upperBound] region</span>
-<span class="sd">                       * &quot;inner left&quot;: like &quot;inner&quot; but from only left side </span>
-<span class="sd">                       * &quot;inner right&quot;: like &quot;inner&quot; but from only left side </span>
+<span class="sd">                       * &quot;inner left&quot;: like &quot;inner&quot; but from only left side</span>
+<span class="sd">                       * &quot;inner right&quot;: like &quot;inner&quot; but from only left side</span>
 
-<span class="sd">    offset_margin_size: int </span>
-<span class="sd">                        Number of values to use for averaging when calculating offset </span>
-<span class="sd">    skiprows: int </span>
-<span class="sd">              number of rows to skip when read in data </span>
+<span class="sd">    offset_margin_size: int</span>
+<span class="sd">                        Number of values to use for averaging when calculating offset</span>
+<span class="sd">    skiprows: int</span>
+<span class="sd">              number of rows to skip when read in data</span>
 <span class="sd">    sep: str, defult &quot;\t&quot;</span>
 <span class="sd">         seperator for columns in the data file</span>
 
@@ -167,7 +167,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    Instance of TOFFrame</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="k">return</span> <span class="n">TOFFrame</span><span class="o">.</span><span class="n">from_matchResult</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">matchDict</span><span class="p">,</span>
                                      <span class="n">lowerBound</span> <span class="o">=</span> <span class="n">lowerBound</span><span class="p">,</span> <span class="n">upperBound</span> <span class="o">=</span> <span class="n">upperBound</span><span class="p">,</span>
                                      <span class="n">removeOffset</span> <span class="o">=</span> <span class="n">removeOffset</span><span class="p">,</span>
@@ -178,40 +178,40 @@
 
 
 <div class="viewcode-block" id="TOFFrame"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame">[docs]</a><span class="k">class</span> <span class="nc">TOFFrame</span><span class="p">(</span><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-    
+
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Time-Of-Flight (TOF) DataFrame </span>
-<span class="sd">    </span>
-<span class="sd">    Subclassing pandas.DataFrame with extral methods / properties for time-series analysis </span>
+<span class="sd">    Time-Of-Flight (TOF) DataFrame</span>
+
+<span class="sd">    Subclassing pandas.DataFrame with extral methods / properties for time-series analysis</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
-<span class="sd">    data: numpy ndarray (structured or homogeneous), dict, or DataFrame                          </span>
+<span class="sd">    data: numpy ndarray (structured or homogeneous), dict, or DataFrame</span>
 <span class="sd">          Dict can contain Series, arrays, constants, or list-like objectsSingle time-of-flight data analysis</span>
 <span class="sd">          Value of measurement, e.g. voltage, current, arbiturary unit signel, shape(len(labels), len(times))</span>
-<span class="sd">    index: numpy ndarray, iterables </span>
-<span class="sd">          Time axis for time-of-flight </span>
-<span class="sd">    columns: str, int, or float </span>
+<span class="sd">    index: numpy ndarray, iterables</span>
+<span class="sd">          Time axis for time-of-flight</span>
+<span class="sd">    columns: str, int, or float</span>
 <span class="sd">             label of different tof measurement, e.g. pressure, temperature, etc</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pandas</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">TOFFrame</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_constructor_sliced</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">tofseries</span><span class="o">.</span><span class="n">TOFSeries</span>
-    
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_make_mixin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            
+
     <span class="k">def</span> <span class="nf">_toTOFSeries</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Decorator to wrap series returns for method chain </span>
+<span class="sd">        Decorator to wrap series returns for method chain</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -221,10 +221,10 @@
                 <span class="k">return</span> <span class="n">result</span>
         <span class="k">return</span> <span class="n">wrapper</span>
 
-    
+
     <span class="k">def</span> <span class="nf">_toTOFFrame</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Decorator to wrap frame returns for method chain </span>
+<span class="sd">        Decorator to wrap frame returns for method chain</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -244,7 +244,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">path</span> <span class="o">=</span> <span class="n">winPathHandler</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        
+
         <span class="n">matchDict</span> <span class="o">=</span> <span class="n">RegMatch</span><span class="p">(</span><span class="n">regStr</span><span class="p">)</span><span class="o">.</span><span class="n">matchFolder</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">regStr</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
             <span class="n">keys</span><span class="p">,</span> <span class="n">files</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">sorted</span><span class="p">(</span><span class="n">matchDict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
@@ -265,18 +265,18 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
                     <span class="n">value</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="n">values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span>  <span class="n">value</span>    
+                <span class="n">values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span>  <span class="n">value</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;[*] Please provide regStr for file match in the path !&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">time</span><span class="p">)</span></div>
-    
+
 <div class="viewcode-block" id="TOFFrame.from_file"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filePath</span><span class="p">,</span>  <span class="n">lowerBound</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">upperBound</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">removeOffset</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                 <span class="n">offset_margin_how</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">offset_margin_size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate TOFFrame object from a single given file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
+
         <span class="n">filePath</span> <span class="o">=</span> <span class="n">winPathHandler</span><span class="p">(</span><span class="n">filePath</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">loadFile</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="n">skiprows</span><span class="p">,</span>  <span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">lowerBound</span> <span class="ow">and</span> <span class="n">upperBound</span><span class="p">:</span>
@@ -292,7 +292,7 @@
         <span class="n">values</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="n">value</span><span class="p">}</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">time</span><span class="p">)</span></div>
 
-    
+
 <div class="viewcode-block" id="TOFFrame.from_matchResult"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.from_matchResult">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_matchResult</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">matchDict</span><span class="p">,</span> <span class="n">lowerBound</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">upperBound</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">removeOffset</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                 <span class="n">offset_margin_how</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">offset_margin_size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
@@ -303,7 +303,7 @@
         <span class="n">path</span> <span class="o">=</span> <span class="n">winPathHandler</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="c1"># If given folder path</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-            
+
             <span class="n">keys</span><span class="p">,</span> <span class="n">files</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">sorted</span><span class="p">(</span><span class="n">matchDict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
             <span class="n">values</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
@@ -322,9 +322,9 @@
             <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">time</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">IsADirectoryError</span><span class="p">(</span><span class="s2">&quot;[*] path not found!&quot;</span><span class="p">)</span></div>
-        
 
-    
+
+
 <div class="viewcode-block" id="TOFFrame.find_time_idx"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.find_time_idx">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">find_time_idx</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -334,29 +334,29 @@
         <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
         <span class="n">t_max_gap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">time</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">arg_elem</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
-            
+
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">arg_elem</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">):</span>
                 <span class="n">idx</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">arg_elem</span><span class="p">:</span>
                     <span class="n">candi_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">time</span><span class="p">))</span>
                     <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">time</span><span class="p">[</span><span class="n">candi_idx</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">t_max_gap</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;[*] Error: find_time_idx didn&#39;t find closest match !</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> 
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;[*] Error: find_time_idx didn&#39;t find closest match !</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
                                          <span class="s2">&quot;[!] Searching for time </span><span class="si">%f</span><span class="s2"> while the closest match is </span><span class="si">%f</span><span class="s2">, you may consider check the unit!&quot;</span>
                                          <span class="o">%</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">time</span><span class="p">[</span><span class="n">candi_idx</span><span class="p">]))</span>
-                    <span class="k">else</span><span class="p">:</span> 
+                    <span class="k">else</span><span class="p">:</span>
                         <span class="n">idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">candi_idx</span><span class="p">)</span>
                     <span class="k">yield</span> <span class="n">idx</span>
-                    
+
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">candi_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">arg_elem</span> <span class="o">-</span> <span class="n">time</span><span class="p">))</span>
                 <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">arg_elem</span> <span class="o">-</span> <span class="n">time</span><span class="p">[</span><span class="n">candi_idx</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">t_max_gap</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;[*] Error: find_time_idx didn&#39;t find closest match !</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> 
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;[*] Error: find_time_idx didn&#39;t find closest match !</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
                                          <span class="s2">&quot;[!] Searching for time </span><span class="si">%f</span><span class="s2"> while the closest match is </span><span class="si">%f</span><span class="s2">, you may consider check the unit!&quot;</span>
                                          <span class="o">%</span><span class="p">(</span><span class="n">arg_elem</span><span class="p">,</span> <span class="n">time</span><span class="p">[</span><span class="n">candi_idx</span><span class="p">]))</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">idx</span> <span class="o">=</span> <span class="n">candi_idx</span>
                 <span class="k">yield</span> <span class="n">idx</span></div>
-                    
+
 <div class="viewcode-block" id="TOFFrame.remove_data_offset"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.remove_data_offset">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">remove_data_offset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lowerBoundIdx</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">upperBoundIdx</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">,</span> <span class="n">margin_size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -390,7 +390,7 @@
                 <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">pass</span>
-        
+
         <span class="k">if</span> <span class="n">how</span> <span class="o">==</span> <span class="s1">&#39;outer&#39;</span><span class="p">:</span>
             <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">lowerBoundIdx</span><span class="o">-</span><span class="n">margin_size</span><span class="p">:</span> <span class="n">lowerBoundIdx</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">upperBoundIdx</span> <span class="p">:</span> <span class="n">upperBoundIdx</span> <span class="o">+</span> <span class="n">margin_size</span><span class="p">]))</span>  <span class="o">/</span> <span class="mf">2.</span>
         <span class="k">elif</span> <span class="n">how</span> <span class="o">==</span> <span class="s1">&#39;outer left&#39;</span><span class="p">:</span>
@@ -406,11 +406,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">((</span><span class="s2">&quot;[*] how: </span><span class="si">%s</span><span class="s2"> not understood !</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
                               <span class="s2">&quot;[!] possible values of how: &#39;outer&#39;, &#39;outer left&#39;, &#39;outer right&#39;, &#39;inner&#39;, &#39;inner left&#39;, &#39;inner right&#39;&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="n">how</span><span class="p">)</span>
-        
+
         <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">lowerBoundIdx</span><span class="p">:</span><span class="n">upperBoundIdx</span><span class="p">]</span> <span class="o">-</span> <span class="n">offset</span>
-        
+
         <span class="k">return</span> <span class="n">data</span></div>
-    
+
 <div class="viewcode-block" id="TOFFrame.selectTimeSlice"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.selectTimeSlice">[docs]</a>    <span class="nd">@_toTOFFrame</span>
     <span class="k">def</span> <span class="nf">selectTimeSlice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -422,7 +422,7 @@
 <span class="sd">        [Output]</span>
 <span class="sd">        Series of sliced data</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
+
         <span class="n">slice_value</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">arg_elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_time_idx</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">arg_elem</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">):</span>
@@ -450,14 +450,14 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">selected</span></div>
 
-        
+
 <div class="viewcode-block" id="TOFFrame.sum"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.sum">[docs]</a>    <span class="nd">@_toTOFSeries</span>
     <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
         <span class="n">sum_result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">tofseries</span><span class="o">.</span><span class="n">TOFSeries</span><span class="p">(</span><span class="n">sum_result</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">)</span></div>
 
-    
+
 <div class="viewcode-block" id="TOFFrame.inch_to_mm"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.inch_to_mm">[docs]</a>    <span class="nd">@_toTOFFrame</span>
     <span class="k">def</span> <span class="nf">inch_to_mm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset_inch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -469,7 +469,7 @@
             <span class="k">return</span> <span class="bp">self</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">values</span></div>
-        
+
 <div class="viewcode-block" id="TOFFrame.mm_to_inch"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.mm_to_inch">[docs]</a>    <span class="nd">@_toTOFFrame</span>
     <span class="k">def</span> <span class="nf">mm_to_inch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset_mm</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -481,7 +481,7 @@
             <span class="k">return</span> <span class="bp">self</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">values</span></div>
-    
+
 <div class="viewcode-block" id="TOFFrame.sec_to_microsec"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.sec_to_microsec">[docs]</a>    <span class="nd">@_toTOFFrame</span>
     <span class="k">def</span> <span class="nf">sec_to_microsec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset_sec</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -493,7 +493,7 @@
             <span class="k">return</span> <span class="bp">self</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">times</span></div>
-       
+
 <div class="viewcode-block" id="TOFFrame.microsec_to_sec"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.microsec_to_sec">[docs]</a>    <span class="nd">@_toTOFFrame</span>
     <span class="k">def</span> <span class="nf">microsec_to_sec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset_microsec</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -505,15 +505,15 @@
             <span class="k">return</span> <span class="bp">self</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">times</span></div>
-    
+
 <div class="viewcode-block" id="TOFFrame.reduce"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofframe.TOFFrame.reduce">[docs]</a>    <span class="nd">@_toTOFSeries</span>
     <span class="k">def</span> <span class="nf">reduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        reduce dimention from 2D to 1D by sum along axis</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span><span class="p">)</span></div>
-    
-    
+
+
     <span class="c1">#Descriptors:</span>
     <span class="c1">#single = DescriptorMixin(TimeSeries)</span>
     <span class="n">plot2d</span> <span class="o">=</span> <span class="n">DescriptorMixin</span><span class="p">(</span><span class="n">PlotTOFFrame</span><span class="p">)</span>

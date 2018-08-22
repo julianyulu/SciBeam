@@ -13,15 +13,15 @@
 # 
 # Created: Fri Mar 23 23:02:05 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Sun Apr  1 17:51:20 2018 (-0500)
+# Last-Updated: Wed Aug 22 11:44:16 2018 (-0500)
 #           By: yulu
-#     Update #: 98
+#     Update #: 99
 # 
 
 import os 
 import re
 import numpy as np 
-from SciBeam.core import base
+from scibeam.core import base
 
 
 class Folder(base.Defaults):
