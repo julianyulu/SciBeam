@@ -33,36 +33,37 @@
           <div class="body" role="main">
             
   <h1>Source code for scibeam.core.gaussian</h1><div class="highlight"><pre>
-<span></span><span class="c1"># gaussian.py --- </span>
-<span class="c1"># </span>
+<span></span><span class="c1"># gaussian.py ---</span>
+<span class="c1">#</span>
 <span class="c1"># Filename: gaussian.py</span>
-<span class="c1"># Description: </span>
+<span class="c1"># Description:</span>
 <span class="c1">#            gaussian analysis and fitting</span>
 <span class="c1"># Author:    Yu Lu</span>
 <span class="c1"># Email:     yulu@utexas.edu</span>
-<span class="c1"># Github:    https://github.com/SuperYuLu </span>
-<span class="c1"># </span>
+<span class="c1"># Github:    https://github.com/SuperYuLu</span>
+<span class="c1">#</span>
 <span class="c1"># Created: Tue Jun 26 17:18:28 2018 (-0500)</span>
-<span class="c1"># Version: </span>
+<span class="c1"># Version:</span>
 <span class="c1"># Last-Updated: Tue Jul 17 17:46:27 2018 (-0500)</span>
 <span class="c1">#           By: yulu</span>
 <span class="c1">#     Update #: 17</span>
-<span class="c1"># </span>
+<span class="c1">#</span>
 
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">curve_fit</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+
 <div class="viewcode-block" id="Gaussian"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.gaussian.Gaussian">[docs]</a><span class="k">class</span> <span class="nc">Gaussian</span><span class="p">:</span>
-    
+
 <div class="viewcode-block" id="Gaussian.gaus"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.gaussian.Gaussian.gaus">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">gaus</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        gaussian function with or without offset</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
-        <span class="k">if</span> <span class="n">offset</span><span class="p">:</span> 
+
+        <span class="k">if</span> <span class="n">offset</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">offset</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
@@ -74,16 +75,16 @@
 <span class="sd">        - Description:</span>
 <span class="sd">              This function is to fit data with 1D gausian equation:</span>
 <span class="sd">            y = a * exp((x - x0)^2 / (2 * sigma)) + y0</span>
-<span class="sd">            it&#39;s calling funciton gaus and curve_fit (from scipy.optimize lib) to fit the </span>
-<span class="sd">            data. Sometimes (merely) it cannot find the optimized prarameters to fit the </span>
+<span class="sd">            it&#39;s calling funciton gaus and curve_fit (from scipy.optimize lib) to fit the</span>
+<span class="sd">            data. Sometimes (merely) it cannot find the optimized prarameters to fit the</span>
 <span class="sd">            data, that could be due to the range of peak giving in variable &#39;data&#39;. It returns</span>
 <span class="sd">            optimized parameters and their error.</span>
 <span class="sd">        - Input:</span>
 <span class="sd">            - x, y: 2D array, column gives x, while column gives y</span>
-<span class="sd">        - Output: </span>
+<span class="sd">        - Output:</span>
 <span class="sd">            - popt: [float,array] array of optmized data [a, x0, sigma, y0]</span>
-<span class="sd">            - pcov: [float, array] covariant of the corresponding optmized data </span>
-<span class="sd">    </span>
+<span class="sd">            - pcov: [float, array] covariant of the corresponding optmized data</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># initial guesses</span>
         <span class="n">idxMax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -91,7 +92,7 @@
         <span class="n">x0</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">idxMax</span><span class="p">]</span>
         <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="n">halfWidth</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">idxMax</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">idxMax</span><span class="p">:]</span> <span class="o">-</span> <span class="n">a0</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">idxMax</span><span class="p">]</span>
-        
+
         <span class="k">if</span> <span class="n">offset</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">Gaussian</span><span class="o">.</span><span class="n">gaus</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p0</span> <span class="o">=</span> <span class="p">[</span><span class="n">a0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">halfWidth</span><span class="p">,</span> <span class="n">y0</span><span class="p">])</span>
@@ -110,13 +111,13 @@
         <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;raw data&#39;</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Gaussian</span><span class="o">.</span><span class="n">gaus</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">popt</span><span class="p">),</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;gauss fit&#39;</span><span class="p">)</span>
-    
-        
+
+
         <span class="c1">#------------------------------------------------------------</span>
         <span class="c1"># leastsq implementation</span>
         <span class="c1"># downside: diagnal elements of pcov doesn&#39;t give covariance</span>
         <span class="c1">#------------------------------------------------------------</span>
-        
+
         <span class="c1">#     if offset:</span>
         <span class="c1">#         errorFunc = lambda p, x, y: (gaus(x, y0 = 0, *p) - y)</span>
         <span class="c1">#     else:</span>
@@ -124,7 +125,7 @@
         <span class="c1">#     popt, pcov, infodic, mesg, ier = leastsq(errorFunc, [a0, x0, halfWidth], full_output = True, args = (x, y))</span>
         <span class="c1">#     if ier &lt; 0:</span>
         <span class="c1">#         raise ValueError(&quot;Gaussian fit failed &quot;)</span>
-        
+
         <span class="k">return</span> <span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span></div>
 
 
@@ -136,9 +137,9 @@
 <span class="sd">              Double gaussian function with offset</span>
 <span class="sd">              y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))</span>
 <span class="sd">        - Input:</span>
-<span class="sd">            - x: [float] input variable for the double gaussian function </span>
+<span class="sd">            - x: [float] input variable for the double gaussian function</span>
 <span class="sd">            - a1, a2: [float] Amplitude of the two gaussian peaks</span>
-<span class="sd">            - x1, x2: [float] Peak center for the two gaussian peaks </span>
+<span class="sd">            - x1, x2: [float] Peak center for the two gaussian peaks</span>
 <span class="sd">            - sigma1, sigma2: [float] sigma vlaues for the two gaussian peaks</span>
 <span class="sd">            - y0: [float] y offset, optional, default y0 = 0</span>
 <span class="sd">        - output</span>
@@ -150,18 +151,18 @@
     <span class="k">def</span> <span class="nf">doubleGausFit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">guessPara</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        - Function: [array]popt, [array]pcov = doubleGausFit([array]x, [array]y, [array]guessPara)</span>
-<span class="sd">        - Description: </span>
-<span class="sd">              This function to fit the data with a double gaussian function. x, y are the corresponding x, y value of the initial data and initial guess parameters. </span>
+<span class="sd">        - Description:</span>
+<span class="sd">              This function to fit the data with a double gaussian function. x, y are the corresponding x, y value of the initial data and initial guess parameters.</span>
 <span class="sd">              This function is using least square method to fit the double gaussian function and get the fitting parameters.</span>
-<span class="sd">        - Input: </span>
-<span class="sd">            - x: [array] input data x axis value </span>
+<span class="sd">        - Input:</span>
+<span class="sd">            - x: [array] input data x axis value</span>
 <span class="sd">            - y: [array] input data y axis value</span>
 <span class="sd">            - guessPara: [array/list] initial guess parameter list[a1, x1, sigma1, a2, x2, sigma2, y0]</span>
 <span class="sd">        - Output:</span>
 <span class="sd">            - popt: [array] fitted parameter array [a1, x1, simga1, a2, x2, simga1]</span>
 <span class="sd">            - pcov: [array] corresponding converiance of popt</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">offset</span><span class="p">:</span> 
+        <span class="k">if</span> <span class="n">offset</span><span class="p">:</span>
             <span class="n">errorFunc</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">Gaussian2D</span><span class="o">.</span><span class="n">doubleGaus</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">errorFunc</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">Gaussian2d</span><span class="o">.</span><span class="n">doubleGaus</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
@@ -173,7 +174,7 @@
 
 <div class="viewcode-block" id="Gaussian2D"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.gaussian.Gaussian2D">[docs]</a><span class="k">class</span> <span class="nc">Gaussian2D</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    2 dimentional gaussian funtion </span>
+<span class="sd">    2 dimentional gaussian funtion</span>
 <span class="sd">    TO BE IMPLEMENTED</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>

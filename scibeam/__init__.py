@@ -10,9 +10,9 @@
 #
 # Created: Sun Mar 25 16:04:08 2018 (-0500)
 # Version:
-# Last-Updated: Sun Aug 19 15:03:24 2018 (-0500)
+# Last-Updated: Wed Aug 22 11:35:46 2018 (-0500)
 #           By: yulu
-#     Update #: 53
+#     Update #: 59
 #
 
 """Scibeam
@@ -23,6 +23,11 @@ For scientific time series analysis and visualization.
 
 name = "scibeam"
 
+from . import core
+from .core import *
+
+from . import util
+from .util import *
 
 
 from .core.tofframe import (
