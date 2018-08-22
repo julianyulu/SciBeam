@@ -80,4 +80,4 @@ make test
 
 
 ## Status  
-Version 0.1.0 on [PyPI](https://pypi.org/project/scibeam/)
+Version 0.1.1 on [PyPI](https://pypi.org/project/scibeam/)
