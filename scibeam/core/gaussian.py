@@ -9,9 +9,9 @@
 #
 # Created: Tue Jun 26 17:18:28 2018 (-0500)
 # Version:
-# Last-Updated: Tue Jul 17 17:46:27 2018 (-0500)
+# Last-Updated: Wed Aug 22 23:55:01 2018 (-0500)
 #           By: yulu
-#     Update #: 17
+#     Update #: 29
 #
 
 
@@ -30,8 +30,32 @@ class Gaussian:
     """
     @staticmethod
     def gaus(x, A, x0, sigma, offset = 0):
-        """
-        gaussian function with or without offset
+        """gaussian function with or without offset 
+
+        General form of a 1D gaussian function, with variable as first 
+        parameter and other associate parameters followed. Can be used 
+        for fitting or line plotting after fitting is done.
+
+        The function generally follow the form ::
+        y = A * exp(-(x - x0)^2 / (2 * sigma^2)) + offset (optional)
+
+        Handles the case with and without offset seperatelly, since for 
+        fitting without offset at all one has to force the function to 
+        be of not offset. 
+        
+        Parameters
+        ----------
+        x : float 
+            variable x in gaussian function
+        A : float 
+            Peak value
+        x0 : float
+            Center coordinates
+        sigma : float
+            Standard deviation 
+        offset : float
+            overall offset, default 0
+
         """
 
         if offset:
@@ -40,21 +64,40 @@ class Gaussian:
             return A * np.exp(-(x - x0)**2 / (2 * sigma**2))
 
     @staticmethod
-    def gausFit(x, y, offset = 0, plot = False):
-        """
-        - Functions: [float, array]popt, [float, array]pcov = gausFit([2D array]data)
-        - Description:
-              This function is to fit data with 1D gausian equation:
-            y = a * exp((x - x0)^2 / (2 * sigma)) + y0
-            it's calling funciton gaus and curve_fit (from scipy.optimize lib) to fit the
-            data. Sometimes (merely) it cannot find the optimized prarameters to fit the
-            data, that could be due to the range of peak giving in variable 'data'. It returns
-            optimized parameters and their error.
-        - Input:
-            - x, y: 2D array, column gives x, while column gives y
-        - Output:
-            - popt: [float,array] array of optmized data [a, x0, sigma, y0]
-            - pcov: [float, array] covariant of the corresponding optmized data
+    def gausFit(x, y, offset = False, plot = False):
+        """Perform gaussian fit on given data 
+        
+        Fit data with 1D gausian function ::
+        y = a * exp((x - x0)^2 / (2 * sigma)) + y0(optional) 
+
+        The function generates initial guesses automatically based on 
+        given data, the algorithm is based on scipy curve_fit function
+
+        Parameters
+        ----------
+        
+        x : array-like
+            X values of the input data
+        y : array-like
+            Y values of the input data 
+        offset : bool
+            Wether fit gaussian with offset or not
+            Default False 
+        plot : bool
+            Wether plot the fitting result or not 
+            Default False
+
+        Returns
+        -------
+        array1
+            Array of optmized best fit data [a, x0, sigma, y0]
+        array2
+            A 4 x 4 covariant matrix of the corresponding optmized data
+
+        Raises
+        ------
+        RuntimeError
+            When optimized parameters not found within max depth of iteration 
 
         """
         # initial guesses
@@ -102,36 +145,70 @@ class Gaussian:
 
     @staticmethod
     def doubleGaus(x, a1, x1, sigma1, a2, x2, sigma2, y0 = 0):
-        """
-        - Function: doubleGaus([float]x, [float]a1, [float]x1, [float]sigma1, [float]a2, [float]x2, [float]sigma2, [flaot]y0=0)
-        - Description:
-              Double gaussian function with offset
-              y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))
-        - Input:
-            - x: [float] input variable for the double gaussian function
-            - a1, a2: [float] Amplitude of the two gaussian peaks
-            - x1, x2: [float] Peak center for the two gaussian peaks
-            - sigma1, sigma2: [float] sigma vlaues for the two gaussian peaks
-            - y0: [float] y offset, optional, default y0 = 0
-        - output
-            Calculated double gaussian function
+        """Gaussian function of two independent variables
+        
+        Double gaussian function with offset ::
+        y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))
+        
+
+        Parameters
+        ----------
+        x : float
+            Input variable for the double gaussian function
+        a1 : float
+            Amplitude of the first gaussian variable peak
+        x1 : float
+            Peak center for the first variable gaussian peak
+        sigma1 : float
+            Sigma vlaues for the two gaussian peaks
+        a2 : float
+            Amplitude of the second gaussian variable peak
+        a2 : float
+            Amplitude of the first gaussian variable peak
+        x2 : float
+            Peak center for the first variable gaussian peak
+        sigma2 : float
+            Sigma vlaues for the two gaussian peaks
+        y0 : float
+            Y offset, optional, default y0 = 0
+            
+        Returns 
+        -------
+            Numerical value of the double gaussian function
+
         """
         return a1 * np.exp(-(x - x1)**2/(2 * sigma1**2)) + a2 * np.exp(-(x - x2)**2 / (2 * sigma2 **2)) + y0
 
     @staticmethod
     def doubleGausFit(x, y, guessPara, offset = False):
-        """
-        - Function: [array]popt, [array]pcov = doubleGausFit([array]x, [array]y, [array]guessPara)
-        - Description:
-              This function to fit the data with a double gaussian function. x, y are the corresponding x, y value of the initial data and initial guess parameters.
-              This function is using least square method to fit the double gaussian function and get the fitting parameters.
-        - Input:
-            - x: [array] input data x axis value
-            - y: [array] input data y axis value
-            - guessPara: [array/list] initial guess parameter list[a1, x1, sigma1, a2, x2, sigma2, y0]
-        - Output:
-            - popt: [array] fitted parameter array [a1, x1, simga1, a2, x2, simga1]
-            - pcov: [array] corresponding converiance of popt
+        """Two independent variable gaussian fitting
+
+        Fit the data with a double gaussian function base on given 
+        x, y data and initial guess parameters.
+
+        Unlike the 1D gaussian fitting function, one hase to provide 
+        initial guess parameters to make sure optimal parameters could 
+        be found.
+        
+        The fitting method is based on  least square method, fitted 
+        parameters and their covariance matrix is returned.
+
+        Parameters
+        ----------
+        x : 1D array
+            Input data x value
+        y : 1D array
+            Input data y value
+        guessPara: array-like
+            Initial guess parameter list[a1, x1, sigma1, a2, x2, sigma2, y0]
+
+        Returns
+        -------
+        array1
+            Fitted parameter array [a1, x1, simga1, a2, x2, simga1]
+        array2
+            Cnveriance matrix of fitted parameters
+        
         """
         if offset:
             errorFunc = lambda p, x, y: (Gaussian2D.doubleGaus(x, *p) - y)
@@ -142,10 +219,4 @@ class Gaussian:
             raise ValueError("[*] Double gauss fit failed! ")
         return popt, pcov
 
-
-class Gaussian2D:
-    """
-    2 dimentional gaussian funtion
-    TO BE IMPLEMENTED
-    """
-    pass
+    
