@@ -21,7 +21,13 @@ from scipy.optimize import curve_fit
 import warnings
 
 class Gaussian:
+    """Class for numerical gaussian funciton application
 
+    A collections of methods for gaussian analysis on the data, such as
+    single gaussian function, single gaussian 1d fitting, double gaussian,
+    double gaussian fitting, etc.  
+
+    """
     @staticmethod
     def gaus(x, A, x0, sigma, offset = 0):
         """
