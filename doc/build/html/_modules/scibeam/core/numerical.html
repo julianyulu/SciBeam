@@ -33,21 +33,21 @@
           <div class="body" role="main">
             
   <h1>Source code for scibeam.core.numerical</h1><div class="highlight"><pre>
-<span></span><span class="c1"># numerical.py --- </span>
-<span class="c1"># </span>
+<span></span><span class="c1"># numerical.py ---</span>
+<span class="c1">#</span>
 <span class="c1"># Filename: numerical.py</span>
-<span class="c1"># Description: </span>
-<span class="c1"># </span>
+<span class="c1"># Description:</span>
+<span class="c1">#</span>
 <span class="c1"># Author:    Yu Lu</span>
 <span class="c1"># Email:     yulu@utexas.edu</span>
-<span class="c1"># Github:    https://github.com/SuperYuLu </span>
-<span class="c1"># </span>
+<span class="c1"># Github:    https://github.com/SuperYuLu</span>
+<span class="c1">#</span>
 <span class="c1"># Created: Tue May  8 23:19:52 2018 (-0500)</span>
-<span class="c1"># Version: </span>
+<span class="c1"># Version:</span>
 <span class="c1"># Last-Updated: Fri Jul 27 20:52:36 2018 (-0500)</span>
 <span class="c1">#           By: yulu</span>
 <span class="c1">#     Update #: 48</span>
-<span class="c1"># </span>
+<span class="c1">#</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">leastsq</span><span class="p">,</span> <span class="n">curve_fit</span>
@@ -62,14 +62,44 @@
 
 
 <div class="viewcode-block" id="bandPassFilter"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.numerical.bandPassFilter">[docs]</a><span class="k">def</span> <span class="nf">bandPassFilter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">tStep</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lowFreq</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">highFreq</span> <span class="o">=</span> <span class="mf">1e4</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    band pass filter based on fourier transform </span>
+    <span class="sd">&quot;&quot;&quot;band pass filter based on fourier transform</span>
+
+<span class="sd">    Filter the noise in time series data with given frequency range.</span>
+
+<span class="sd">    The data has to be in numpy array. If only 1D array is provided, one also</span>
+<span class="sd">    needs to provide time step size. If 2D array is provided, the 0th column</span>
+<span class="sd">    will be used to calculate time step size, while the 1st column will be</span>
+<span class="sd">    treated as the signal value.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : numpy array</span>
+<span class="sd">        The input time series data.</span>
+<span class="sd">        1d array is treated as the signal value, which requires input parameter</span>
+<span class="sd">        tStep to be not None.</span>
+<span class="sd">    tStep : float</span>
+<span class="sd">        Time step size in seconds of the time series data.</span>
+<span class="sd">        If None (default), 0st columns in data will be treated as time and time</span>
+<span class="sd">        step size will be extracted from there</span>
+<span class="sd">    lowFreq :  float</span>
+<span class="sd">        Lower bound of the bandpass filter, default 0 Hz</span>
+<span class="sd">    highFreq : float</span>
+<span class="sd">        Upper bound of the bandpass filter, default 1e4 Hz</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    The data has to be uniformly sampled, e.g. same time gap between each data</span>
+<span class="sd">    point, all parameters here are supposed to be SI unit.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="k">if</span> <span class="n">tStep</span><span class="p">:</span>
         <span class="k">pass</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">tStep</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tStep</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time step value needed if provided is a 1D array&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span>
     <span class="n">yf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">xf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">tStep</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">yf</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">yf</span><span class="p">):</span>
@@ -81,15 +111,33 @@
 
 
 <div class="viewcode-block" id="integrate"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.numerical.integrate">[docs]</a><span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;numerical&#39;</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">()):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    numerical / function integration using numpy trapz / scipy quad</span>
+    <span class="sd">&quot;&quot;&quot;numerical / functional integration</span>
+
+<span class="sd">    Perform integration on either numerical data or on a function.</span>
+
+<span class="sd">    The numerical intergration is based on given parameter x and y, based on</span>
+<span class="sd">    numpy function trap; while the functional integration is based on given</span>
+<span class="sd">    function and numpy function quad.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : 1D array</span>
+<span class="sd">        THe x axis values for numerical data, default None</span>
+<span class="sd">    y : 1D array</span>
+<span class="sd">        The y axis values for numerical data, default None</span>
+<span class="sd">    kind : string</span>
+<span class="sd">        Specify the integration method, options are: &#39;numerical&#39;, &#39;function&#39;</span>
+<span class="sd">        default &#39;numerical&#39;</span>
+<span class="sd">    func : function</span>
+<span class="sd">        The function to be integrated, default None</span>
+<span class="sd">    args</span>
+<span class="sd">        arguments for function quad</span>
+<span class="sd">        </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;numerical&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;function&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">quad</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>  <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
-
-
 </pre></div>
 
           </div>

@@ -338,12 +338,60 @@ Default False</li>
 <dt id="scibeam.core.numerical.bandPassFilter">
 <code class="descclassname">scibeam.core.numerical.</code><code class="descname">bandPassFilter</code><span class="sig-paren">(</span><em>data</em>, <em>tStep=None</em>, <em>lowFreq=0</em>, <em>highFreq=10000.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/numerical.html#bandPassFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.numerical.bandPassFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>band pass filter based on fourier transform</p>
+<p>Filter the noise in time series data with given frequency range.</p>
+<p>The data has to be in numpy array. If only 1D array is provided, one also
+needs to provide time step size. If 2D array is provided, the 0th column
+will be used to calculate time step size, while the 1st column will be
+treated as the signal value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>numpy array</em>) – The input time series data.
+1d array is treated as the signal value, which requires input parameter
+tStep to be not None.</li>
+<li><strong>tStep</strong> (<em>float</em>) – Time step size in seconds of the time series data.
+If None (default), 0st columns in data will be treated as time and time
+step size will be extracted from there</li>
+<li><strong>lowFreq</strong> (<em>float</em>) – Lower bound of the bandpass filter, default 0 Hz</li>
+<li><strong>highFreq</strong> (<em>float</em>) – Upper bound of the bandpass filter, default 1e4 Hz</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The data has to be uniformly sampled, e.g. same time gap between each data
+point, all parameters here are supposed to be SI unit.</p>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="scibeam.core.numerical.integrate">
 <code class="descclassname">scibeam.core.numerical.</code><code class="descname">integrate</code><span class="sig-paren">(</span><em>x=None</em>, <em>y=None</em>, <em>kind='numerical'</em>, <em>func=None</em>, <em>args=()</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/numerical.html#integrate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.numerical.integrate" title="Permalink to this definition">¶</a></dt>
-<dd><p>numerical / function integration using numpy trapz / scipy quad</p>
+<dd><p>numerical / functional integration</p>
+<p>Perform integration on either numerical data or on a function.</p>
+<p>The numerical intergration is based on given parameter x and y, based on
+numpy function trap; while the functional integration is based on given
+function and numpy function quad.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>1D array</em>) – THe x axis values for numerical data, default None</li>
+<li><strong>y</strong> (<em>1D array</em>) – The y axis values for numerical data, default None</li>
+<li><strong>kind</strong> (<em>string</em>) – Specify the integration method, options are: ‘numerical’, ‘function’
+default ‘numerical’</li>
+<li><strong>func</strong> (<em>function</em>) – The function to be integrated, default None</li>
+<li><strong>args</strong> – arguments for function quad</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
