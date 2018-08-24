@@ -11,7 +11,6 @@ Welcome to scibeam's documentation!
    :caption: Contents:
 
 
-
 Indices and tables
 ==================
 

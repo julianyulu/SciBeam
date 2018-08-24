@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>scibeam.core package &#8212; scibeam 0.1.0 documentation</title>
+    <title>scibeam.core package &#8212; scibeam 0.1.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -163,13 +163,28 @@ Read-only descriptor for class cross reference</p>
 <dl class="function">
 <dt id="scibeam.core.formatter.format_dict">
 <code class="descclassname">scibeam.core.formatter.</code><code class="descname">format_dict</code><span class="sig-paren">(</span><em>rawdict</em>, <em>alphabetical=True</em>, <em>digits=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/formatter.html#format_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.formatter.format_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Format dictionarys to strings as seperate rows for printing, annotation on plot, etc</p>
-<p>[Input]
-rawdict: (dict) raw input dictionary
-alphabetialy: (bool) if true (default) arrange dict key alphabetical
-digits: (int) number of digits to keep if the value the key is numerical</p>
-<p>[Output]
-(str) formated string in seperate rows</p>
+<dd><p>dictionary to string format</p>
+<p>Format dictionarys to strings as a list of key value pairs in each row ,
+meant for printing, annotation on plot, etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rawdict</strong> (<em>dictionary</em>) – raw input dictionary</li>
+<li><strong>alphabetialy</strong> (<em>bool</em>) – if true (default) arrange dict key alphabetical</li>
+<li><strong>digits</strong> (<em>int</em>) – number of digits to keep if the value the key is numerical</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Formated string in seperate rows</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -179,123 +194,141 @@ digits: (int) number of digits to keep if the value the key is numerical</p>
 <dt id="scibeam.core.gaussian.Gaussian">
 <em class="property">class </em><code class="descclassname">scibeam.core.gaussian.</code><code class="descname">Gaussian</code><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for numerical gaussian funciton application</p>
+<p>A collections of methods for gaussian analysis on the data, such as
+single gaussian function, single gaussian 1d fitting, double gaussian,
+double gaussian fitting, etc.</p>
 <dl class="staticmethod">
 <dt id="scibeam.core.gaussian.Gaussian.doubleGaus">
 <em class="property">static </em><code class="descname">doubleGaus</code><span class="sig-paren">(</span><em>x</em>, <em>a1</em>, <em>x1</em>, <em>sigma1</em>, <em>a2</em>, <em>x2</em>, <em>sigma2</em>, <em>y0=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.doubleGaus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.doubleGaus" title="Permalink to this definition">¶</a></dt>
-<dd><ul class="simple">
-<li>Function: doubleGaus([float]x, [float]a1, [float]x1, [float]sigma1, [float]a2, [float]x2, [float]sigma2, [flaot]y0=0)</li>
-<li><dl class="first docutils">
-<dt>Description:</dt>
-<dd>Double gaussian function with offset
-y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Input:</dt>
-<dd><ul class="first last">
-<li>x: [float] input variable for the double gaussian function</li>
-<li>a1, a2: [float] Amplitude of the two gaussian peaks</li>
-<li>x1, x2: [float] Peak center for the two gaussian peaks</li>
-<li>sigma1, sigma2: [float] sigma vlaues for the two gaussian peaks</li>
-<li>y0: [float] y offset, optional, default y0 = 0</li>
+<dd><p>Gaussian function of two independent variables</p>
+<p>Double gaussian function with offset ::
+y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – Input variable for the double gaussian function</li>
+<li><strong>a1</strong> (<em>float</em>) – Amplitude of the first gaussian variable peak</li>
+<li><strong>x1</strong> (<em>float</em>) – Peak center for the first variable gaussian peak</li>
+<li><strong>sigma1</strong> (<em>float</em>) – Sigma vlaues for the two gaussian peaks</li>
+<li><strong>a2</strong> (<em>float</em>) – Amplitude of the second gaussian variable peak</li>
+<li><strong>a2</strong> – Amplitude of the first gaussian variable peak</li>
+<li><strong>x2</strong> (<em>float</em>) – Peak center for the first variable gaussian peak</li>
+<li><strong>sigma2</strong> (<em>float</em>) – Sigma vlaues for the two gaussian peaks</li>
+<li><strong>y0</strong> (<em>float</em>) – Y offset, optional, default y0 = 0</li>
 </ul>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>output</dt>
-<dd>Calculated double gaussian function</dd>
-</dl>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Numerical value of the double gaussian function</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="scibeam.core.gaussian.Gaussian.doubleGausFit">
 <em class="property">static </em><code class="descname">doubleGausFit</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>guessPara</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.doubleGausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.doubleGausFit" title="Permalink to this definition">¶</a></dt>
-<dd><ul class="simple">
-<li>Function: [array]popt, [array]pcov = doubleGausFit([array]x, [array]y, [array]guessPara)</li>
-<li><dl class="first docutils">
-<dt>Description:</dt>
-<dd>This function to fit the data with a double gaussian function. x, y are the corresponding x, y value of the initial data and initial guess parameters.
-This function is using least square method to fit the double gaussian function and get the fitting parameters.</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Input:</dt>
-<dd><ul class="first last">
-<li>x: [array] input data x axis value</li>
-<li>y: [array] input data y axis value</li>
-<li>guessPara: [array/list] initial guess parameter list[a1, x1, sigma1, a2, x2, sigma2, y0]</li>
+<dd><p>Two independent variable gaussian fitting</p>
+<p>Fit the data with a double gaussian function base on given
+x, y data and initial guess parameters.</p>
+<p>Unlike the 1D gaussian fitting function, one hase to provide
+initial guess parameters to make sure optimal parameters could
+be found.</p>
+<p>The fitting method is based on  least square method, fitted
+parameters and their covariance matrix is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>1D array</em>) – Input data x value</li>
+<li><strong>y</strong> (<em>1D array</em>) – Input data y value</li>
+<li><strong>guessPara</strong> (<em>array-like</em>) – Initial guess parameter list[a1, x1, sigma1, a2, x2, sigma2, y0]</li>
 </ul>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Output:</dt>
-<dd><ul class="first last">
-<li>popt: [array] fitted parameter array [a1, x1, simga1, a2, x2, simga1]</li>
-<li>pcov: [array] corresponding converiance of popt</li>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>array1</em> – Fitted parameter array [a1, x1, simga1, a2, x2, simga1]</li>
+<li><em>array2</em> – Cnveriance matrix of fitted parameters</li>
 </ul>
-</dd>
-</dl>
-</li>
-</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="scibeam.core.gaussian.Gaussian.gaus">
 <em class="property">static </em><code class="descname">gaus</code><span class="sig-paren">(</span><em>x</em>, <em>A</em>, <em>x0</em>, <em>sigma</em>, <em>offset=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.gaus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.gaus" title="Permalink to this definition">¶</a></dt>
 <dd><p>gaussian function with or without offset</p>
+<p>General form of a 1D gaussian function, with variable as first
+parameter and other associate parameters followed. Can be used
+for fitting or line plotting after fitting is done.</p>
+<p>The function generally follow the form ::
+y = A * exp(-(x - x0)^2 / (2 * sigma^2)) + offset (optional)</p>
+<p>Handles the case with and without offset seperatelly, since for
+fitting without offset at all one has to force the function to
+be of not offset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>float</em>) – variable x in gaussian function</li>
+<li><strong>A</strong> (<em>float</em>) – Peak value</li>
+<li><strong>x0</strong> (<em>float</em>) – Center coordinates</li>
+<li><strong>sigma</strong> (<em>float</em>) – Standard deviation</li>
+<li><strong>offset</strong> (<em>float</em>) – overall offset, default 0</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="scibeam.core.gaussian.Gaussian.gausFit">
-<em class="property">static </em><code class="descname">gausFit</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>offset=0</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.gausFit" title="Permalink to this definition">¶</a></dt>
-<dd><ul>
-<li><p class="first">Functions: [float, array]popt, [float, array]pcov = gausFit([2D array]data)</p>
-</li>
-<li><dl class="first docutils">
-<dt>Description:</dt>
-<dd><blockquote class="first">
-<div><p>This function is to fit data with 1D gausian equation:</p>
-</div></blockquote>
-<p class="last">y = a * exp((x - x0)^2 / (2 * sigma)) + y0
-it’s calling funciton gaus and curve_fit (from scipy.optimize lib) to fit the
-data. Sometimes (merely) it cannot find the optimized prarameters to fit the
-data, that could be due to the range of peak giving in variable ‘data’. It returns
-optimized parameters and their error.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Input:</dt>
-<dd><ul class="first last simple">
-<li>x, y: 2D array, column gives x, while column gives y</li>
+<em class="property">static </em><code class="descname">gausFit</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>offset=False</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.gausFit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform gaussian fit on given data</p>
+<p>Fit data with 1D gausian function ::
+y = a * exp((x - x0)^2 / (2 * sigma)) + y0(optional)</p>
+<p>The function generates initial guesses automatically based on
+given data, the algorithm is based on scipy curve_fit function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>array-like</em>) – X values of the input data</li>
+<li><strong>y</strong> (<em>array-like</em>) – Y values of the input data</li>
+<li><strong>offset</strong> (<em>bool</em>) – Wether fit gaussian with offset or not
+Default False</li>
+<li><strong>plot</strong> (<em>bool</em>) – Wether plot the fitting result or not
+Default False</li>
 </ul>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Output:</dt>
-<dd><ul class="first last simple">
-<li>popt: [float,array] array of optmized data [a, x0, sigma, y0]</li>
-<li>pcov: [float, array] covariant of the corresponding optmized data</li>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><ul class="simple">
+<li><em>array1</em> – Array of optmized best fit data [a, x0, sigma, y0]</li>
+<li><em>array2</em> – A 4 x 4 covariant matrix of the corresponding optmized data</li>
 </ul>
-</dd>
-</dl>
-</li>
-</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code> – When optimized parameters not found within max depth of iteration</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="class">
-<dt id="scibeam.core.gaussian.Gaussian2D">
-<em class="property">class </em><code class="descclassname">scibeam.core.gaussian.</code><code class="descname">Gaussian2D</code><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>2 dimentional gaussian funtion
-TO BE IMPLEMENTED</p>
 </dd></dl>
 
 </div>

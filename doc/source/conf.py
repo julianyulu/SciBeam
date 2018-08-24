@@ -14,7 +14,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../..'))
 
 
 # -- Project information -----------------------------------------------------
@@ -26,7 +26,7 @@ author = 'Yu Lu'
 # The short X.Y version
 version = '0.1'
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = '0.1.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -39,6 +39,7 @@ release = '0.1.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    #'sphinx.ext.apidoc',
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
@@ -164,7 +165,9 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
-napoleon_google_docstring = True
+
+## napoleon for numpy style doc strings 
+napoleon_google_docstring = False
 napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = False
 napoleon_include_private_with_doc = False
@@ -176,6 +179,11 @@ napoleon_use_ivar = False
 napoleon_use_param = True
 napoleon_use_rtype = True
 
+## sphinx-apidoc
+apidoc_module_dir = '../../scibeam'
+apidoc_output_dir = 'source'
+apidoc_excluded_paths = []
+apidoc_separate_mudules = True
 # -- Options for todo extension ----------------------------------------------
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
