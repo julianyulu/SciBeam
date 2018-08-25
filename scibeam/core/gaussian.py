@@ -17,7 +17,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
+from scipy.optimize import curve_fit, leastsq
 import warnings
 
 class Gaussian:
@@ -25,34 +25,34 @@ class Gaussian:
 
     A collections of methods for gaussian analysis on the data, such as
     single gaussian function, single gaussian 1d fitting, double gaussian,
-    double gaussian fitting, etc.  
+    double gaussian fitting, etc.
 
     """
     @staticmethod
     def gaus(x, A, x0, sigma, offset = 0):
-        """gaussian function with or without offset 
+        """gaussian function with or without offset
 
-        General form of a 1D gaussian function, with variable as first 
-        parameter and other associate parameters followed. Can be used 
+        General form of a 1D gaussian function, with variable as first
+        parameter and other associate parameters followed. Can be used
         for fitting or line plotting after fitting is done.
 
         The function generally follow the form ::
         y = A * exp(-(x - x0)^2 / (2 * sigma^2)) + offset (optional)
 
-        Handles the case with and without offset seperatelly, since for 
-        fitting without offset at all one has to force the function to 
-        be of not offset. 
-        
+        Handles the case with and without offset seperatelly, since for
+        fitting without offset at all one has to force the function to
+        be of not offset.
+
         Parameters
         ----------
-        x : float 
+        x : float
             variable x in gaussian function
-        A : float 
+        A : float
             Peak value
         x0 : float
             Center coordinates
         sigma : float
-            Standard deviation 
+            Standard deviation
         offset : float
             overall offset, default 0
 
@@ -65,26 +65,26 @@ class Gaussian:
 
     @staticmethod
     def gausFit(x, y, offset = False, plot = False):
-        """Perform gaussian fit on given data 
-        
-        Fit data with 1D gausian function ::
-        y = a * exp((x - x0)^2 / (2 * sigma)) + y0(optional) 
+        """Perform gaussian fit on given data
 
-        The function generates initial guesses automatically based on 
+        Fit data with 1D gausian function ::
+        y = a * exp((x - x0)^2 / (2 * sigma)) + y0(optional)
+
+        The function generates initial guesses automatically based on
         given data, the algorithm is based on scipy curve_fit function
 
         Parameters
         ----------
-        
+
         x : array-like
             X values of the input data
         y : array-like
-            Y values of the input data 
+            Y values of the input data
         offset : bool
             Wether fit gaussian with offset or not
-            Default False 
+            Default False
         plot : bool
-            Wether plot the fitting result or not 
+            Wether plot the fitting result or not
             Default False
 
         Returns
@@ -97,7 +97,7 @@ class Gaussian:
         Raises
         ------
         RuntimeError
-            When optimized parameters not found within max depth of iteration 
+            When optimized parameters not found within max depth of iteration
 
         """
         # initial guesses
@@ -146,10 +146,10 @@ class Gaussian:
     @staticmethod
     def doubleGaus(x, a1, x1, sigma1, a2, x2, sigma2, y0 = 0):
         """Gaussian function of two independent variables
-        
+
         Double gaussian function with offset ::
         y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))
-        
+
 
         Parameters
         ----------
@@ -171,8 +171,8 @@ class Gaussian:
             Sigma vlaues for the two gaussian peaks
         y0 : float
             Y offset, optional, default y0 = 0
-            
-        Returns 
+
+        Returns
         -------
             Numerical value of the double gaussian function
 
@@ -183,14 +183,14 @@ class Gaussian:
     def doubleGausFit(x, y, guessPara, offset = False):
         """Two independent variable gaussian fitting
 
-        Fit the data with a double gaussian function base on given 
+        Fit the data with a double gaussian function base on given
         x, y data and initial guess parameters.
 
-        Unlike the 1D gaussian fitting function, one hase to provide 
-        initial guess parameters to make sure optimal parameters could 
+        Unlike the 1D gaussian fitting function, one hase to provide
+        initial guess parameters to make sure optimal parameters could
         be found.
-        
-        The fitting method is based on  least square method, fitted 
+
+        The fitting method is based on  least square method, fitted
         parameters and their covariance matrix is returned.
 
         Parameters
@@ -208,7 +208,7 @@ class Gaussian:
             Fitted parameter array [a1, x1, simga1, a2, x2, simga1]
         array2
             Cnveriance matrix of fitted parameters
-        
+
         """
         if offset:
             errorFunc = lambda p, x, y: (Gaussian2D.doubleGaus(x, *p) - y)
@@ -218,5 +218,3 @@ class Gaussian:
         if ier < 0:
             raise ValueError("[*] Double gauss fit failed! ")
         return popt, pcov
-
-    

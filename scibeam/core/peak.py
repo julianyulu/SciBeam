@@ -32,28 +32,120 @@ __all__ = [
     ]
 
 class SeriesPeak(pandas.Series):
-    """
-    Peak analysis on 1D labeled / unlabeled data
+    """Peak analysis on 1D labeled / unlabeled data
+
+    Build on top of pandas.Series, this adds more methods on peak analysis for
+    pandas series data. The any class instance of SeriesPeak can still access
+    all pandas sereis methods.
+
+    By default, the indexes is treated as the time axis, while the values of
+    series is the data value.
+
+    Additionally, SeriesPeak is also designed as a mixin class which can be used
+    as a method chain in other pandas dataframe / sereis based data formats.
+
+    Attributes
+    ----------
+    self : pandas series
+        pandas series data
+
     """
     def __init__(self, *args, **kwargs):
+        """assign value to initialize SeriesPeak
+
+        The initlization of this class can be done exactly as one initlize
+        pandas series, for more information please pandas series documentation.
+
+        """
         super().__init__(*args, **kwargs)
 
     @classmethod
     def _constructor(cls, *args, **kwargs):
+        """class constructor
+
+        The classmethod consturctor here are used to make sure the class
+        instance element-wise operation still yields the object from the same
+        class. Anther function is when it's used for a mixin class as for method
+        chain, this will pass a copy of the class instance to make sure data
+        is 'type safe'
+
+        args, kwargs are the same as in __init__()
+
+        """
         return cls(*args, **kwargs)
 
 
-    def gausFit(self, plot = False):
-        popt, pcov = Gaussian.gausFit(x = self.index, y = self.values, offset = False, plot = plot)
+    def gausFit(self, plot = False, offset = False):
+        """Fit series with gausssian function
+
+        This gasussian fit function assumes the time or x-axis values is given
+        by series index, while the measurement data or y-axis values is given by
+        the values of sereis.
+
+        Optionally the one can choose to plot the fitted gaussian curve together
+        with the raw data to visuallize the fitting property.
+
+        Parameters
+        ----------
+        plot : bool
+            If True a plot will be generated with raw data and fitted gaussian
+            curve. Others no plot will be generated. Default False.
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+
+        Returns
+        -------
+        popt : 1D array
+            optimized parameters of gaussian fitting.
+            [A, x0, sigma, y0(optional)] Where
+            A: peak height of gaussian function
+            x0: peak center x coordinates
+            sigma: standard deviation
+            y0: offset. Only exist if parameter offset is set to be 'True'
+        pcov : 2D array
+            Covariance matrix of fitted parameters corresponding to popt
+
+        """
+        popt, pcov = Gaussian.gausFit(x = self.index, y = self.values, offset = offset, plot = plot)
         return popt, pcov
 
     def idx(self, gauss_fit = False):
+        """find x-axis value corresponding to peak
+
+        This funciton is to locate the corresponding x corrdinate or 'index' of
+        the peak. Depend on the value of parameter 'gauss_fit', the x coordinate
+        of peak can either come from the max value or gaussian fitting.
+
+        The index of series is treated as the x coordinate of the data.
+
+        Parameters
+        ----------
+        gauss_fit : bool
+            If true, the x coordinate corresponding to peak is get by performing
+            gaussian fitting on the data, as in member method gausFit.
+            If false, the maxmium value of data will be treated as the 'peak',
+            and its corresponding x coordinate will be returend.
+
+        Returns
+        -------
+        float
+            The x coordinate that corresponding to the peak
+
+        """
         if gauss_fit:
             return self.gausFit()[0][1]
         else:
             return self.idxmax()
 
     def nidx(self, gauss_fit = False):
+        """number index of the peak
+
+        Similar to member method idx, this one returns the number index rather
+        than the real index, which means self.index[nidx] = idx
+
+        """
         if gauss_fit:
             height = self.height(gauss_fit)
             nidx = np.argmin(abs(self.values - height))
@@ -68,6 +160,17 @@ class SeriesPeak(pandas.Series):
             return self.max()
 
     def sigma(self, n_sigmas = 1, gauss_fit = False):
+        """Find peak width
+
+        Find the peak width, with specified mutiples of standard deviation.
+        The width can be obtained by literally calculate the full-width-half-max
+        or by gaussian fitting, depend on the parameter value 'gauss_fit' to be
+        true of false.
+
+        Parameters
+        ----------
+        n_sigmas : integer 
+        """
         if gauss_fit:
             return n_sigmas * self.gausFit()[0][2]
         else:
