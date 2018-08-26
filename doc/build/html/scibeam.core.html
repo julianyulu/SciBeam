@@ -402,52 +402,206 @@ default ‘numerical’</li>
 <em class="property">class </em><code class="descclassname">scibeam.core.peak.</code><code class="descname">SeriesPeak</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code></p>
 <p>Peak analysis on 1D labeled / unlabeled data</p>
+<p>Build on top of pandas.Series, this adds more methods on peak analysis for
+pandas series data. The any class instance of SeriesPeak can still access
+all pandas sereis methods.</p>
+<p>By default, the indexes is treated as the time axis, while the values of
+series is the data value.</p>
+<p>Additionally, SeriesPeak is also designed as a mixin class which can be used
+as a method chain in other pandas dataframe / sereis based data formats.</p>
+<dl class="attribute">
+<dt id="scibeam.core.peak.SeriesPeak.self">
+<code class="descname">self</code><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.self" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pandas series</em> – pandas series data</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.area">
-<code class="descname">area</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.area" title="Permalink to this definition">¶</a></dt>
+<code class="descname">area</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.area" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.autocrop">
-<code class="descname">autocrop</code><span class="sig-paren">(</span><em>n_sigmas=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.autocrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.autocrop" title="Permalink to this definition">¶</a></dt>
+<code class="descname">autocrop</code><span class="sig-paren">(</span><em>n_sigmas=4</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.autocrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.autocrop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.fwhm">
-<code class="descname">fwhm</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.fwhm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.fwhm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">fwhm</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.fwhm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.fwhm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Full-Width-Half-Maximium</p>
+<p>Find the Full-Width-Half-Maximium (FWHM) of the peak, from
+gaussian fitting or direction calculation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>gauss_fit</strong> (<em>bool</em>) – If true, fwhm is get from gaussian fitting
+If false (default), fwhm is from direction calculation</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">peak full-width-half-maximium value</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.gausFit">
-<code class="descname">gausFit</code><span class="sig-paren">(</span><em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.gausFit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">gausFit</code><span class="sig-paren">(</span><em>plot=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.gausFit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit series with gausssian function</p>
+<p>This gasussian fit function assumes the time or x-axis values is given
+by series index, while the measurement data or y-axis values is given by
+the values of sereis.</p>
+<p>Optionally the one can choose to plot the fitted gaussian curve together
+with the raw data to visuallize the fitting property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>plot</strong> (<em>bool</em>) – If True a plot will be generated with raw data and fitted gaussian
+curve. Others no plot will be generated. Default False.</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>popt</strong> (<em>1D array</em>) – optimized parameters of gaussian fitting.
+[A, x0, sigma, y0(optional)] Where
+A: peak height of gaussian function
+x0: peak center x coordinates
+sigma: standard deviation
+y0: offset. Only exist if parameter offset is set to be ‘True’</li>
+<li><strong>pcov</strong> (<em>2D array</em>) – Covariance matrix of fitted parameters corresponding to popt</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.height">
-<code class="descname">height</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.height" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">height</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate peak height</p>
+<p>Calculated the peak height, either by gaussian fitting (if gauss_fit
+true), or simply return the maximium as the peak height (default)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>gauss_fit</strong> (<em>bool</em>) – If true, the peak height is get by performing a gaussian fit
+If false, simply the maximium value in the given data</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Peak height</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.idx">
-<code class="descname">idx</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.idx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">idx</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>find x-axis value corresponding to peak</p>
+<p>This funciton is to locate the corresponding x corrdinate or ‘index’ of
+the peak. Depend on the value of parameter ‘gauss_fit’, the x coordinate
+of peak can either come from the max value or gaussian fitting.</p>
+<p>The index of series is treated as the x coordinate of the data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>gauss_fit</strong> (<em>bool</em>) – If true, the x coordinate corresponding to peak is get by performing
+gaussian fitting on the data, as in member method gausFit.
+If false, the maxmium value of data will be treated as the ‘peak’,
+and its corresponding x coordinate will be returend.</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The x coordinate that corresponding to the peak</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.nidx">
-<code class="descname">nidx</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.nidx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.nidx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">nidx</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.nidx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.nidx" title="Permalink to this definition">¶</a></dt>
+<dd><p>number index of the peak</p>
+<p>Similar to member method idx, this one returns the number index rather
+than the real index, which means self.index[nidx] = idx</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.region">
-<code class="descname">region</code><span class="sig-paren">(</span><em>n_sigmas=4</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Locate the region where there exists a peak
-return the bound index of the region</p>
+<code class="descname">region</code><span class="sig-paren">(</span><em>n_sigmas=4</em>, <em>plot=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auto find the peak region</p>
+<p>Locate the region where there exists a peak and return
+the lower and upper bound index of the region.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.sigma">
-<code class="descname">sigma</code><span class="sig-paren">(</span><em>n_sigmas=1</em>, <em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.sigma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.sigma" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">sigma</code><span class="sig-paren">(</span><em>n_sigmas=1</em>, <em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.sigma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.sigma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find peak width</p>
+<p>Find the peak width, with specified mutiples of standard deviation.
+The width can be obtained by literally calculate the full-width-half-max
+or by gaussian fitting, depend on the parameter value ‘gauss_fit’ to be
+true of false.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n_sigmas</strong> (<em>integer</em>) – Multiplies of standard deviations of the peak width is wanted</li>
+<li><strong>gauss_fit</strong> (<em>bool</em>) – If true, the peak width is obtained from gaussian fitting
+If False (default), the peak width is calculated from literally
+full-width-half-max.</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The peak width in terms of multiples of standard deviatioins</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

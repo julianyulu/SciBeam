@@ -52,7 +52,7 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">curve_fit</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">curve_fit</span><span class="p">,</span> <span class="n">leastsq</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <div class="viewcode-block" id="Gaussian"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.gaussian.Gaussian">[docs]</a><span class="k">class</span> <span class="nc">Gaussian</span><span class="p">:</span>
@@ -60,34 +60,34 @@
 
 <span class="sd">    A collections of methods for gaussian analysis on the data, such as</span>
 <span class="sd">    single gaussian function, single gaussian 1d fitting, double gaussian,</span>
-<span class="sd">    double gaussian fitting, etc.  </span>
+<span class="sd">    double gaussian fitting, etc.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="Gaussian.gaus"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.gaussian.Gaussian.gaus">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">gaus</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;gaussian function with or without offset </span>
+        <span class="sd">&quot;&quot;&quot;gaussian function with or without offset</span>
 
-<span class="sd">        General form of a 1D gaussian function, with variable as first </span>
-<span class="sd">        parameter and other associate parameters followed. Can be used </span>
+<span class="sd">        General form of a 1D gaussian function, with variable as first</span>
+<span class="sd">        parameter and other associate parameters followed. Can be used</span>
 <span class="sd">        for fitting or line plotting after fitting is done.</span>
 
 <span class="sd">        The function generally follow the form ::</span>
 <span class="sd">        y = A * exp(-(x - x0)^2 / (2 * sigma^2)) + offset (optional)</span>
 
-<span class="sd">        Handles the case with and without offset seperatelly, since for </span>
-<span class="sd">        fitting without offset at all one has to force the function to </span>
-<span class="sd">        be of not offset. </span>
-<span class="sd">        </span>
+<span class="sd">        Handles the case with and without offset seperatelly, since for</span>
+<span class="sd">        fitting without offset at all one has to force the function to</span>
+<span class="sd">        be of not offset.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        x : float </span>
+<span class="sd">        x : float</span>
 <span class="sd">            variable x in gaussian function</span>
-<span class="sd">        A : float </span>
+<span class="sd">        A : float</span>
 <span class="sd">            Peak value</span>
 <span class="sd">        x0 : float</span>
 <span class="sd">            Center coordinates</span>
 <span class="sd">        sigma : float</span>
-<span class="sd">            Standard deviation </span>
+<span class="sd">            Standard deviation</span>
 <span class="sd">        offset : float</span>
 <span class="sd">            overall offset, default 0</span>
 
@@ -100,26 +100,26 @@
 
 <div class="viewcode-block" id="Gaussian.gausFit"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.gaussian.Gaussian.gausFit">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">gausFit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Perform gaussian fit on given data </span>
-<span class="sd">        </span>
-<span class="sd">        Fit data with 1D gausian function ::</span>
-<span class="sd">        y = a * exp((x - x0)^2 / (2 * sigma)) + y0(optional) </span>
+        <span class="sd">&quot;&quot;&quot;Perform gaussian fit on given data</span>
 
-<span class="sd">        The function generates initial guesses automatically based on </span>
+<span class="sd">        Fit data with 1D gausian function ::</span>
+<span class="sd">        y = a * exp((x - x0)^2 / (2 * sigma)) + y0(optional)</span>
+
+<span class="sd">        The function generates initial guesses automatically based on</span>
 <span class="sd">        given data, the algorithm is based on scipy curve_fit function</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        </span>
+
 <span class="sd">        x : array-like</span>
 <span class="sd">            X values of the input data</span>
 <span class="sd">        y : array-like</span>
-<span class="sd">            Y values of the input data </span>
+<span class="sd">            Y values of the input data</span>
 <span class="sd">        offset : bool</span>
 <span class="sd">            Wether fit gaussian with offset or not</span>
-<span class="sd">            Default False </span>
+<span class="sd">            Default False</span>
 <span class="sd">        plot : bool</span>
-<span class="sd">            Wether plot the fitting result or not </span>
+<span class="sd">            Wether plot the fitting result or not</span>
 <span class="sd">            Default False</span>
 
 <span class="sd">        Returns</span>
@@ -132,7 +132,7 @@
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
 <span class="sd">        RuntimeError</span>
-<span class="sd">            When optimized parameters not found within max depth of iteration </span>
+<span class="sd">            When optimized parameters not found within max depth of iteration</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># initial guesses</span>
@@ -181,10 +181,10 @@
 <div class="viewcode-block" id="Gaussian.doubleGaus"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.gaussian.Gaussian.doubleGaus">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">doubleGaus</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">sigma1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Gaussian function of two independent variables</span>
-<span class="sd">        </span>
+
 <span class="sd">        Double gaussian function with offset ::</span>
 <span class="sd">        y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))</span>
-<span class="sd">        </span>
+
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -206,8 +206,8 @@
 <span class="sd">            Sigma vlaues for the two gaussian peaks</span>
 <span class="sd">        y0 : float</span>
 <span class="sd">            Y offset, optional, default y0 = 0</span>
-<span class="sd">            </span>
-<span class="sd">        Returns </span>
+
+<span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">            Numerical value of the double gaussian function</span>
 
@@ -218,14 +218,14 @@
     <span class="k">def</span> <span class="nf">doubleGausFit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">guessPara</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Two independent variable gaussian fitting</span>
 
-<span class="sd">        Fit the data with a double gaussian function base on given </span>
+<span class="sd">        Fit the data with a double gaussian function base on given</span>
 <span class="sd">        x, y data and initial guess parameters.</span>
 
-<span class="sd">        Unlike the 1D gaussian fitting function, one hase to provide </span>
-<span class="sd">        initial guess parameters to make sure optimal parameters could </span>
+<span class="sd">        Unlike the 1D gaussian fitting function, one hase to provide</span>
+<span class="sd">        initial guess parameters to make sure optimal parameters could</span>
 <span class="sd">        be found.</span>
-<span class="sd">        </span>
-<span class="sd">        The fitting method is based on  least square method, fitted </span>
+
+<span class="sd">        The fitting method is based on  least square method, fitted</span>
 <span class="sd">        parameters and their covariance matrix is returned.</span>
 
 <span class="sd">        Parameters</span>
@@ -243,7 +243,7 @@
 <span class="sd">            Fitted parameter array [a1, x1, simga1, a2, x2, simga1]</span>
 <span class="sd">        array2</span>
 <span class="sd">            Cnveriance matrix of fitted parameters</span>
-<span class="sd">        </span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">offset</span><span class="p">:</span>
             <span class="n">errorFunc</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">Gaussian2D</span><span class="o">.</span><span class="n">doubleGaus</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
@@ -253,8 +253,6 @@
         <span class="k">if</span> <span class="n">ier</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;[*] Double gauss fit failed! &quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span></div></div>
-
-    
 </pre></div>
 
           </div>
@@ -273,6 +271,11 @@
 
 
 <h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scibeam.html">scibeam package</a></li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>

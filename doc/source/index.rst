@@ -6,10 +6,18 @@
 Welcome to scibeam's documentation!
 ===================================
 
+Getting started
+---------------
+This is a getting started test, hope it works!
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+	     
+   tutorial
+   scibeam
 
 Indices and tables
 ==================
