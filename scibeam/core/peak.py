@@ -9,9 +9,9 @@
 #
 # Created: Tue Jun 26 16:50:12 2018 (-0500)
 # Version:
-# Last-Updated: Sat Aug  4 10:31:38 2018 (-0500)
+# Last-Updated: Fri Aug 24 22:39:06 2018 (-0500)
 #           By: yulu
-#     Update #: 287
+#     Update #: 298
 #
 
 
@@ -111,7 +111,7 @@ class SeriesPeak(pandas.Series):
         popt, pcov = Gaussian.gausFit(x = self.index, y = self.values, offset = offset, plot = plot)
         return popt, pcov
 
-    def idx(self, gauss_fit = False):
+    def idx(self, gauss_fit = False, offset = False):
         """find x-axis value corresponding to peak
 
         This funciton is to locate the corresponding x corrdinate or 'index' of
@@ -127,6 +127,10 @@ class SeriesPeak(pandas.Series):
             gaussian fitting on the data, as in member method gausFit.
             If false, the maxmium value of data will be treated as the 'peak',
             and its corresponding x coordinate will be returend.
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
 
         Returns
         -------
@@ -135,11 +139,11 @@ class SeriesPeak(pandas.Series):
 
         """
         if gauss_fit:
-            return self.gausFit()[0][1]
+            return self.gausFit(offset = offset)[0][1]
         else:
             return self.idxmax()
 
-    def nidx(self, gauss_fit = False):
+    def nidx(self, gauss_fit = False, offset = False):
         """number index of the peak
 
         Similar to member method idx, this one returns the number index rather
@@ -147,19 +151,39 @@ class SeriesPeak(pandas.Series):
 
         """
         if gauss_fit:
-            height = self.height(gauss_fit)
+            height = self.height(gauss_fit = gauss_fit, offset = offset)
             nidx = np.argmin(abs(self.values - height))
         else:
             nidx = np.argmax(self.values)
         return nidx
 
-    def height(self, gauss_fit = False):
+    def height(self, gauss_fit = False, offset = False):
+        """calculate peak height 
+        
+        Calculated the peak height, either by gaussian fitting (if gauss_fit
+        true), or simply return the maximium as the peak height (default)
+
+        Parameters
+        ----------
+        gauss_fit : bool
+            If true, the peak height is get by performing a gaussian fit
+            If false, simply the maximium value in the given data 
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+
+        Returns
+        -------
+        float 
+            Peak height 
+        """
         if gauss_fit:
-            return self.gausFit()[0][0]
+            return self.gausFit(offset = offset)[0][0]
         else:
             return self.max()
 
-    def sigma(self, n_sigmas = 1, gauss_fit = False):
+    def sigma(self, n_sigmas = 1, gauss_fit = False, offset = False):
         """Find peak width
 
         Find the peak width, with specified mutiples of standard deviation.
@@ -170,9 +194,24 @@ class SeriesPeak(pandas.Series):
         Parameters
         ----------
         n_sigmas : integer 
+            Multiplies of standard deviations of the peak width is wanted 
+        gauss_fit : bool
+            If true, the peak width is obtained from gaussian fitting
+            If False (default), the peak width is calculated from literally 
+            full-width-half-max.
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+
+        Returns
+        -------
+        float
+            The peak width in terms of multiples of standard deviatioins
+
         """
         if gauss_fit:
-            return n_sigmas * self.gausFit()[0][2]
+            return n_sigmas * self.gausFit(offset = offset)[0][2]
         else:
             peak_values = max(self)
             peak_idx = np.argmax(self.values)
@@ -183,11 +222,32 @@ class SeriesPeak(pandas.Series):
             sigma = fwhm / np.sqrt(8*np.log(2))
             return sigma * n_sigmas
 
-    def fwhm(self, gauss_fit = False):
-        sigma = self.sigma(n_sigmas = 1, gauss_fit = gauss_fit)
+    def fwhm(self, gauss_fit = False, offset = False):
+        """Full-Width-Half-Maximium
+
+        Find the Full-Width-Half-Maximium (FWHM) of the peak, from 
+        gaussian fitting or direction calculation.
+
+        Parameters
+        ----------
+        gauss_fit : bool
+            If true, fwhm is get from gaussian fitting 
+            If false (default), fwhm is from direction calculation 
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+        Returns 
+        -------
+        float
+            peak full-width-half-maximium value
+        
+        """
+        sigma = self.sigma(n_sigmas = 1, gauss_fit = gauss_fit, offset = offset)
         return sigma * np.sqrt(8 * np.log(2))
 
-    def area(self, gauss_fit = False):
+    def area(self, gauss_fit = False, offset = False):
+        
         if gauss_fit:
             popt, pcov = self.gausFit()
             # if with offset
@@ -202,10 +262,15 @@ class SeriesPeak(pandas.Series):
             area = np.trapz(x = self.index, y = self.values)
         return area
 
-    def region(self, n_sigmas = 4, plot = False):
-        """
-        Locate the region where there exists a peak
-        return the bound index of the region
+    def region(self, n_sigmas = 4, plot = False, offset = False):
+        """Auto find the peak region
+
+        Locate the region where there exists a peak and return 
+        the lower and upper bound index of the region.
+
+        Parameters
+        ----------
+        
         """
         peak_nidx = self.nidx()
         peak_value = self.iloc[peak_nidx]
@@ -224,7 +289,7 @@ class SeriesPeak(pandas.Series):
             plt.plot(self.index[lb:ub], self.values[lb:ub], '-', label = 'detected peak')
         return lb, ub
 
-    def autocrop(self, n_sigmas = 4):
+    def autocrop(self, n_sigmas = 4, offset = False):
         lb, ub =  self.region(n_sigmas = n_sigmas, plot = False)
         return self._constructor(self.iloc[lb:ub])
 

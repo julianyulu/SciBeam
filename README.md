@@ -1,7 +1,7 @@
 
 [![logo](https://raw.githubusercontent.com/SuperYuLu/SciBeam/master/img/logo.png)](https://github.com/SuperYuLu/SciBeam)  
 
-# SciBeam [![Build Status](https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master)](https://travis-ci.org/SuperYuLu/SciBeam) [![codecov](https://codecov.io/gh/SuperYuLu/SciBeam/branch/master/graph/badge.svg)](https://codecov.io/gh/SuperYuLu/SciBeam) [![PyPI version](https://badge.fury.io/py/scibeam.svg)](https://badge.fury.io/py/scibeam)  
+# SciBeam [![Build Status](https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master)](https://travis-ci.org/SuperYuLu/SciBeam) [![codecov](https://codecov.io/gh/SuperYuLu/SciBeam/branch/master/graph/badge.svg)](https://codecov.io/gh/SuperYuLu/SciBeam) [![PyPI version](https://badge.fury.io/py/scibeam.svg)](https://badge.fury.io/py/scibeam) [![Documentation Status](https://readthedocs.org/projects/scibeam/badge/?version=latest)](https://scibeam.readthedocs.io/en/latest/?badge=latest)  
 
 
 
