@@ -1,0 +1,132 @@
+\indexentry{scibeam.core.base (module)|hyperpage}{11}
+\indexentry{\_mixin\_class (in module scibeam.core.base)|hyperpage}{11}
+\indexentry{Defaults (class in scibeam.core.base)|hyperpage}{11}
+\indexentry{data\_file\_extenstion (scibeam.core.base.Defaults attribute)|hyperpage}{11}
+\indexentry{data\_file\_num\_column (scibeam.core.base.Defaults attribute)|hyperpage}{11}
+\indexentry{file\_regex (scibeam.core.base.Defaults attribute)|hyperpage}{11}
+\indexentry{subfolder\_regex (scibeam.core.base.Defaults attribute)|hyperpage}{11}
+\indexentry{scibeam.core.common (module)|hyperpage}{11}
+\indexentry{winPathHandler() (in module scibeam.core.common)|hyperpage}{11}
+\indexentry{loadFile() (in module scibeam.core.common)|hyperpage}{12}
+\indexentry{scibeam.core.descriptor (module)|hyperpage}{12}
+\indexentry{DescriptorMixin (class in scibeam.core.descriptor)|hyperpage}{12}
+\indexentry{scibeam.core.formatter (module)|hyperpage}{12}
+\indexentry{format\_dict() (in module scibeam.core.formatter)|hyperpage}{12}
+\indexentry{scibeam.core.gaussian (module)|hyperpage}{13}
+\indexentry{Gaussian (class in scibeam.core.gaussian)|hyperpage}{13}
+\indexentry{doubleGaus() (scibeam.core.gaussian.Gaussian static method)|hyperpage}{13}
+\indexentry{doubleGausFit() (scibeam.core.gaussian.Gaussian static method)|hyperpage}{13}
+\indexentry{gaus() (scibeam.core.gaussian.Gaussian static method)|hyperpage}{13}
+\indexentry{gausFit() (scibeam.core.gaussian.Gaussian static method)|hyperpage}{14}
+\indexentry{scibeam.core.numerical (module)|hyperpage}{14}
+\indexentry{bandPassFilter() (in module scibeam.core.numerical)|hyperpage}{14}
+\indexentry{integrate() (in module scibeam.core.numerical)|hyperpage}{15}
+\indexentry{scibeam.core.peak (module)|hyperpage}{15}
+\indexentry{SeriesPeak (class in scibeam.core.peak)|hyperpage}{15}
+\indexentry{self (scibeam.core.peak.SeriesPeak attribute)|hyperpage}{15}
+\indexentry{\_\_init\_\_() (scibeam.core.peak.SeriesPeak method)|hyperpage}{15}
+\indexentry{area() (scibeam.core.peak.SeriesPeak method)|hyperpage}{15}
+\indexentry{autocrop() (scibeam.core.peak.SeriesPeak method)|hyperpage}{15}
+\indexentry{fwhm() (scibeam.core.peak.SeriesPeak method)|hyperpage}{15}
+\indexentry{gausFit() (scibeam.core.peak.SeriesPeak method)|hyperpage}{16}
+\indexentry{height() (scibeam.core.peak.SeriesPeak method)|hyperpage}{16}
+\indexentry{idx() (scibeam.core.peak.SeriesPeak method)|hyperpage}{16}
+\indexentry{nidx() (scibeam.core.peak.SeriesPeak method)|hyperpage}{17}
+\indexentry{region() (scibeam.core.peak.SeriesPeak method)|hyperpage}{17}
+\indexentry{sigma() (scibeam.core.peak.SeriesPeak method)|hyperpage}{17}
+\indexentry{FramePeak (class in scibeam.core.peak)|hyperpage}{17}
+\indexentry{area() (scibeam.core.peak.FramePeak method)|hyperpage}{17}
+\indexentry{fwhm() (scibeam.core.peak.FramePeak method)|hyperpage}{17}
+\indexentry{height() (scibeam.core.peak.FramePeak method)|hyperpage}{17}
+\indexentry{idx() (scibeam.core.peak.FramePeak method)|hyperpage}{17}
+\indexentry{nidx() (scibeam.core.peak.FramePeak method)|hyperpage}{17}
+\indexentry{region() (scibeam.core.peak.FramePeak method)|hyperpage}{17}
+\indexentry{sigma() (scibeam.core.peak.FramePeak method)|hyperpage}{17}
+\indexentry{scibeam.core.plot (module)|hyperpage}{18}
+\indexentry{PlotTOFFrame (class in scibeam.core.plot)|hyperpage}{18}
+\indexentry{contour() (scibeam.core.plot.PlotTOFFrame method)|hyperpage}{18}
+\indexentry{contourf() (scibeam.core.plot.PlotTOFFrame method)|hyperpage}{18}
+\indexentry{data (scibeam.core.plot.PlotTOFFrame attribute)|hyperpage}{18}
+\indexentry{image() (scibeam.core.plot.PlotTOFFrame method)|hyperpage}{18}
+\indexentry{PlotTOFSeries (class in scibeam.core.plot)|hyperpage}{18}
+\indexentry{data (scibeam.core.plot.PlotTOFSeries attribute)|hyperpage}{18}
+\indexentry{plot() (scibeam.core.plot.PlotTOFSeries method)|hyperpage}{18}
+\indexentry{scibeam.core.regexp (module)|hyperpage}{18}
+\indexentry{RegMatch (class in scibeam.core.regexp)|hyperpage}{18}
+\indexentry{match() (scibeam.core.regexp.RegMatch method)|hyperpage}{18}
+\indexentry{matchFolder() (scibeam.core.regexp.RegMatch method)|hyperpage}{18}
+\indexentry{regex (scibeam.core.regexp.RegMatch attribute)|hyperpage}{18}
+\indexentry{single\_regex\_match() (scibeam.core.regexp.RegMatch static method)|hyperpage}{18}
+\indexentry{scibeam.core.tofframe (module)|hyperpage}{18}
+\indexentry{TOFFrame (class in scibeam.core.tofframe)|hyperpage}{18}
+\indexentry{find\_time\_idx() (scibeam.core.tofframe.TOFFrame static method)|hyperpage}{19}
+\indexentry{from\_file() (scibeam.core.tofframe.TOFFrame class method)|hyperpage}{19}
+\indexentry{from\_matchResult() (scibeam.core.tofframe.TOFFrame class method)|hyperpage}{19}
+\indexentry{from\_path() (scibeam.core.tofframe.TOFFrame class method)|hyperpage}{19}
+\indexentry{inch\_to\_mm() (scibeam.core.tofframe.TOFFrame method)|hyperpage}{19}
+\indexentry{microsec\_to\_sec() (scibeam.core.tofframe.TOFFrame method)|hyperpage}{19}
+\indexentry{mm\_to\_inch() (scibeam.core.tofframe.TOFFrame method)|hyperpage}{19}
+\indexentry{peak (scibeam.core.tofframe.TOFFrame attribute)|hyperpage}{19}
+\indexentry{plot2d (scibeam.core.tofframe.TOFFrame attribute)|hyperpage}{19}
+\indexentry{reduce() (scibeam.core.tofframe.TOFFrame method)|hyperpage}{19}
+\indexentry{remove\_data\_offset() (scibeam.core.tofframe.TOFFrame static method)|hyperpage}{19}
+\indexentry{sec\_to\_microsec() (scibeam.core.tofframe.TOFFrame method)|hyperpage}{19}
+\indexentry{selectTimeRange() (scibeam.core.tofframe.TOFFrame method)|hyperpage}{19}
+\indexentry{selectTimeSlice() (scibeam.core.tofframe.TOFFrame method)|hyperpage}{19}
+\indexentry{sum() (scibeam.core.tofframe.TOFFrame method)|hyperpage}{19}
+\indexentry{read\_folder() (in module scibeam.core.tofframe)|hyperpage}{19}
+\indexentry{read\_regexp\_match() (in module scibeam.core.tofframe)|hyperpage}{20}
+\indexentry{scibeam.core.tofseries (module)|hyperpage}{21}
+\indexentry{TOFSeries (class in scibeam.core.tofseries)|hyperpage}{21}
+\indexentry{find\_time\_idx() (scibeam.core.tofseries.TOFSeries static method)|hyperpage}{21}
+\indexentry{from\_file() (scibeam.core.tofseries.TOFSeries class method)|hyperpage}{21}
+\indexentry{gausCenter() (scibeam.core.tofseries.TOFSeries method)|hyperpage}{21}
+\indexentry{gausFit() (scibeam.core.tofseries.TOFSeries method)|hyperpage}{21}
+\indexentry{gausStd() (scibeam.core.tofseries.TOFSeries method)|hyperpage}{21}
+\indexentry{peak (scibeam.core.tofseries.TOFSeries attribute)|hyperpage}{21}
+\indexentry{plot1d (scibeam.core.tofseries.TOFSeries attribute)|hyperpage}{21}
+\indexentry{remove\_data\_offset() (scibeam.core.tofseries.TOFSeries static method)|hyperpage}{21}
+\indexentry{sec\_to\_microsec() (scibeam.core.tofseries.TOFSeries method)|hyperpage}{21}
+\indexentry{selectTimeRange() (scibeam.core.tofseries.TOFSeries method)|hyperpage}{21}
+\indexentry{selectTimeSlice() (scibeam.core.tofseries.TOFSeries method)|hyperpage}{21}
+\indexentry{read\_file() (in module scibeam.core.tofseries)|hyperpage}{21}
+\indexentry{scibeam.core (module)|hyperpage}{22}
+\indexentry{scibeam.tests.test\_base (module)|hyperpage}{25}
+\indexentry{TestFunctions (class in scibeam.tests.test\_base)|hyperpage}{25}
+\indexentry{setUp() (scibeam.tests.test\_base.TestFunctions method)|hyperpage}{25}
+\indexentry{test\_is\_mixin() (scibeam.tests.test\_base.TestFunctions method)|hyperpage}{25}
+\indexentry{scibeam.tests.test\_common (module)|hyperpage}{25}
+\indexentry{TestFunctions (class in scibeam.tests.test\_common)|hyperpage}{25}
+\indexentry{test\_loadFile() (scibeam.tests.test\_common.TestFunctions method)|hyperpage}{25}
+\indexentry{test\_winPathHandler() (scibeam.tests.test\_common.TestFunctions method)|hyperpage}{25}
+\indexentry{scibeam.tests.test\_formatter (module)|hyperpage}{25}
+\indexentry{TestFunctions (class in scibeam.tests.test\_formatter)|hyperpage}{25}
+\indexentry{testDict (scibeam.tests.test\_formatter.TestFunctions attribute)|hyperpage}{25}
+\indexentry{test\_formart\_dict() (scibeam.tests.test\_formatter.TestFunctions method)|hyperpage}{25}
+\indexentry{scibeam.tests.test\_imports (module)|hyperpage}{25}
+\indexentry{TestImports (class in scibeam.tests.test\_imports)|hyperpage}{25}
+\indexentry{test\_import\_Gaussian() (scibeam.tests.test\_imports.TestImports method)|hyperpage}{25}
+\indexentry{test\_import\_PlotTOFSeries() (scibeam.tests.test\_imports.TestImports method)|hyperpage}{25}
+\indexentry{test\_import\_RegMatch() (scibeam.tests.test\_imports.TestImports method)|hyperpage}{26}
+\indexentry{test\_import\_TOFFrame() (scibeam.tests.test\_imports.TestImports method)|hyperpage}{26}
+\indexentry{test\_import\_TOFSeries() (scibeam.tests.test\_imports.TestImports method)|hyperpage}{26}
+\indexentry{test\_import\_read\_file() (scibeam.tests.test\_imports.TestImports method)|hyperpage}{26}
+\indexentry{test\_import\_read\_folder() (scibeam.tests.test\_imports.TestImports method)|hyperpage}{26}
+\indexentry{scibeam.tests.test\_regexp (module)|hyperpage}{26}
+\indexentry{TestRegmatch (class in scibeam.tests.test\_regexp)|hyperpage}{26}
+\indexentry{setUp() (scibeam.tests.test\_regexp.TestRegmatch method)|hyperpage}{26}
+\indexentry{test\_match() (scibeam.tests.test\_regexp.TestRegmatch method)|hyperpage}{26}
+\indexentry{test\_matchFolder() (scibeam.tests.test\_regexp.TestRegmatch method)|hyperpage}{26}
+\indexentry{test\_single\_regex\_match() (scibeam.tests.test\_regexp.TestRegmatch method)|hyperpage}{26}
+\indexentry{scibeam.tests.test\_tofseries (module)|hyperpage}{26}
+\indexentry{TestFunctions (class in scibeam.tests.test\_tofseries)|hyperpage}{26}
+\indexentry{test\_read\_defaults() (scibeam.tests.test\_tofseries.TestFunctions method)|hyperpage}{26}
+\indexentry{test\_read\_with\_bounds() (scibeam.tests.test\_tofseries.TestFunctions method)|hyperpage}{26}
+\indexentry{test\_read\_without\_offset() (scibeam.tests.test\_tofseries.TestFunctions method)|hyperpage}{26}
+\indexentry{TestTOFSeries (class in scibeam.tests.test\_tofseries)|hyperpage}{26}
+\indexentry{setUp() (scibeam.tests.test\_tofseries.TestTOFSeries method)|hyperpage}{26}
+\indexentry{test\_find\_time\_idx() (scibeam.tests.test\_tofseries.TestTOFSeries method)|hyperpage}{26}
+\indexentry{test\_init() (scibeam.tests.test\_tofseries.TestTOFSeries method)|hyperpage}{26}
+\indexentry{test\_remove\_data\_offset() (scibeam.tests.test\_tofseries.TestTOFSeries method)|hyperpage}{26}
+\indexentry{test\_selectTimeSlice() (scibeam.tests.test\_tofseries.TestTOFSeries method)|hyperpage}{26}
+\indexentry{scibeam.tests (module)|hyperpage}{26}

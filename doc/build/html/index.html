@@ -89,14 +89,15 @@
 <p class="caption"><span class="caption-text">GETTING STARTED</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="structure.html">Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_use.html">How to use</a></li>
 </ul>
 <p class="caption"><span class="caption-text">THE SCIBEAM PACKAGE</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="scibeam.html">scibeam package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scibeam.core.html">scibeam.core package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">DEVELOP</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scibeam.tests.html">scibeam.tests package</a></li>
 </ul>
 
@@ -164,7 +165,7 @@
             
   <div class="section" id="scibeam">
 <h1>SciBeam<a class="headerlink" href="#scibeam" title="Permalink to this headline">¶</a></h1>
-<a class="reference internal image-reference" href="../../../img/logo.png"><img alt="scibeam logo" class="align-center" src="../../../img/logo.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/SuperYuLu/SciBeam/master/img/logo.png"><img alt="scibeam logo" class="align-center" src="https://raw.githubusercontent.com/SuperYuLu/SciBeam/master/img/logo.png" style="width: 700px;" /></a>
 <a class="reference external image-reference" href="https://travis-ci.org/SuperYuLu/SciBeam"><img alt="Build Status" src="https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master" /></a>
 <a class="reference external image-reference" href="https://codecov.io/gh/SuperYuLu/SciBeam"><img alt="codecov" src="https://codecov.io/gh/SuperYuLu/SciBeam/branch/master/graph/badge.svg" /></a>
 <a class="reference external image-reference" href="https://scibeam.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/scibeam/badge/?version=latest" /></a>
@@ -172,25 +173,50 @@
 <p>SciBeam is a python package build on top of pandas, numpy, sicpy and matplotlib. It is  aimed for quick and easy scientific time-series data analysis and visualization in physics, optics, mechanics, and many other STEM subjects.</p>
 <p>In the context of scientific data analysis, there are a lot of situations that people have to deal with time-series data, such as time dependent experiment(e.g. temperature measurement), dynamic processes(e.g. beam propagation, chemical reaction), system long/short term behavior(e.g. noise), etc. Quite often is that data taking and result analysis is gaped by some time and effort, which could result in complains or regrets during the data analysis,  like “I wish I took another measurement of … so than I could explain why …”. As such, the general guidline of scibeam is to bridge the gap between measurement and data analysis, so that time-series related experiment can be done in a more guided way.</p>
 <p>The basic features of scibeam include but not limited to: beam propagation, single or multi-dimentional time depedent measurement, data file auto indexing, noise reduction, peak analysis, numerical fittings, etc.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">scibeam doesn’t support python 2.7, make sure you have the right python version (&gt;=3.4).</p>
+</div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">GENERAL</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about.html#this-document">This document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#restructuredtext-sturcture">reStructuredText Sturcture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#package-structure">Package structure</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">GETTING STARTED</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="structure.html">Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#using-pypi">Using PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#using-setuptools">Using Setuptools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_use.html">How to use</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">THE SCIBEAM PACKAGE</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="scibeam.html">scibeam package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="scibeam.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scibeam.html#module-scibeam">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scibeam.core.html">scibeam.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.base">scibeam.core.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.common">scibeam.core.common module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.descriptor">scibeam.core.descriptor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.formatter">scibeam.core.formatter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.gaussian">scibeam.core.gaussian module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.numerical">scibeam.core.numerical module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.peak">scibeam.core.peak module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.plot">scibeam.core.plot module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.regexp">scibeam.core.regexp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.tofframe">scibeam.core.tofframe module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core.tofseries">scibeam.core.tofseries module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scibeam.core.html#module-scibeam.core">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -198,6 +224,11 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">DEVELOP</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#steps">Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#help-needed">Help needed</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="scibeam.tests.html">scibeam.tests package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="scibeam.tests.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scibeam.tests.html#module-scibeam.tests.test_base">scibeam.tests.test_base module</a></li>

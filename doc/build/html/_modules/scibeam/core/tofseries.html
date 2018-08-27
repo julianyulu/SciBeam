@@ -88,14 +88,15 @@
 <p class="caption"><span class="caption-text">GETTING STARTED</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../structure.html">Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_use.html">How to use</a></li>
 </ul>
 <p class="caption"><span class="caption-text">THE SCIBEAM PACKAGE</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../scibeam.html">scibeam package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scibeam.core.html">scibeam.core package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">DEVELOP</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute.html">Contribute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../scibeam.tests.html">scibeam.tests package</a></li>
 </ul>
 
@@ -171,9 +172,9 @@
 <span class="c1">#</span>
 <span class="c1"># Created: Fri May  4 10:53:40 2018 (-0500)</span>
 <span class="c1"># Version:</span>
-<span class="c1"># Last-Updated: Tue Jul 31 22:11:08 2018 (-0500)</span>
+<span class="c1"># Last-Updated: Mon Aug 27 10:51:01 2018 (-0500)</span>
 <span class="c1">#           By: yulu</span>
-<span class="c1">#     Update #: 683</span>
+<span class="c1">#     Update #: 686</span>
 <span class="c1">#</span>
 
 
@@ -308,17 +309,9 @@
                 <span class="n">value</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">time</span><span class="p">)</span></div>
 
-
-
-
 <div class="viewcode-block" id="TOFSeries.find_time_idx"><a class="viewcode-back" href="../../../scibeam.core.html#scibeam.core.tofseries.TOFSeries.find_time_idx">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">find_time_idx</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generator of time index for a given time value</span>
-<span class="sd">        args: can be a single number, e.g. 1000e-6</span>
-<span class="sd">              or a few numbers, e.g.  100e-6, 200e-6, 300e-6</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
         <span class="n">t_max_gap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">time</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">arg_elem</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>

@@ -1,2 +1,38 @@
 \babel@toc {english}{}
-\contentsline {chapter}{\numberline {1}Indices and tables}{1}{chapter.1}
+\contentsline {chapter}{\numberline {1}About}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}This document}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}reStructuredText Sturcture}{5}{section.1.2}
+\contentsline {section}{\numberline {1.3}Package structure}{5}{section.1.3}
+\contentsline {chapter}{\numberline {2}Install}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}Requirements}{7}{section.2.1}
+\contentsline {section}{\numberline {2.2}Using PyPI}{7}{section.2.2}
+\contentsline {section}{\numberline {2.3}Using Setuptools}{7}{section.2.3}
+\contentsline {chapter}{\numberline {3}How to use}{9}{chapter.3}
+\contentsline {chapter}{\numberline {4}scibeam.core package}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}Submodules}{11}{section.4.1}
+\contentsline {section}{\numberline {4.2}scibeam.core.base module}{11}{section.4.2}
+\contentsline {section}{\numberline {4.3}scibeam.core.common module}{11}{section.4.3}
+\contentsline {section}{\numberline {4.4}scibeam.core.descriptor module}{12}{section.4.4}
+\contentsline {section}{\numberline {4.5}scibeam.core.formatter module}{12}{section.4.5}
+\contentsline {section}{\numberline {4.6}scibeam.core.gaussian module}{13}{section.4.6}
+\contentsline {section}{\numberline {4.7}scibeam.core.numerical module}{14}{section.4.7}
+\contentsline {section}{\numberline {4.8}scibeam.core.peak module}{15}{section.4.8}
+\contentsline {section}{\numberline {4.9}scibeam.core.plot module}{18}{section.4.9}
+\contentsline {section}{\numberline {4.10}scibeam.core.regexp module}{18}{section.4.10}
+\contentsline {section}{\numberline {4.11}scibeam.core.tofframe module}{18}{section.4.11}
+\contentsline {section}{\numberline {4.12}scibeam.core.tofseries module}{21}{section.4.12}
+\contentsline {section}{\numberline {4.13}Module contents}{22}{section.4.13}
+\contentsline {chapter}{\numberline {5}Contribute}{23}{chapter.5}
+\contentsline {section}{\numberline {5.1}Steps}{23}{section.5.1}
+\contentsline {section}{\numberline {5.2}Help needed}{23}{section.5.2}
+\contentsline {chapter}{\numberline {6}scibeam.tests package}{25}{chapter.6}
+\contentsline {section}{\numberline {6.1}Submodules}{25}{section.6.1}
+\contentsline {section}{\numberline {6.2}scibeam.tests.test\_base module}{25}{section.6.2}
+\contentsline {section}{\numberline {6.3}scibeam.tests.test\_common module}{25}{section.6.3}
+\contentsline {section}{\numberline {6.4}scibeam.tests.test\_formatter module}{25}{section.6.4}
+\contentsline {section}{\numberline {6.5}scibeam.tests.test\_imports module}{25}{section.6.5}
+\contentsline {section}{\numberline {6.6}scibeam.tests.test\_regexp module}{26}{section.6.6}
+\contentsline {section}{\numberline {6.7}scibeam.tests.test\_tofseries module}{26}{section.6.7}
+\contentsline {section}{\numberline {6.8}Module contents}{26}{section.6.8}
+\contentsline {chapter}{\numberline {7}Indices and tables}{27}{chapter.7}
+\contentsline {chapter}{Python Module Index}{29}{section*.116}

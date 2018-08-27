@@ -5,7 +5,7 @@
 
 SciBeam
 ===================================
-.. image:: ../../../img/logo.png
+.. image:: https://raw.githubusercontent.com/SuperYuLu/SciBeam/master/img/logo.png
     :width: 700px
     :alt: scibeam logo
     :align: center
@@ -34,7 +34,11 @@ In the context of scientific data analysis, there are a lot of situations that p
 
 The basic features of scibeam include but not limited to: beam propagation, single or multi-dimentional time depedent measurement, data file auto indexing, noise reduction, peak analysis, numerical fittings, etc.
 	   
-	   
+.. note::
+   
+   scibeam doesn't support python 2.7, make sure you have the right python version (>=3.4).
+
+
 .. toctree::
    :maxdepth: 2
    :caption: GENERAL
@@ -45,18 +49,19 @@ The basic features of scibeam include but not limited to: beam propagation, sing
    :caption: GETTING STARTED
 
    install
-   structure
+   how_to_use
 
 .. toctree::
    :maxdepth: 2
    :caption: THE SCIBEAM PACKAGE
 	     
-   scibeam
+   scibeam.core
 
 .. toctree::
    :maxdepth: 2
    :caption: DEVELOP
-	     
+
+   contribute
    scibeam.tests
 
 Indices and tables
