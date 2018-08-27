@@ -1,36 +1,183 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>scibeam.core package &#8212; scibeam 0.1.0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>scibeam.core package &mdash; scibeam 0.1.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contribute" href="contribute.html" />
+    <link rel="prev" title="How to use" href="how_to_use.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
           
 
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home"> scibeam
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">GENERAL</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+<p class="caption"><span class="caption-text">GETTING STARTED</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_use.html">How to use</a></li>
+</ul>
+<p class="caption"><span class="caption-text">THE SCIBEAM PACKAGE</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">scibeam.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.base">scibeam.core.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.common">scibeam.core.common module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.descriptor">scibeam.core.descriptor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.formatter">scibeam.core.formatter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.gaussian">scibeam.core.gaussian module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.numerical">scibeam.core.numerical module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.peak">scibeam.core.peak module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.plot">scibeam.core.plot module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.regexp">scibeam.core.regexp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.tofframe">scibeam.core.tofframe module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.tofseries">scibeam.core.tofseries module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">DEVELOP</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scibeam.tests.html">scibeam.tests package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">scibeam</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>scibeam.core package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/scibeam.core.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="scibeam-core-package">
 <h1>scibeam.core package<a class="headerlink" href="#scibeam-core-package" title="Permalink to this headline">¶</a></h1>
@@ -163,13 +310,28 @@ Read-only descriptor for class cross reference</p>
 <dl class="function">
 <dt id="scibeam.core.formatter.format_dict">
 <code class="descclassname">scibeam.core.formatter.</code><code class="descname">format_dict</code><span class="sig-paren">(</span><em>rawdict</em>, <em>alphabetical=True</em>, <em>digits=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/formatter.html#format_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.formatter.format_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Format dictionarys to strings as seperate rows for printing, annotation on plot, etc</p>
-<p>[Input]
-rawdict: (dict) raw input dictionary
-alphabetialy: (bool) if true (default) arrange dict key alphabetical
-digits: (int) number of digits to keep if the value the key is numerical</p>
-<p>[Output]
-(str) formated string in seperate rows</p>
+<dd><p>dictionary to string format</p>
+<p>Format dictionarys to strings as a list of key value pairs in each row ,
+meant for printing, annotation on plot, etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rawdict</strong> (<em>dictionary</em>) – raw input dictionary</li>
+<li><strong>alphabetialy</strong> (<em>bool</em>) – if true (default) arrange dict key alphabetical</li>
+<li><strong>digits</strong> (<em>int</em>) – number of digits to keep if the value the key is numerical</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Formated string in seperate rows</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -179,123 +341,141 @@ digits: (int) number of digits to keep if the value the key is numerical</p>
 <dt id="scibeam.core.gaussian.Gaussian">
 <em class="property">class </em><code class="descclassname">scibeam.core.gaussian.</code><code class="descname">Gaussian</code><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for numerical gaussian funciton application</p>
+<p>A collections of methods for gaussian analysis on the data, such as
+single gaussian function, single gaussian 1d fitting, double gaussian,
+double gaussian fitting, etc.</p>
 <dl class="staticmethod">
 <dt id="scibeam.core.gaussian.Gaussian.doubleGaus">
 <em class="property">static </em><code class="descname">doubleGaus</code><span class="sig-paren">(</span><em>x</em>, <em>a1</em>, <em>x1</em>, <em>sigma1</em>, <em>a2</em>, <em>x2</em>, <em>sigma2</em>, <em>y0=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.doubleGaus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.doubleGaus" title="Permalink to this definition">¶</a></dt>
-<dd><ul class="simple">
-<li>Function: doubleGaus([float]x, [float]a1, [float]x1, [float]sigma1, [float]a2, [float]x2, [float]sigma2, [flaot]y0=0)</li>
-<li><dl class="first docutils">
-<dt>Description:</dt>
-<dd>Double gaussian function with offset
-y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Input:</dt>
-<dd><ul class="first last">
-<li>x: [float] input variable for the double gaussian function</li>
-<li>a1, a2: [float] Amplitude of the two gaussian peaks</li>
-<li>x1, x2: [float] Peak center for the two gaussian peaks</li>
-<li>sigma1, sigma2: [float] sigma vlaues for the two gaussian peaks</li>
-<li>y0: [float] y offset, optional, default y0 = 0</li>
+<dd><p>Gaussian function of two independent variables</p>
+<p>Double gaussian function with offset ::
+y = a1 * exp((x - x1)^2 / (2 * sigma1^2) + a2 * exp((x - x2)^2 / (2 * sigma2^2))</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>float</em>) – Input variable for the double gaussian function</li>
+<li><strong>a1</strong> (<em>float</em>) – Amplitude of the first gaussian variable peak</li>
+<li><strong>x1</strong> (<em>float</em>) – Peak center for the first variable gaussian peak</li>
+<li><strong>sigma1</strong> (<em>float</em>) – Sigma vlaues for the two gaussian peaks</li>
+<li><strong>a2</strong> (<em>float</em>) – Amplitude of the second gaussian variable peak</li>
+<li><strong>a2</strong> – Amplitude of the first gaussian variable peak</li>
+<li><strong>x2</strong> (<em>float</em>) – Peak center for the first variable gaussian peak</li>
+<li><strong>sigma2</strong> (<em>float</em>) – Sigma vlaues for the two gaussian peaks</li>
+<li><strong>y0</strong> (<em>float</em>) – Y offset, optional, default y0 = 0</li>
 </ul>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>output</dt>
-<dd>Calculated double gaussian function</dd>
-</dl>
-</li>
-</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Numerical value of the double gaussian function</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="scibeam.core.gaussian.Gaussian.doubleGausFit">
 <em class="property">static </em><code class="descname">doubleGausFit</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>guessPara</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.doubleGausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.doubleGausFit" title="Permalink to this definition">¶</a></dt>
-<dd><ul class="simple">
-<li>Function: [array]popt, [array]pcov = doubleGausFit([array]x, [array]y, [array]guessPara)</li>
-<li><dl class="first docutils">
-<dt>Description:</dt>
-<dd>This function to fit the data with a double gaussian function. x, y are the corresponding x, y value of the initial data and initial guess parameters.
-This function is using least square method to fit the double gaussian function and get the fitting parameters.</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Input:</dt>
-<dd><ul class="first last">
-<li>x: [array] input data x axis value</li>
-<li>y: [array] input data y axis value</li>
-<li>guessPara: [array/list] initial guess parameter list[a1, x1, sigma1, a2, x2, sigma2, y0]</li>
+<dd><p>Two independent variable gaussian fitting</p>
+<p>Fit the data with a double gaussian function base on given
+x, y data and initial guess parameters.</p>
+<p>Unlike the 1D gaussian fitting function, one hase to provide
+initial guess parameters to make sure optimal parameters could
+be found.</p>
+<p>The fitting method is based on  least square method, fitted
+parameters and their covariance matrix is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>1D array</em>) – Input data x value</li>
+<li><strong>y</strong> (<em>1D array</em>) – Input data y value</li>
+<li><strong>guessPara</strong> (<em>array-like</em>) – Initial guess parameter list[a1, x1, sigma1, a2, x2, sigma2, y0]</li>
 </ul>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Output:</dt>
-<dd><ul class="first last">
-<li>popt: [array] fitted parameter array [a1, x1, simga1, a2, x2, simga1]</li>
-<li>pcov: [array] corresponding converiance of popt</li>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>array1</em> – Fitted parameter array [a1, x1, simga1, a2, x2, simga1]</li>
+<li><em>array2</em> – Cnveriance matrix of fitted parameters</li>
 </ul>
-</dd>
-</dl>
-</li>
-</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="scibeam.core.gaussian.Gaussian.gaus">
 <em class="property">static </em><code class="descname">gaus</code><span class="sig-paren">(</span><em>x</em>, <em>A</em>, <em>x0</em>, <em>sigma</em>, <em>offset=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.gaus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.gaus" title="Permalink to this definition">¶</a></dt>
 <dd><p>gaussian function with or without offset</p>
+<p>General form of a 1D gaussian function, with variable as first
+parameter and other associate parameters followed. Can be used
+for fitting or line plotting after fitting is done.</p>
+<p>The function generally follow the form ::
+y = A * exp(-(x - x0)^2 / (2 * sigma^2)) + offset (optional)</p>
+<p>Handles the case with and without offset seperatelly, since for
+fitting without offset at all one has to force the function to
+be of not offset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>float</em>) – variable x in gaussian function</li>
+<li><strong>A</strong> (<em>float</em>) – Peak value</li>
+<li><strong>x0</strong> (<em>float</em>) – Center coordinates</li>
+<li><strong>sigma</strong> (<em>float</em>) – Standard deviation</li>
+<li><strong>offset</strong> (<em>float</em>) – overall offset, default 0</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="scibeam.core.gaussian.Gaussian.gausFit">
-<em class="property">static </em><code class="descname">gausFit</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>offset=0</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.gausFit" title="Permalink to this definition">¶</a></dt>
-<dd><ul>
-<li><p class="first">Functions: [float, array]popt, [float, array]pcov = gausFit([2D array]data)</p>
-</li>
-<li><dl class="first docutils">
-<dt>Description:</dt>
-<dd><blockquote class="first">
-<div><p>This function is to fit data with 1D gausian equation:</p>
-</div></blockquote>
-<p class="last">y = a * exp((x - x0)^2 / (2 * sigma)) + y0
-it’s calling funciton gaus and curve_fit (from scipy.optimize lib) to fit the
-data. Sometimes (merely) it cannot find the optimized prarameters to fit the
-data, that could be due to the range of peak giving in variable ‘data’. It returns
-optimized parameters and their error.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Input:</dt>
-<dd><ul class="first last simple">
-<li>x, y: 2D array, column gives x, while column gives y</li>
+<em class="property">static </em><code class="descname">gausFit</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>offset=False</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian.gausFit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform gaussian fit on given data</p>
+<p>Fit data with 1D gausian function ::
+y = a * exp((x - x0)^2 / (2 * sigma)) + y0(optional)</p>
+<p>The function generates initial guesses automatically based on
+given data, the algorithm is based on scipy curve_fit function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>array-like</em>) – X values of the input data</li>
+<li><strong>y</strong> (<em>array-like</em>) – Y values of the input data</li>
+<li><strong>offset</strong> (<em>bool</em>) – Wether fit gaussian with offset or not
+Default False</li>
+<li><strong>plot</strong> (<em>bool</em>) – Wether plot the fitting result or not
+Default False</li>
 </ul>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Output:</dt>
-<dd><ul class="first last simple">
-<li>popt: [float,array] array of optmized data [a, x0, sigma, y0]</li>
-<li>pcov: [float, array] covariant of the corresponding optmized data</li>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><ul class="simple">
+<li><em>array1</em> – Array of optmized best fit data [a, x0, sigma, y0]</li>
+<li><em>array2</em> – A 4 x 4 covariant matrix of the corresponding optmized data</li>
 </ul>
-</dd>
-</dl>
-</li>
-</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal notranslate"><span class="pre">RuntimeError</span></code> – When optimized parameters not found within max depth of iteration</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="class">
-<dt id="scibeam.core.gaussian.Gaussian2D">
-<em class="property">class </em><code class="descclassname">scibeam.core.gaussian.</code><code class="descname">Gaussian2D</code><a class="reference internal" href="_modules/scibeam/core/gaussian.html#Gaussian2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.gaussian.Gaussian2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>2 dimentional gaussian funtion
-TO BE IMPLEMENTED</p>
 </dd></dl>
 
 </div>
@@ -305,12 +485,60 @@ TO BE IMPLEMENTED</p>
 <dt id="scibeam.core.numerical.bandPassFilter">
 <code class="descclassname">scibeam.core.numerical.</code><code class="descname">bandPassFilter</code><span class="sig-paren">(</span><em>data</em>, <em>tStep=None</em>, <em>lowFreq=0</em>, <em>highFreq=10000.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/numerical.html#bandPassFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.numerical.bandPassFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>band pass filter based on fourier transform</p>
+<p>Filter the noise in time series data with given frequency range.</p>
+<p>The data has to be in numpy array. If only 1D array is provided, one also
+needs to provide time step size. If 2D array is provided, the 0th column
+will be used to calculate time step size, while the 1st column will be
+treated as the signal value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>numpy array</em>) – The input time series data.
+1d array is treated as the signal value, which requires input parameter
+tStep to be not None.</li>
+<li><strong>tStep</strong> (<em>float</em>) – Time step size in seconds of the time series data.
+If None (default), 0st columns in data will be treated as time and time
+step size will be extracted from there</li>
+<li><strong>lowFreq</strong> (<em>float</em>) – Lower bound of the bandpass filter, default 0 Hz</li>
+<li><strong>highFreq</strong> (<em>float</em>) – Upper bound of the bandpass filter, default 1e4 Hz</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The data has to be uniformly sampled, e.g. same time gap between each data
+point, all parameters here are supposed to be SI unit.</p>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="scibeam.core.numerical.integrate">
 <code class="descclassname">scibeam.core.numerical.</code><code class="descname">integrate</code><span class="sig-paren">(</span><em>x=None</em>, <em>y=None</em>, <em>kind='numerical'</em>, <em>func=None</em>, <em>args=()</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/numerical.html#integrate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.numerical.integrate" title="Permalink to this definition">¶</a></dt>
-<dd><p>numerical / function integration using numpy trapz / scipy quad</p>
+<dd><p>numerical / functional integration</p>
+<p>Perform integration on either numerical data or on a function.</p>
+<p>The numerical intergration is based on given parameter x and y, based on
+numpy function trap; while the functional integration is based on given
+function and numpy function quad.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>1D array</em>) – THe x axis values for numerical data, default None</li>
+<li><strong>y</strong> (<em>1D array</em>) – The y axis values for numerical data, default None</li>
+<li><strong>kind</strong> (<em>string</em>) – Specify the integration method, options are: ‘numerical’, ‘function’
+default ‘numerical’</li>
+<li><strong>func</strong> (<em>function</em>) – The function to be integrated, default None</li>
+<li><strong>args</strong> – arguments for function quad</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -321,52 +549,214 @@ TO BE IMPLEMENTED</p>
 <em class="property">class </em><code class="descclassname">scibeam.core.peak.</code><code class="descname">SeriesPeak</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code></p>
 <p>Peak analysis on 1D labeled / unlabeled data</p>
+<p>Build on top of pandas.Series, this adds more methods on peak analysis for
+pandas series data. The any class instance of SeriesPeak can still access
+all pandas sereis methods.</p>
+<p>By default, the indexes is treated as the time axis, while the values of
+series is the data value.</p>
+<p>Additionally, SeriesPeak is also designed as a mixin class which can be used
+as a method chain in other pandas dataframe / sereis based data formats.</p>
+<dl class="attribute">
+<dt id="scibeam.core.peak.SeriesPeak.self">
+<code class="descname">self</code><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.self" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pandas series</em> – pandas series data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scibeam.core.peak.SeriesPeak.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>assign value to initialize SeriesPeak</p>
+<p>The initlization of this class can be done exactly as one initlize
+pandas series, for more information please pandas series documentation.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.area">
-<code class="descname">area</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.area" title="Permalink to this definition">¶</a></dt>
+<code class="descname">area</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.area" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.autocrop">
-<code class="descname">autocrop</code><span class="sig-paren">(</span><em>n_sigmas=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.autocrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.autocrop" title="Permalink to this definition">¶</a></dt>
+<code class="descname">autocrop</code><span class="sig-paren">(</span><em>n_sigmas=4</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.autocrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.autocrop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.fwhm">
-<code class="descname">fwhm</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.fwhm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.fwhm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">fwhm</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.fwhm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.fwhm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Full-Width-Half-Maximium</p>
+<p>Find the Full-Width-Half-Maximium (FWHM) of the peak, from
+gaussian fitting or direction calculation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>gauss_fit</strong> (<em>bool</em>) – If true, fwhm is get from gaussian fitting
+If false (default), fwhm is from direction calculation</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">peak full-width-half-maximium value</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.gausFit">
-<code class="descname">gausFit</code><span class="sig-paren">(</span><em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.gausFit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">gausFit</code><span class="sig-paren">(</span><em>plot=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.gausFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.gausFit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit series with gausssian function</p>
+<p>This gasussian fit function assumes the time or x-axis values is given
+by series index, while the measurement data or y-axis values is given by
+the values of sereis.</p>
+<p>Optionally the one can choose to plot the fitted gaussian curve together
+with the raw data to visuallize the fitting property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>plot</strong> (<em>bool</em>) – If True a plot will be generated with raw data and fitted gaussian
+curve. Others no plot will be generated. Default False.</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>popt</strong> (<em>1D array</em>) – optimized parameters of gaussian fitting.
+[A, x0, sigma, y0(optional)] Where
+A: peak height of gaussian function
+x0: peak center x coordinates
+sigma: standard deviation
+y0: offset. Only exist if parameter offset is set to be ‘True’</li>
+<li><strong>pcov</strong> (<em>2D array</em>) – Covariance matrix of fitted parameters corresponding to popt</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.height">
-<code class="descname">height</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.height" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">height</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate peak height</p>
+<p>Calculated the peak height, either by gaussian fitting (if gauss_fit
+true), or simply return the maximium as the peak height (default)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>gauss_fit</strong> (<em>bool</em>) – If true, the peak height is get by performing a gaussian fit
+If false, simply the maximium value in the given data</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Peak height</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.idx">
-<code class="descname">idx</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.idx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">idx</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>find x-axis value corresponding to peak</p>
+<p>This funciton is to locate the corresponding x corrdinate or ‘index’ of
+the peak. Depend on the value of parameter ‘gauss_fit’, the x coordinate
+of peak can either come from the max value or gaussian fitting.</p>
+<p>The index of series is treated as the x coordinate of the data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>gauss_fit</strong> (<em>bool</em>) – If true, the x coordinate corresponding to peak is get by performing
+gaussian fitting on the data, as in member method gausFit.
+If false, the maxmium value of data will be treated as the ‘peak’,
+and its corresponding x coordinate will be returend.</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The x coordinate that corresponding to the peak</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.nidx">
-<code class="descname">nidx</code><span class="sig-paren">(</span><em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.nidx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.nidx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">nidx</code><span class="sig-paren">(</span><em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.nidx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.nidx" title="Permalink to this definition">¶</a></dt>
+<dd><p>number index of the peak</p>
+<p>Similar to member method idx, this one returns the number index rather
+than the real index, which means self.index[nidx] = idx</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.region">
-<code class="descname">region</code><span class="sig-paren">(</span><em>n_sigmas=4</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Locate the region where there exists a peak
-return the bound index of the region</p>
+<code class="descname">region</code><span class="sig-paren">(</span><em>n_sigmas=4</em>, <em>plot=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auto find the peak region</p>
+<p>Locate the region where there exists a peak and return
+the lower and upper bound index of the region.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.sigma">
-<code class="descname">sigma</code><span class="sig-paren">(</span><em>n_sigmas=1</em>, <em>gauss_fit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.sigma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.sigma" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">sigma</code><span class="sig-paren">(</span><em>n_sigmas=1</em>, <em>gauss_fit=False</em>, <em>offset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.sigma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.sigma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find peak width</p>
+<p>Find the peak width, with specified mutiples of standard deviation.
+The width can be obtained by literally calculate the full-width-half-max
+or by gaussian fitting, depend on the parameter value ‘gauss_fit’ to be
+true of false.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n_sigmas</strong> (<em>integer</em>) – Multiplies of standard deviations of the peak width is wanted</li>
+<li><strong>gauss_fit</strong> (<em>bool</em>) – If true, the peak width is obtained from gaussian fitting
+If False (default), the peak width is calculated from literally
+full-width-half-max.</li>
+<li><strong>offset</strong> (<em>bool</em>) – If True, the gaussian fitting will consider also fit the data
+offset. If False (default), the fitting procedure will assume that
+the data has 0 offset.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The peak width in terms of multiples of standard deviatioins</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -701,11 +1091,7 @@ value in a given range relative to data lower and upper boundrary, with avaliabl
 <dl class="staticmethod">
 <dt id="scibeam.core.tofseries.TOFSeries.find_time_idx">
 <em class="property">static </em><code class="descname">find_time_idx</code><span class="sig-paren">(</span><em>time</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/tofseries.html#TOFSeries.find_time_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.tofseries.TOFSeries.find_time_idx" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generator of time index for a given time value
-args: can be a single number, e.g. 1000e-6</p>
-<blockquote>
-<div>or a few numbers, e.g.  100e-6, 200e-6, 300e-6</div></blockquote>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="scibeam.core.tofseries.TOFSeries.from_file">
@@ -814,60 +1200,69 @@ value in a given range relative to data lower and upper boundrary, with avaliabl
 </div>
 
 
+           </div>
+           
           </div>
-          
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="contribute.html" class="btn btn-neutral float-right" title="Contribute" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="how_to_use.html" class="btn btn-neutral" title="How to use" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Yu Lu.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">scibeam</a></h1>
+
+    </section>
+
+  </div>
+  
 
 
+  
 
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
+  
 
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-<h3>Navigation</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2018, Yu Lu.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
-      
-      |
-      <a href="_sources/scibeam.core.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
-    
-
-    
-  </body>
+</body>
 </html>

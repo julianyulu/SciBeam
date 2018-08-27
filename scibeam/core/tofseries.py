@@ -9,9 +9,9 @@
 #
 # Created: Fri May  4 10:53:40 2018 (-0500)
 # Version:
-# Last-Updated: Tue Jul 31 22:11:08 2018 (-0500)
+# Last-Updated: Mon Aug 27 10:51:01 2018 (-0500)
 #           By: yulu
-#     Update #: 683
+#     Update #: 686
 #
 
 
@@ -146,17 +146,9 @@ class TOFSeries(pandas.Series):
                 value = data[:,1]
         return cls(value, index = time)
 
-
-
-
     @staticmethod
     def find_time_idx(time, *args):
-        """
-        Generator of time index for a given time value
-        args: can be a single number, e.g. 1000e-6
-              or a few numbers, e.g.  100e-6, 200e-6, 300e-6
 
-        """
         time = np.array(time)
         t_max_gap = np.max(np.diff(time))
         for arg_elem in args:

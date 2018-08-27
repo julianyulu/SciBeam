@@ -1,13 +1,15 @@
 
 [![logo](https://raw.githubusercontent.com/SuperYuLu/SciBeam/master/img/logo.png)](https://github.com/SuperYuLu/SciBeam)  
 
-# SciBeam [![Build Status](https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master)](https://travis-ci.org/SuperYuLu/SciBeam) [![codecov](https://codecov.io/gh/SuperYuLu/SciBeam/branch/master/graph/badge.svg)](https://codecov.io/gh/SuperYuLu/SciBeam) [![PyPI version](https://badge.fury.io/py/scibeam.svg)](https://badge.fury.io/py/scibeam)  
+# SciBeam [![Build Status](https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master)](https://travis-ci.org/SuperYuLu/SciBeam) [![codecov](https://codecov.io/gh/SuperYuLu/SciBeam/branch/master/graph/badge.svg)](https://codecov.io/gh/SuperYuLu/SciBeam) [![PyPI version](https://badge.fury.io/py/scibeam.svg)](https://badge.fury.io/py/scibeam) [![Documentation Status](https://readthedocs.org/projects/scibeam/badge/?version=latest)](https://scibeam.readthedocs.io/en/latest/?badge=latest)  
 
 
 
-**SciBeam** is an open source library for analyzing time series beam measurement data. Using pandas dataframe and series as its base classing, additional time series related features are added for quick analysis, such as file name matching, gaussian fitting, peak analysis, noise filtering, plotting, etc. The flexible method chain enables fast data analysis on any time series data.   
+**scibeam** is a python package build on top of pandas, numpy, sicpy and matplotlib. It is aimed for quick and easy scientific time-series data analysis and visualization in physics, optics, mechanics, and many other STEM subjects.  
 
-SciBeam is originally designed for experimental physics data analysis. The library has been tested on the daily lab data analysis and is under active development in terms of bredth and deepth of scientific computation.  
+In the context of scientific data analysis, there are a lot of situations that people have to deal with time-series data, such as time dependent experiment(e.g. temperature measurement), dynamic processes(e.g. beam propagation, chemical reaction), system long/short term behavior(e.g. noise), etc. Quite often is that data taking and result analysis is gaped by some time and effort, which could result in complains or regrets during the data analysis, like “I wish I took another measurement of … so than I could explain why …”. As such, the general guidline of scibeam is to bridge the gap between measurement and data analysis, so that time-series related experiment can be done in a more guided way.  
+
+The basic features of scibeam include but not limited to: beam propagation, single or multi-dimentional time depedent measurement, data file auto indexing, noise reduction, peak analysis, numerical fittings, etc.  
 
 # Installation  
 
@@ -50,8 +52,14 @@ Install the package:
 ```
 python setup.py install  
 ```
+
+# Documents
+All documentation is avaliable [here](https://scibeam.readthedocs.io/en/latest/?badge=latest)  
+
+
 # Release  
 + v0.1.0: 08/19/2018  first release !
++ v0.1.1: 08/22/2018  first release !
 
 # Development  
 Under active development. 
@@ -63,11 +71,23 @@ Under active development.
 + Add AppVeyor 
 
 ## Contribute  
-Coming soon...  
+
+**Call for contributors !**  
+
+
+As a open source project, scibeam is under active development towards version 1.0, thus we need contributors from the conmunity.Please follow the steps if you want to contribute:  
+
++ Read the [documents](https://scibeam.readthedocs.io/en/latest/?badge=latest)
++ Join the [slack channel](https://scibeam.slack.com)
++ Report issure / bug on Github
++ Look for open [issues](https://github.com/SuperYuLu/SciBeam/issues)
++ Create new pull request
+
 
 ## Testing  
-The testing part is based on unittest and can be run through setuptools:  
+The testing part is based on unittest and can be run through setuptools, please refer to the [documents](https://scibeam.readthedocs.io/en/latest/?badge=latest)  
 
+To run the test:  
 ```python
 python setup.py test  
 ```

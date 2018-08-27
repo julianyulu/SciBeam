@@ -1,7 +1,7 @@
-scibeam
-=======
+source
+======
 
 .. toctree::
    :maxdepth: 4
 
-   scibeam
+   conf
