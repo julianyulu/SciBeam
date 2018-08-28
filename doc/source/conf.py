@@ -16,6 +16,11 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
+#import mock
+ 
+# MOCK_MODULES = ['numpy', 'scipy', 'matplotlib', 'matplotlib.pyplot', 'scipy.integrate', 'scipy.optimize', 'pandas', 'matplotlib.ticker', 'scipy.fftpack']
+# for mod_name in MOCK_MODULES:
+#     sys.modules[mod_name] = mock.Mock()
 
 # -- Project information -----------------------------------------------------
 
@@ -182,7 +187,7 @@ napoleon_use_param = True
 napoleon_use_rtype = True
 
 ## sphinx-apidoc
-apidoc_module_dir = '../..'
+apidoc_module_dir = '../scibeam'
 apidoc_output_dir = 'source'
 apidoc_excluded_paths = []
 apidoc_separate_mudules = False
