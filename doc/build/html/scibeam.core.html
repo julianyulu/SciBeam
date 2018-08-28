@@ -188,20 +188,14 @@
 <div class="section" id="module-scibeam.core.base">
 <span id="scibeam-core-base-module"></span><h2>scibeam.core.base module<a class="headerlink" href="#module-scibeam.core.base" title="Permalink to this headline">¶</a></h2>
 <p>Base functions for mixin classes and module width constants</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">ivar _mixin_class:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">Specify allowed mixin class for method chain.
+<dl class="attribute">
+<dt id="scibeam.core.base._mixin_class">
+<code class="descclassname">scibeam.core.base.</code><code class="descname">_mixin_class</code><a class="headerlink" href="#scibeam.core.base._mixin_class" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list(str)</em> – Specify allowed mixin class for method chain.
 The two basic data structures are TOFSeries and TOFFrame,
-current.</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">vartype _mixin_class:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">list(str)</td>
-</tr>
-</tbody>
-</table>
+current.</p>
+</dd></dl>
+
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">TODO: Move Defaults to a seperate config.py file for easy
@@ -601,14 +595,12 @@ all pandas sereis methods.</p>
 series is the data value.</p>
 <p>Additionally, SeriesPeak is also designed as a mixin class which can be used
 as a method chain in other pandas dataframe / sereis based data formats.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>self</strong> (<em>pandas series</em>) – pandas series data</td>
-</tr>
-</tbody>
-</table>
+<dl class="attribute">
+<dt id="scibeam.core.peak.SeriesPeak.self">
+<code class="descname">self</code><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.self" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pandas series</em> – pandas series data</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.__init__" title="Permalink to this definition">¶</a></dt>
