@@ -13,9 +13,9 @@
 # 
 # Created: Fri Mar 23 23:02:05 2018 (-0500)
 # Version: 0.1
-# Last-Updated: Wed Aug 22 11:44:16 2018 (-0500)
+# Last-Updated: Tue Aug 28 10:43:59 2018 (-0500)
 #           By: yulu
-#     Update #: 99
+#     Update #: 101
 # 
 
 import os 
@@ -46,16 +46,7 @@ class Folder(base.Defaults):
             raise FileNotFoundError
 
     def query(self,regex = base.Defaults.file_regex):
-        """
-        single folder query based on python regex group1
-        ------------------
-        [input]
-        self:
-        regex: regular expression for filename keywords query. The regex is meant for 
-               full-match, with keyword regex in group(1) 
-        [output]
-        dictionary of match keywords and corresponding filename 
-        """
+        
         result_dict = {}
         result_dict['path'] = self.path
         files = os.listdir(self.path)

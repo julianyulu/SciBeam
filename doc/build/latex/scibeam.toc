@@ -13,26 +13,28 @@
 \contentsline {section}{\numberline {4.2}scibeam.core.base module}{11}{section.4.2}
 \contentsline {section}{\numberline {4.3}scibeam.core.common module}{11}{section.4.3}
 \contentsline {section}{\numberline {4.4}scibeam.core.descriptor module}{12}{section.4.4}
-\contentsline {section}{\numberline {4.5}scibeam.core.formatter module}{12}{section.4.5}
-\contentsline {section}{\numberline {4.6}scibeam.core.gaussian module}{13}{section.4.6}
-\contentsline {section}{\numberline {4.7}scibeam.core.numerical module}{14}{section.4.7}
-\contentsline {section}{\numberline {4.8}scibeam.core.peak module}{15}{section.4.8}
-\contentsline {section}{\numberline {4.9}scibeam.core.plot module}{18}{section.4.9}
-\contentsline {section}{\numberline {4.10}scibeam.core.regexp module}{18}{section.4.10}
-\contentsline {section}{\numberline {4.11}scibeam.core.tofframe module}{18}{section.4.11}
-\contentsline {section}{\numberline {4.12}scibeam.core.tofseries module}{21}{section.4.12}
-\contentsline {section}{\numberline {4.13}Module contents}{22}{section.4.13}
-\contentsline {chapter}{\numberline {5}Contribute}{23}{chapter.5}
-\contentsline {section}{\numberline {5.1}Steps}{23}{section.5.1}
-\contentsline {section}{\numberline {5.2}Help needed}{23}{section.5.2}
-\contentsline {chapter}{\numberline {6}scibeam.tests package}{25}{chapter.6}
-\contentsline {section}{\numberline {6.1}Submodules}{25}{section.6.1}
-\contentsline {section}{\numberline {6.2}scibeam.tests.test\_base module}{25}{section.6.2}
-\contentsline {section}{\numberline {6.3}scibeam.tests.test\_common module}{25}{section.6.3}
-\contentsline {section}{\numberline {6.4}scibeam.tests.test\_formatter module}{25}{section.6.4}
-\contentsline {section}{\numberline {6.5}scibeam.tests.test\_imports module}{25}{section.6.5}
-\contentsline {section}{\numberline {6.6}scibeam.tests.test\_regexp module}{26}{section.6.6}
-\contentsline {section}{\numberline {6.7}scibeam.tests.test\_tofseries module}{26}{section.6.7}
-\contentsline {section}{\numberline {6.8}Module contents}{26}{section.6.8}
-\contentsline {chapter}{\numberline {7}Indices and tables}{27}{chapter.7}
-\contentsline {chapter}{Python Module Index}{29}{section*.116}
+\contentsline {section}{\numberline {4.5}scibeam.core.dictfunc module}{12}{section.4.5}
+\contentsline {section}{\numberline {4.6}scibeam.core.formatter module}{13}{section.4.6}
+\contentsline {section}{\numberline {4.7}scibeam.core.gaussian module}{13}{section.4.7}
+\contentsline {section}{\numberline {4.8}scibeam.core.numerical module}{15}{section.4.8}
+\contentsline {section}{\numberline {4.9}scibeam.core.peak module}{16}{section.4.9}
+\contentsline {section}{\numberline {4.10}scibeam.core.plot module}{18}{section.4.10}
+\contentsline {section}{\numberline {4.11}scibeam.core.regexp module}{19}{section.4.11}
+\contentsline {section}{\numberline {4.12}scibeam.core.tofframe module}{19}{section.4.12}
+\contentsline {section}{\numberline {4.13}scibeam.core.tofseries module}{21}{section.4.13}
+\contentsline {section}{\numberline {4.14}Module contents}{23}{section.4.14}
+\contentsline {chapter}{\numberline {5}Contribute}{25}{chapter.5}
+\contentsline {section}{\numberline {5.1}Steps}{25}{section.5.1}
+\contentsline {section}{\numberline {5.2}Help needed}{25}{section.5.2}
+\contentsline {chapter}{\numberline {6}scibeam.tests package}{27}{chapter.6}
+\contentsline {section}{\numberline {6.1}Submodules}{27}{section.6.1}
+\contentsline {section}{\numberline {6.2}scibeam.tests.test\_base module}{27}{section.6.2}
+\contentsline {section}{\numberline {6.3}scibeam.tests.test\_common module}{27}{section.6.3}
+\contentsline {section}{\numberline {6.4}scibeam.tests.test\_formatter module}{27}{section.6.4}
+\contentsline {section}{\numberline {6.5}scibeam.tests.test\_imports module}{27}{section.6.5}
+\contentsline {section}{\numberline {6.6}scibeam.tests.test\_regexp module}{28}{section.6.6}
+\contentsline {section}{\numberline {6.7}scibeam.tests.test\_tofseries module}{28}{section.6.7}
+\contentsline {section}{\numberline {6.8}Module contents}{28}{section.6.8}
+\contentsline {chapter}{\numberline {7}Indices and tables}{29}{chapter.7}
+\contentsline {chapter}{Python Module Index}{31}{section*.115}
+\contentsline {chapter}{Index}{33}{section*.116}

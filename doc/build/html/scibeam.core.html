@@ -99,6 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.base">scibeam.core.base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.common">scibeam.core.common module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.descriptor">scibeam.core.descriptor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.dictfunc">scibeam.core.dictfunc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.formatter">scibeam.core.formatter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.gaussian">scibeam.core.gaussian module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-scibeam.core.numerical">scibeam.core.numerical module</a></li>
@@ -187,14 +188,20 @@
 <div class="section" id="module-scibeam.core.base">
 <span id="scibeam-core-base-module"></span><h2>scibeam.core.base module<a class="headerlink" href="#module-scibeam.core.base" title="Permalink to this headline">¶</a></h2>
 <p>Base functions for mixin classes and module width constants</p>
-<dl class="attribute">
-<dt id="scibeam.core.base._mixin_class">
-<code class="descclassname">scibeam.core.base.</code><code class="descname">_mixin_class</code><a class="headerlink" href="#scibeam.core.base._mixin_class" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>list(str)</em> – Specify allowed mixin class for method chain.
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">ivar _mixin_class:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Specify allowed mixin class for method chain.
 The two basic data structures are TOFSeries and TOFFrame,
-current.</p>
-</dd></dl>
-
+current.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">vartype _mixin_class:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">list(str)</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">TODO: Move Defaults to a seperate config.py file for easy
@@ -302,6 +309,44 @@ Currently only works for txt-like files</li>
 <p>Meta class for method chain mixin</p>
 <p>This is a meta class to realize method chain in other classes
 Read-only descriptor for class cross reference</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scibeam.core.dictfunc">
+<span id="scibeam-core-dictfunc-module"></span><h2>scibeam.core.dictfunc module<a class="headerlink" href="#module-scibeam.core.dictfunc" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="scibeam.core.dictfunc.buildDict">
+<code class="descclassname">scibeam.core.dictfunc.</code><code class="descname">buildDict</code><span class="sig-paren">(</span><em>init_dict</em>, <em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/dictfunc.html#buildDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.dictfunc.buildDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>build dictionary with key and values on top of existing dict</p>
+<p>Add / set key,value pair to a given dict.
+If the same key exists, combine values to list under the same key
+If no same key exists, creat new key and initialize it to single value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>init_dict</strong> (<em>dictionary</em>) – original dictionary where new key, value pair to be added to</li>
+<li><strong>key</strong> (<em>dictionary key</em>) – The key of dictionary that the value will be associated to</li>
+<li><strong>value</strong> (<em>dictionary value</em>) – The value that associated to the key provided</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>If the given key is already exist in the given dictionary init_dict,
+the function checks if type(init_dict[key]) == list:
+if true, append value the list init_dict[key];
+if false,  change the value of init_dict[key] to be a list
+[init_dict[key], value]</p>
+<p>if the given key is not in init_dict, creat a new key entry and assign
+its value to value (not type list).</p>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dictionary</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -556,12 +601,14 @@ all pandas sereis methods.</p>
 series is the data value.</p>
 <p>Additionally, SeriesPeak is also designed as a mixin class which can be used
 as a method chain in other pandas dataframe / sereis based data formats.</p>
-<dl class="attribute">
-<dt id="scibeam.core.peak.SeriesPeak.self">
-<code class="descname">self</code><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.self" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pandas series</em> – pandas series data</p>
-</dd></dl>
-
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>self</strong> (<em>pandas series</em>) – pandas series data</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="scibeam.core.peak.SeriesPeak.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scibeam/core/peak.html#SeriesPeak.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scibeam.core.peak.SeriesPeak.__init__" title="Permalink to this definition">¶</a></dt>

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2018.6.16)  27 AUG 2018 10:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2018.6.16)  28 AUG 2018 10:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -824,136 +824,73 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
  (./scibeam.toc
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 2.
-)
+ [1
+
+])
 \tf@toc=\write6
 \openout6 = `scibeam.toc'.
 
- [1
-
-] [2
-
-]
-<logo.png, id=33, 1897.0875pt x 546.54187pt>
+ [2]
+<logo.png, id=225, 1897.0875pt x 546.54187pt>
 File: logo.png Graphic file (type png)
 <use logo.png>
 Package pdftex.def Info: logo.png  used on input line 73.
 (pdftex.def)             Requested size: 526.96533pt x 151.8131pt.
 
-
-! LaTeX Error: Unknown graphics extension: .svg.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.74 ...61ba33df6aad10a05cf0d70448f/SciBeam}.svg}}
-                                                  \sphinxhref{https://codeco...
-
-? 
-
-! LaTeX Error: Unknown graphics extension: .svg.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.74 ...61ba33df6aad10a05cf0d70448f/SciBeam}.svg}}
-                                                  \sphinxhref{https://codeco...
-
-? 
-
-! LaTeX Error: Unknown graphics extension: .svg.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.74 ...31fcfcd6bb2b578a1477ec43dab56/badge}.svg}}
-                                                  \sphinxhref{https://scibea...
-
-? 
-
-! LaTeX Error: Unknown graphics extension: .svg.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.74 ...31fcfcd6bb2b578a1477ec43dab56/badge}.svg}}
-                                                  \sphinxhref{https://scibea...
-
-? 
-
-! LaTeX Error: Unknown graphics extension: .svg.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.74 ...8884e9aec5dff670df35f2731cdc6ad27a7}.svg}}
-                                                  \sphinxhref{https://badge....
-
-? 
-
-! LaTeX Error: Unknown graphics extension: .svg.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.74 ...8884e9aec5dff670df35f2731cdc6ad27a7}.svg}}
-                                                  \sphinxhref{https://badge....
-
-? 
-
-! LaTeX Error: Unknown graphics extension: .svg.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.74 ...a3136c223ed1f8e784009f394f0/scibeam}.svg}}
-                                                  ^^M
-? 
-
-! LaTeX Error: Unknown graphics extension: .svg.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.74 ...a3136c223ed1f8e784009f394f0/scibeam}.svg}}
-                                                  ^^M
-? 
-
-Overfull \hbox (59.11034pt too wide) in paragraph at lines 73--76
-| []|  [][][][][][][][][][][][][][][][]
+Overfull \hbox (57.21031pt too wide) in paragraph at lines 73--74
+| []|  
  []
 
-[1 <./logo.png>] [2
+<SciBeam.png, id=228, 68.255pt x 15.05624pt>
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 2.
+(/usr/share/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+File: SciBeam.png Graphic file (type png)
+<use SciBeam.png>
+Package pdftex.def Info: SciBeam.png  used on input line 2.
+(pdftex.def)             Requested size: 68.25482pt x 15.0562pt.
+<badge.png, id=230, 72.27pt x 15.05624pt>
+File: badge.png Graphic file (type png)
+<use badge.png>
+Package pdftex.def Info: badge.png  used on input line 2.
+(pdftex.def)             Requested size: 72.2698pt x 15.0562pt.
+<045848884e9aec5dff670df35f2731cdc6ad27a7.png, id=232, 65.24374pt x 15.05624pt>
+
+File: 045848884e9aec5dff670df35f2731cdc6ad27a7.png Graphic file (type png)
+<use 045848884e9aec5dff670df35f2731cdc6ad27a7.png>
+Package pdftex.def Info: 045848884e9aec5dff670df35f2731cdc6ad27a7.png  used on 
+input line 2.
+(pdftex.def)             Requested size: 65.24358pt x 15.0562pt.
+<scibeam.png, id=234, 94.3525pt x 15.05624pt>
+File: scibeam.png Graphic file (type png)
+<use scibeam.png>
+Package pdftex.def Info: scibeam.png  used on input line 2.
+(pdftex.def)             Requested size: 94.35225pt x 15.0562pt.
+ [1
+
+ <./logo.png> <./SciBeam.png> <./badge.png> <./045848884e9aec5dff670df35f2731cd
+c6ad27a7.png> <./scibeam.png>] [2
 
 ]
 Chapter 1.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 96.
-(/usr/share/texmf-dist/tex/latex/psnfss/t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [3]
-Underfull \vbox (badness 10000) detected at line 212
+[3]
+Underfull \vbox (badness 10000) detected at line 220
  []
 
 
-Overfull \vbox (2.68169pt too high) detected at line 212
+Overfull \vbox (2.68169pt too high) detected at line 220
  []
 
 [4] [5]
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 287.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 295.
 
  (/usr/share/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [6]
 Chapter 2.
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <9> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 346.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 354.
 [7
 
 ] [8]
@@ -965,7 +902,7 @@ Chapter 3.
 ]
 Chapter 4.
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 405.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 428.
 LaTeX Font Info:    Try loading font information for TS1+pcr on input line 1.
 (/usr/share/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
@@ -973,269 +910,414 @@ File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 LaTeX Font Info:    Font shape `TS1/pcr/bx/n' in size <10> not available
 (Font)              Font shape `TS1/pcr/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <10> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 471.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 479.
  [11] [12] [13] [14] [15]
 [16] [17] [18]
-Underfull \hbox (badness 10000) in paragraph at lines 1295--1297
+Underfull \hbox (badness 10000) in paragraph at lines 1344--1346
 []\T1/pcr/b/n/10 data \T1/ptm/m/n/10 (\T1/pcr/m/sl/10 numpy ndarray (structured
  or homogeneous), dict, or
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1319--1319
+Underfull \hbox (badness 10000) in paragraph at lines 1368--1368
 \T1/ptm/m/it/10 off-set_margin_how='outer'\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-
 set_margin_size=20\T1/ptm/m/n/10 , \T1/ptm/m/it/10 skiprows=0\T1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1327--1327
+Underfull \hbox (badness 10000) in paragraph at lines 1376--1376
 \T1/ptm/m/it/10 re-move-Off-set=True\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-set_ma
 rgin_how='outer'\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1335--1335
+Underfull \hbox (badness 10000) in paragraph at lines 1384--1384
 []\T1/ptm/m/it/10 path\T1/ptm/m/n/10 , \T1/ptm/m/it/10 regStr\T1/ptm/m/n/10 , \
 T1/ptm/m/it/10 lower-Bound=None\T1/ptm/m/n/10 , \T1/ptm/m/it/10 up-per-Bound=No
 ne\T1/ptm/m/n/10 , \T1/ptm/m/it/10 re-move-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1335--1335
+Underfull \hbox (badness 10000) in paragraph at lines 1384--1384
 \T1/ptm/m/it/10 Off-set=True\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-set_margin_how
 ='outer'\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-set_margin_size=20\T1/ptm/m/n/10 ,
 
  []
 
-
-LaTeX Warning: Hyper reference `scibeam.core:scibeam.core.peak.FramePeak' on pa
-ge 19 undefined on input line 1363.
-
-
-LaTeX Warning: Hyper reference `scibeam.core:scibeam.core.plot.PlotTOFFrame' on
- page 19 undefined on input line 1371.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1419--1419
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 1468--1468
 []\T1/ptm/m/it/10 path\T1/ptm/m/n/10 , \T1/ptm/m/it/10 regStr\T1/ptm/m/n/10 , \
 T1/ptm/m/it/10 lower-Bound=None\T1/ptm/m/n/10 , \T1/ptm/m/it/10 up-per-Bound=No
 ne\T1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1419--1419
+Underfull \hbox (badness 10000) in paragraph at lines 1468--1468
 \T1/ptm/m/it/10 re-move-Off-set=True\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-set_ma
 rgin_how='outer'\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-
  []
 
-[19]
-Underfull \hbox (badness 10000) in paragraph at lines 1436--1439
+
+Underfull \hbox (badness 10000) in paragraph at lines 1485--1488
 []\T1/pcr/b/n/10 offset_margin_how \T1/ptm/m/n/10 (\T1/pcr/m/sl/10 {"outer", "o
 uter left", "out right",
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1436--1439
-\T1/pcr/m/sl/10 "inner", "inner left", "inner right"}, default "outer"\T1/ptm/m
-/n/10 ) ^^U
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1488--1488
-[]\T1/ptm/m/it/10 path\T1/ptm/m/n/10 , \T1/ptm/m/it/10 match-Dict\T1/ptm/m/n/10
- , \T1/ptm/m/it/10 lower-Bound=None\T1/ptm/m/n/10 , \T1/ptm/m/it/10 up-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1488--1488
-\T1/ptm/m/it/10 per-Bound=None\T1/ptm/m/n/10 , \T1/ptm/m/it/10 re-move-Off-set=
-True\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1510--1513
-[]\T1/pcr/b/n/10 offset_margin_how \T1/ptm/m/n/10 (\T1/pcr/m/sl/10 {"outer", "o
-uter left", "out right",
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1510--1513
+Underfull \hbox (badness 10000) in paragraph at lines 1485--1488
 \T1/pcr/m/sl/10 "inner", "inner left", "inner right"}, default "outer"\T1/ptm/m
 /n/10 ) ^^U
  []
 
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 1573--1573
+Underfull \hbox (badness 10000) in paragraph at lines 1537--1537
+[]\T1/ptm/m/it/10 path\T1/ptm/m/n/10 , \T1/ptm/m/it/10 match-Dict\T1/ptm/m/n/10
+ , \T1/ptm/m/it/10 lower-Bound=None\T1/ptm/m/n/10 , \T1/ptm/m/it/10 up-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1537--1537
+\T1/ptm/m/it/10 per-Bound=None\T1/ptm/m/n/10 , \T1/ptm/m/it/10 re-move-Off-set=
+True\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1559--1562
+[]\T1/pcr/b/n/10 offset_margin_how \T1/ptm/m/n/10 (\T1/pcr/m/sl/10 {"outer", "o
+uter left", "out right",
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1559--1562
+\T1/pcr/m/sl/10 "inner", "inner left", "inner right"}, default "outer"\T1/ptm/m
+/n/10 ) ^^U
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1622--1622
 []\T1/ptm/m/it/10 file_path\T1/ptm/m/n/10 , \T1/ptm/m/it/10 lower-Bound=None\T1
 /ptm/m/n/10 , \T1/ptm/m/it/10 up-per-Bound=None\T1/ptm/m/n/10 , \T1/ptm/m/it/10
  re-move-Off-
  []
 
-
-LaTeX Warning: Hyper reference `scibeam.core:scibeam.core.peak.SeriesPeak' on p
-age 21 undefined on input line 1607.
-
-
-LaTeX Warning: Hyper reference `scibeam.core:scibeam.core.plot.PlotTOFSeries' o
-n page 21 undefined on input line 1615.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1653--1653
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 1702--1702
 []\T1/ptm/m/it/10 file_path\T1/ptm/m/n/10 , \T1/ptm/m/it/10 lower-Bound=None\T1
 /ptm/m/n/10 , \T1/ptm/m/it/10 up-per-Bound=None\T1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1653--1653
+Underfull \hbox (badness 10000) in paragraph at lines 1702--1702
 \T1/ptm/m/it/10 re-move-Off-set=True\T1/ptm/m/n/10 , \T1/ptm/m/it/10 cols=2\T1/
 ptm/m/n/10 , \T1/ptm/m/it/10 usec-ols=None\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1653--1653
+Underfull \hbox (badness 10000) in paragraph at lines 1702--1702
 \T1/ptm/m/it/10 set_margin_how='outer'\T1/ptm/m/n/10 , \T1/ptm/m/it/10 off-set_
 margin_size=20\T1/ptm/m/n/10 ,
  []
 
-[21]
-Underfull \hbox (badness 10000) in paragraph at lines 1676--1679
+
+Underfull \hbox (badness 10000) in paragraph at lines 1725--1728
 []\T1/pcr/b/n/10 offset_margin_how \T1/ptm/m/n/10 (\T1/pcr/m/sl/10 {"outer", "o
 uter left", "out right",
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1676--1679
+Underfull \hbox (badness 10000) in paragraph at lines 1725--1728
 \T1/pcr/m/sl/10 "inner", "inner left", "inner right"}, default "outer"\T1/ptm/m
 /n/10 ) ^^U
  []
 
-[22]
-Chapter 5.
-[23
+[22] [23] [24
 
-] [24
+]
+Chapter 5.
+[25] [26
 
 ]
 Chapter 6.
-[25] [26]
+[27] [28]
 Chapter 7.
-[27
-
-] [28
-
-]
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core' on page 29 undefine
-d on input line 2037.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.base' on page 29 und
-efined on input line 2038.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.common' on page 29 u
-ndefined on input line 2039.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.descriptor' on page 
-29 undefined on input line 2040.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.formatter' on page 2
-9 undefined on input line 2041.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.gaussian' on page 29
- undefined on input line 2042.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.numerical' on page 2
-9 undefined on input line 2043.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.peak' on page 29 und
-efined on input line 2044.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.plot' on page 29 und
-efined on input line 2045.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.regexp' on page 29 u
-ndefined on input line 2046.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.tofframe' on page 29
- undefined on input line 2047.
-
-
-LaTeX Warning: Reference `scibeam.core:module-scibeam.core.tofseries' on page 2
-9 undefined on input line 2048.
-
-
-LaTeX Warning: Reference `scibeam.tests:module-scibeam.tests' on page 29 undefi
-ned on input line 2049.
-
-
-LaTeX Warning: Reference `scibeam.tests:module-scibeam.tests.test_base' on page
- 29 undefined on input line 2050.
-
-
-LaTeX Warning: Reference `scibeam.tests:module-scibeam.tests.test_common' on pa
-ge 29 undefined on input line 2051.
-
-
-LaTeX Warning: Reference `scibeam.tests:module-scibeam.tests.test_formatter' on
- page 29 undefined on input line 2052.
-
-
-LaTeX Warning: Reference `scibeam.tests:module-scibeam.tests.test_imports' on p
-age 29 undefined on input line 2053.
-
-
-LaTeX Warning: Reference `scibeam.tests:module-scibeam.tests.test_regexp' on pa
-ge 29 undefined on input line 2054.
-
-
-LaTeX Warning: Reference `scibeam.tests:module-scibeam.tests.test_tofseries' on
- page 29 undefined on input line 2055.
-
 [29
 
+] [30
 
-] (./scibeam.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2060.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2060.
+] [31
+
+
+] (./scibeam.ind [32
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
+[]\T1/ptm/m/n/10 data_file_extenstion (scibeam.core.base.Defaults at-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
+[]\T1/ptm/m/n/10 doubleGaus() (scibeam.core.gaussian.Gaussian static
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--42
+[]\T1/ptm/m/n/10 from_file() (scibeam.core.tofframe.TOFFrame class
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+[]\T1/ptm/m/n/10 from_file() (scibeam.core.tofseries.TOFSeries class
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 43--44
+[]\T1/ptm/m/n/10 from_matchResult() (scibeam.core.tofframe.TOFFrame
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
+[]\T1/ptm/m/n/10 from_path() (scibeam.core.tofframe.TOFFrame class
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
+[]\T1/ptm/m/n/10 gausFit() (scibeam.core.gaussian.Gaussian static
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
+[]\T1/ptm/m/n/10 inch_to_mm() (scibeam.core.tofframe.TOFFrame
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+[]\T1/ptm/m/n/10 microsec_to_sec() (scibeam.core.tofframe.TOFFrame
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
+[]\T1/ptm/m/n/10 mm_to_inch() (scibeam.core.tofframe.TOFFrame
+ []
+
+[33
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
+[]\T1/ptm/m/n/10 sec_to_microsec() (scibeam.core.tofframe.TOFFrame
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
+[]\T1/ptm/m/n/10 sec_to_microsec() (scibeam.core.tofseries.TOFSeries
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 134--135
+[]\T1/ptm/m/n/10 selectTimeRange() (scibeam.core.tofframe.TOFFrame
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+[]\T1/ptm/m/n/10 selectTimeRange() (scibeam.core.tofseries.TOFSeries
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
+[]\T1/ptm/m/n/10 selectTimeSlice() (scibeam.core.tofframe.TOFFrame
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
+[]\T1/ptm/m/n/10 selectTimeSlice() (scibeam.core.tofseries.TOFSeries
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+[]\T1/ptm/m/n/10 setUp() (scibeam.tests.test_regexp.TestRegmatch
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
+[]\T1/ptm/m/n/10 setUp() (scibeam.tests.test_tofseries.TestTOFSeries
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+[]\T1/ptm/m/n/10 single_regex_match() (scibeam.core.regexp.RegMatch
+ []
+
+
+Overfull \hbox (27.50873pt too wide) in paragraph at lines 150--152
+[]\T1/ptm/m/n/10 test_find_time_idx() (scibeam.tests.test_tofseries.TestTOFSeri
+es
+ []
+
+
+Overfull \hbox (20.45877pt too wide) in paragraph at lines 152--153
+[]\T1/ptm/m/n/10 test_formart_dict() (scibeam.tests.test_formatter.TestFunction
+s
+ []
+
+
+Overfull \hbox (24.35867pt too wide) in paragraph at lines 153--154
+[]\T1/ptm/m/n/10 test_import_Gaussian() (scibeam.tests.test_imports.TestImports
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--156
+[]\T1/ptm/m/n/10 test_import_PlotTOFSeries()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--156
+\T1/ptm/m/n/10 (scibeam.tests.test_imports.TestImports
+ []
+
+
+Overfull \hbox (22.68875pt too wide) in paragraph at lines 156--157
+[]\T1/ptm/m/n/10 test_import_read_file() (scibeam.tests.test_imports.TestImport
+s
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--159
+[]\T1/ptm/m/n/10 test_import_read_folder()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--159
+\T1/ptm/m/n/10 (scibeam.tests.test_imports.TestImports
+ []
+
+
+Overfull \hbox (29.20877pt too wide) in paragraph at lines 159--160
+[]\T1/ptm/m/n/10 test_import_RegMatch() (scibeam.tests.test_imports.TestImports
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
+[]\T1/ptm/m/n/10 test_import_TOFFrame()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
+\T1/ptm/m/n/10 (scibeam.tests.test_imports.TestImports
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
+[]\T1/ptm/m/n/10 test_import_TOFSeries()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
+\T1/ptm/m/n/10 (scibeam.tests.test_imports.TestImports
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+[]\T1/ptm/m/n/10 test_init() (scibeam.tests.test_tofseries.TestTOFSeries
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 163--164
+[]\T1/ptm/m/n/10 test_is_mixin() (scibeam.tests.test_base.TestFunctions
+ []
+
+
+Overfull \hbox (1.58917pt too wide) in paragraph at lines 164--165
+[]\T1/ptm/m/n/10 test_loadFile() (scibeam.tests.test_common.TestFunctions
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 165--166
+[]\T1/ptm/m/n/10 test_match() (scibeam.tests.test_regexp.TestRegmatch
+ []
+
+
+Overfull \hbox (12.06955pt too wide) in paragraph at lines 166--167
+[]\T1/ptm/m/n/10 test_matchFolder() (scibeam.tests.test_regexp.TestRegmatch
+ []
+
+[34]
+Overfull \hbox (21.45868pt too wide) in paragraph at lines 167--168
+[]\T1/ptm/m/n/10 test_read_defaults() (scibeam.tests.test_tofseries.TestFunctio
+ns
+ []
+
+
+Overfull \hbox (41.5688pt too wide) in paragraph at lines 168--170
+[]\T1/ptm/m/n/10 test_read_with_bounds() (scibeam.tests.test_tofseries.TestFunc
+tions
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 170--172
+[]\T1/ptm/m/n/10 test_read_without_offset()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 170--172
+\T1/ptm/m/n/10 (scibeam.tests.test_tofseries.TestFunctions
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 172--174
+[]\T1/ptm/m/n/10 test_remove_data_offset()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 172--174
+\T1/ptm/m/n/10 (scibeam.tests.test_tofseries.TestTOFSeries
+ []
+
+
+Overfull \hbox (34.9181pt too wide) in paragraph at lines 174--176
+[]\T1/ptm/m/n/10 test_selectTimeSlice() (scibeam.tests.test_tofseries.TestTOFSe
+ries
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--178
+[]\T1/ptm/m/n/10 test_single_regex_match()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--178
+\T1/ptm/m/n/10 (scibeam.tests.test_regexp.TestRegmatch
+ []
+
+
+Overfull \hbox (33.64911pt too wide) in paragraph at lines 178--179
+[]\T1/ptm/m/n/10 test_winPathHandler() (scibeam.tests.test_common.TestFunctions
+
+ []
+
+[35
+
+])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2110.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2110.
  (./scibeam.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2060.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2060.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2110.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2110.
 
-
-
-Package rerunfilecheck Warning: File `scibeam.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `scibeam.out':
-(rerunfilecheck)             Before: E81C69F63AD497B126C77C1297BE8A5D;139
-(rerunfilecheck)             After:  349577870314EA8F92F8A455E51BFCAF;5882.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2060.
+Package rerunfilecheck Info: File `scibeam.out' has not changed.
+(rerunfilecheck)             Checksum: 5C094388EC28D5AD13208DF2845F0B5C;6153.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2110.
  ) 
 Here is how much of TeX's memory you used:
- 13640 strings out of 492649
- 194559 string characters out of 6135778
- 375319 words of memory out of 5000000
- 17027 multiletter control sequences out of 15000+600000
+ 13697 strings out of 492649
+ 195180 string characters out of 6135778
+ 384765 words of memory out of 5000000
+ 17082 multiletter control sequences out of 15000+600000
  50554 words of font info for 74 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
- 37i,12n,45p,869b,615s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,12n,48p,810b,639s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fon
 ts/type1/urw/courier/ucrb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/courier/
 ucrr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/sha
@@ -1244,10 +1326,10 @@ type1/urw/helvetic/uhvbo8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/
 uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/
 texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on scibeam.pdf (33 pages, 681739 bytes).
+Output written on scibeam.pdf (39 pages, 709916 bytes).
 PDF statistics:
- 404 PDF objects out of 1000 (max. 8388607)
- 349 compressed objects within 4 object streams
- 184 named destinations out of 1000 (max. 500000)
- 34 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 752 PDF objects out of 1000 (max. 8388607)
+ 680 compressed objects within 7 object streams
+ 191 named destinations out of 1000 (max. 500000)
+ 358 words of extra memory for PDF output out of 10000 (max. 10000000)
 

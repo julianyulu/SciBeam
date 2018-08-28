@@ -9,6 +9,8 @@ SciBeam
     :width: 700px
     :alt: scibeam logo
     :align: center
+	    
+|
 
 .. image:: https://travis-ci.org/SuperYuLu/SciBeam.svg?branch=master
    :target: https://travis-ci.org/SuperYuLu/SciBeam
@@ -25,8 +27,8 @@ SciBeam
 .. image:: https://badge.fury.io/py/scibeam.svg
    :target: https://badge.fury.io/py/scibeam
    :alt: PyPI version
-      
-
+	 
+|      
 
 SciBeam is a python package build on top of pandas, numpy, sicpy and matplotlib. It is  aimed for quick and easy scientific time-series data analysis and visualization in physics, optics, mechanics, and many other STEM subjects. 
 

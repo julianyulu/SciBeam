@@ -40,6 +40,7 @@ release = '0.1.1'
 # ones.
 extensions = [
     #'sphinx.ext.apidoc',
+    'sphinx.ext.imgconverter', # to handle svg in latex
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
@@ -176,7 +177,7 @@ napoleon_include_special_with_doc = True
 napoleon_use_admonition_for_examples = False
 napoleon_use_admonition_for_notes = False
 napoleon_use_admonition_for_references = False
-napoleon_use_ivar = False
+napoleon_use_ivar = True
 napoleon_use_param = True
 napoleon_use_rtype = True
 
@@ -184,7 +185,7 @@ napoleon_use_rtype = True
 apidoc_module_dir = '../../scibeam'
 apidoc_output_dir = 'source'
 apidoc_excluded_paths = []
-apidoc_separate_mudules = True
+apidoc_separate_mudules = False
 # -- Options for todo extension ----------------------------------------------
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
