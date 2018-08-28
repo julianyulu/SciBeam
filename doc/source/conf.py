@@ -182,7 +182,7 @@ napoleon_use_param = True
 napoleon_use_rtype = True
 
 ## sphinx-apidoc
-apidoc_module_dir = '../../scibeam'
+apidoc_module_dir = '../..'
 apidoc_output_dir = 'source'
 apidoc_excluded_paths = []
 apidoc_separate_mudules = False
