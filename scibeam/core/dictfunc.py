@@ -9,9 +9,9 @@
 #
 # Created: Tue Jun 26 16:15:50 2018 (-0500)
 # Version:
-# Last-Updated: Tue Jun 26 16:28:38 2018 (-0500)
+# Last-Updated: Tue Aug 28 10:23:47 2018 (-0500)
 #           By: yulu
-#     Update #: 6
+#     Update #: 7
 #
 
 
@@ -36,9 +36,9 @@ def buildDict(init_dict, key, value):
     dictionary
         If the given key is already exist in the given dictionary init_dict,
         the function checks if type(init_dict[key]) == list:
-            if true, append value the list init_dict[key];
-            if false,  change the value of init_dict[key] to be a list
-            [init_dict[key], value]
+        if true, append value the list init_dict[key];
+        if false,  change the value of init_dict[key] to be a list
+        [init_dict[key], value]
 
         if the given key is not in init_dict, creat a new key entry and assign
         its value to value (not type list). 

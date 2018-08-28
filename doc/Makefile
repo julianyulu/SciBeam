@@ -2,11 +2,12 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = 
 SPHINXBUILD   = sphinx-build
 SPHINXAPIDOC  = sphinx-apidoc
 SPHINXPROJ    = scibeam
 SOURCEDIR     = source
+PKGDIR        = ../scibeam
 BUILDDIR      = build
 
 # Put it first so that "make" without argument is like "make help".
@@ -20,4 +21,5 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 rst:
-	@$(SPHINXAPIDOC) -f -o $(SOURCEDIR) $(SOURCEDIR)
+	@$(SPHINXAPIDOC) -f -o $(SOURCEDIR) $(PKGDIR)
+

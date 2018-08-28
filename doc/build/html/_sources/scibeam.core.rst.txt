@@ -28,6 +28,14 @@ scibeam.core.descriptor module
     :undoc-members:
     :show-inheritance:
 
+scibeam.core.dictfunc module
+----------------------------
+
+.. automodule:: scibeam.core.dictfunc
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 scibeam.core.formatter module
 -----------------------------
 

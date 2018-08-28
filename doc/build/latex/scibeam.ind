@@ -1,0 +1,194 @@
+\begin{sphinxtheindex}
+\def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
+
+  \bigletter {Symbols}
+  \item \_\_init\_\_() (scibeam.core.peak.SeriesPeak method), \hyperpage{16}
+
+  \indexspace
+  \bigletter A
+  \item area() (scibeam.core.peak.FramePeak method), \hyperpage{18}
+  \item area() (scibeam.core.peak.SeriesPeak method), \hyperpage{16}
+  \item autocrop() (scibeam.core.peak.SeriesPeak method), \hyperpage{16}
+
+  \indexspace
+  \bigletter B
+  \item bandPassFilter() (in module scibeam.core.numerical), \hyperpage{15}
+  \item buildDict() (in module scibeam.core.dictfunc), \hyperpage{12}
+
+  \indexspace
+  \bigletter C
+  \item contour() (scibeam.core.plot.PlotTOFFrame method), \hyperpage{18}
+  \item contourf() (scibeam.core.plot.PlotTOFFrame method), \hyperpage{18}
+
+  \indexspace
+  \bigletter D
+  \item data (scibeam.core.plot.PlotTOFFrame attribute), \hyperpage{18}
+  \item data (scibeam.core.plot.PlotTOFSeries attribute), \hyperpage{18}
+  \item data\_file\_extenstion (scibeam.core.base.Defaults attribute), \hyperpage{11}
+  \item data\_file\_num\_column (scibeam.core.base.Defaults attribute), \hyperpage{11}
+  \item Defaults (class in scibeam.core.base), \hyperpage{11}
+  \item DescriptorMixin (class in scibeam.core.descriptor), \hyperpage{12}
+  \item doubleGaus() (scibeam.core.gaussian.Gaussian static method), \hyperpage{13}
+  \item doubleGausFit() (scibeam.core.gaussian.Gaussian static method), \hyperpage{14}
+
+  \indexspace
+  \bigletter F
+  \item file\_regex (scibeam.core.base.Defaults attribute), \hyperpage{11}
+  \item find\_time\_idx() (scibeam.core.tofframe.TOFFrame static method), \hyperpage{19}
+  \item find\_time\_idx() (scibeam.core.tofseries.TOFSeries static method), \hyperpage{21}
+  \item format\_dict() (in module scibeam.core.formatter), \hyperpage{13}
+  \item FramePeak (class in scibeam.core.peak), \hyperpage{18}
+  \item from\_file() (scibeam.core.tofframe.TOFFrame class method), \hyperpage{19}
+  \item from\_file() (scibeam.core.tofseries.TOFSeries class method), \hyperpage{21}
+  \item from\_matchResult() (scibeam.core.tofframe.TOFFrame class method), \hyperpage{19}
+  \item from\_path() (scibeam.core.tofframe.TOFFrame class method), \hyperpage{19}
+  \item fwhm() (scibeam.core.peak.FramePeak method), \hyperpage{18}
+  \item fwhm() (scibeam.core.peak.SeriesPeak method), \hyperpage{16}
+
+  \indexspace
+  \bigletter G
+  \item gaus() (scibeam.core.gaussian.Gaussian static method), \hyperpage{14}
+  \item gausCenter() (scibeam.core.tofseries.TOFSeries method), \hyperpage{22}
+  \item gausFit() (scibeam.core.gaussian.Gaussian static method), \hyperpage{14}
+  \item gausFit() (scibeam.core.peak.SeriesPeak method), \hyperpage{16}
+  \item gausFit() (scibeam.core.tofseries.TOFSeries method), \hyperpage{22}
+  \item Gaussian (class in scibeam.core.gaussian), \hyperpage{13}
+  \item gausStd() (scibeam.core.tofseries.TOFSeries method), \hyperpage{22}
+
+  \indexspace
+  \bigletter H
+  \item height() (scibeam.core.peak.FramePeak method), \hyperpage{18}
+  \item height() (scibeam.core.peak.SeriesPeak method), \hyperpage{17}
+
+  \indexspace
+  \bigletter I
+  \item idx() (scibeam.core.peak.FramePeak method), \hyperpage{18}
+  \item idx() (scibeam.core.peak.SeriesPeak method), \hyperpage{17}
+  \item image() (scibeam.core.plot.PlotTOFFrame method), \hyperpage{18}
+  \item inch\_to\_mm() (scibeam.core.tofframe.TOFFrame method), \hyperpage{19}
+  \item integrate() (in module scibeam.core.numerical), \hyperpage{15}
+
+  \indexspace
+  \bigletter L
+  \item loadFile() (in module scibeam.core.common), \hyperpage{12}
+
+  \indexspace
+  \bigletter M
+  \item match() (scibeam.core.regexp.RegMatch method), \hyperpage{19}
+  \item matchFolder() (scibeam.core.regexp.RegMatch method), \hyperpage{19}
+  \item microsec\_to\_sec() (scibeam.core.tofframe.TOFFrame method), \hyperpage{20}
+  \item mm\_to\_inch() (scibeam.core.tofframe.TOFFrame method), \hyperpage{20}
+
+  \indexspace
+  \bigletter N
+  \item nidx() (scibeam.core.peak.FramePeak method), \hyperpage{18}
+  \item nidx() (scibeam.core.peak.SeriesPeak method), \hyperpage{17}
+
+  \indexspace
+  \bigletter P
+  \item peak (scibeam.core.tofframe.TOFFrame attribute), \hyperpage{20}
+  \item peak (scibeam.core.tofseries.TOFSeries attribute), \hyperpage{22}
+  \item plot() (scibeam.core.plot.PlotTOFSeries method), \hyperpage{18}
+  \item plot1d (scibeam.core.tofseries.TOFSeries attribute), \hyperpage{22}
+  \item plot2d (scibeam.core.tofframe.TOFFrame attribute), \hyperpage{20}
+  \item PlotTOFFrame (class in scibeam.core.plot), \hyperpage{18}
+  \item PlotTOFSeries (class in scibeam.core.plot), \hyperpage{18}
+
+  \indexspace
+  \bigletter R
+  \item read\_file() (in module scibeam.core.tofseries), \hyperpage{22}
+  \item read\_folder() (in module scibeam.core.tofframe), \hyperpage{20}
+  \item read\_regexp\_match() (in module scibeam.core.tofframe), \hyperpage{21}
+  \item reduce() (scibeam.core.tofframe.TOFFrame method), \hyperpage{20}
+  \item regex (scibeam.core.regexp.RegMatch attribute), \hyperpage{19}
+  \item region() (scibeam.core.peak.FramePeak method), \hyperpage{18}
+  \item region() (scibeam.core.peak.SeriesPeak method), \hyperpage{17}
+  \item RegMatch (class in scibeam.core.regexp), \hyperpage{19}
+  \item remove\_data\_offset() (scibeam.core.tofframe.TOFFrame static method), \hyperpage{20}
+  \item remove\_data\_offset() (scibeam.core.tofseries.TOFSeries static method), \hyperpage{22}
+
+  \indexspace
+  \bigletter S
+  \item scibeam.core (module), \hyperpage{23}
+  \item scibeam.core.base (module), \hyperpage{11}
+  \item scibeam.core.common (module), \hyperpage{11}
+  \item scibeam.core.descriptor (module), \hyperpage{12}
+  \item scibeam.core.dictfunc (module), \hyperpage{12}
+  \item scibeam.core.formatter (module), \hyperpage{13}
+  \item scibeam.core.gaussian (module), \hyperpage{13}
+  \item scibeam.core.numerical (module), \hyperpage{15}
+  \item scibeam.core.peak (module), \hyperpage{16}
+  \item scibeam.core.plot (module), \hyperpage{18}
+  \item scibeam.core.regexp (module), \hyperpage{19}
+  \item scibeam.core.tofframe (module), \hyperpage{19}
+  \item scibeam.core.tofseries (module), \hyperpage{21}
+  \item scibeam.tests (module), \hyperpage{28}
+  \item scibeam.tests.test\_base (module), \hyperpage{27}
+  \item scibeam.tests.test\_common (module), \hyperpage{27}
+  \item scibeam.tests.test\_formatter (module), \hyperpage{27}
+  \item scibeam.tests.test\_imports (module), \hyperpage{27}
+  \item scibeam.tests.test\_regexp (module), \hyperpage{28}
+  \item scibeam.tests.test\_tofseries (module), \hyperpage{28}
+  \item sec\_to\_microsec() (scibeam.core.tofframe.TOFFrame method), \hyperpage{20}
+  \item sec\_to\_microsec() (scibeam.core.tofseries.TOFSeries method), \hyperpage{22}
+  \item selectTimeRange() (scibeam.core.tofframe.TOFFrame method), \hyperpage{20}
+  \item selectTimeRange() (scibeam.core.tofseries.TOFSeries method), \hyperpage{22}
+  \item selectTimeSlice() (scibeam.core.tofframe.TOFFrame method), \hyperpage{20}
+  \item selectTimeSlice() (scibeam.core.tofseries.TOFSeries method), \hyperpage{22}
+  \item SeriesPeak (class in scibeam.core.peak), \hyperpage{16}
+  \item setUp() (scibeam.tests.test\_base.TestFunctions method), \hyperpage{27}
+  \item setUp() (scibeam.tests.test\_regexp.TestRegmatch method), \hyperpage{28}
+  \item setUp() (scibeam.tests.test\_tofseries.TestTOFSeries method), \hyperpage{28}
+  \item sigma() (scibeam.core.peak.FramePeak method), \hyperpage{18}
+  \item sigma() (scibeam.core.peak.SeriesPeak method), \hyperpage{17}
+  \item single\_regex\_match() (scibeam.core.regexp.RegMatch static method), \hyperpage{19}
+  \item subfolder\_regex (scibeam.core.base.Defaults attribute), \hyperpage{11}
+  \item sum() (scibeam.core.tofframe.TOFFrame method), \hyperpage{20}
+
+  \indexspace
+  \bigletter T
+  \item test\_find\_time\_idx() (scibeam.tests.test\_tofseries.TestTOFSeries method), 
+		\hyperpage{28}
+  \item test\_formart\_dict() (scibeam.tests.test\_formatter.TestFunctions method), \hyperpage{27}
+  \item test\_import\_Gaussian() (scibeam.tests.test\_imports.TestImports method), \hyperpage{27}
+  \item test\_import\_PlotTOFSeries() (scibeam.tests.test\_imports.TestImports method), 
+		\hyperpage{27}
+  \item test\_import\_read\_file() (scibeam.tests.test\_imports.TestImports method), \hyperpage{28}
+  \item test\_import\_read\_folder() (scibeam.tests.test\_imports.TestImports method), 
+		\hyperpage{28}
+  \item test\_import\_RegMatch() (scibeam.tests.test\_imports.TestImports method), \hyperpage{28}
+  \item test\_import\_TOFFrame() (scibeam.tests.test\_imports.TestImports method), \hyperpage{28}
+  \item test\_import\_TOFSeries() (scibeam.tests.test\_imports.TestImports method), \hyperpage{28}
+  \item test\_init() (scibeam.tests.test\_tofseries.TestTOFSeries method), \hyperpage{28}
+  \item test\_is\_mixin() (scibeam.tests.test\_base.TestFunctions method), \hyperpage{27}
+  \item test\_loadFile() (scibeam.tests.test\_common.TestFunctions method), \hyperpage{27}
+  \item test\_match() (scibeam.tests.test\_regexp.TestRegmatch method), \hyperpage{28}
+  \item test\_matchFolder() (scibeam.tests.test\_regexp.TestRegmatch method), \hyperpage{28}
+  \item test\_read\_defaults() (scibeam.tests.test\_tofseries.TestFunctions method), \hyperpage{28}
+  \item test\_read\_with\_bounds() (scibeam.tests.test\_tofseries.TestFunctions method), 
+		\hyperpage{28}
+  \item test\_read\_without\_offset() (scibeam.tests.test\_tofseries.TestFunctions method), 
+		\hyperpage{28}
+  \item test\_remove\_data\_offset() (scibeam.tests.test\_tofseries.TestTOFSeries method), 
+		\hyperpage{28}
+  \item test\_selectTimeSlice() (scibeam.tests.test\_tofseries.TestTOFSeries method), 
+		\hyperpage{28}
+  \item test\_single\_regex\_match() (scibeam.tests.test\_regexp.TestRegmatch method), 
+		\hyperpage{28}
+  \item test\_winPathHandler() (scibeam.tests.test\_common.TestFunctions method), \hyperpage{27}
+  \item testDict (scibeam.tests.test\_formatter.TestFunctions attribute), \hyperpage{27}
+  \item TestFunctions (class in scibeam.tests.test\_base), \hyperpage{27}
+  \item TestFunctions (class in scibeam.tests.test\_common), \hyperpage{27}
+  \item TestFunctions (class in scibeam.tests.test\_formatter), \hyperpage{27}
+  \item TestFunctions (class in scibeam.tests.test\_tofseries), \hyperpage{28}
+  \item TestImports (class in scibeam.tests.test\_imports), \hyperpage{27}
+  \item TestRegmatch (class in scibeam.tests.test\_regexp), \hyperpage{28}
+  \item TestTOFSeries (class in scibeam.tests.test\_tofseries), \hyperpage{28}
+  \item TOFFrame (class in scibeam.core.tofframe), \hyperpage{19}
+  \item TOFSeries (class in scibeam.core.tofseries), \hyperpage{21}
+
+  \indexspace
+  \bigletter W
+  \item winPathHandler() (in module scibeam.core.common), \hyperpage{11}
+
+\end{sphinxtheindex}

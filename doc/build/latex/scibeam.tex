@@ -56,7 +56,7 @@
 
 
 \title{scibeam Documentation}
-\date{Aug 27, 2018}
+\date{Aug 28, 2018}
 \release{0.1.1}
 \author{Yu Lu}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -71,7 +71,15 @@
 
 
 \noindent{\hspace*{\fill}\sphinxincludegraphics[width=700\sphinxpxdimen]{{logo}.png}\hspace*{\fill}}
-\sphinxhref{https://travis-ci.org/SuperYuLu/SciBeam}{\sphinxincludegraphics{{/home/yulu/Github/SciBeam/doc/build/doctrees/images/7cf4ccdd6332461ba33df6aad10a05cf0d70448f/SciBeam}.svg}}\sphinxhref{https://codecov.io/gh/SuperYuLu/SciBeam}{\sphinxincludegraphics{{/home/yulu/Github/SciBeam/doc/build/doctrees/images/672f7cfd3a931fcfcd6bb2b578a1477ec43dab56/badge}.svg}}\sphinxhref{https://scibeam.readthedocs.io/en/latest/?badge=latest}{\sphinxincludegraphics{{/home/yulu/Github/SciBeam/doc/build/doctrees/images/e850d3eccc8315e25891af5a69500e221e4e3c10/045848884e9aec5dff670df35f2731cdc6ad27a7}.svg}}\sphinxhref{https://badge.fury.io/py/scibeam}{\sphinxincludegraphics{{/home/yulu/Github/SciBeam/doc/build/doctrees/images/1e1ecccafa47fa3136c223ed1f8e784009f394f0/scibeam}.svg}}
+
+\begin{DUlineblock}{0em}
+\item[] 
+\end{DUlineblock}
+\sphinxhref{https://travis-ci.org/SuperYuLu/SciBeam}{\sphinxincludegraphics{{SciBeam}.png}}\sphinxhref{https://codecov.io/gh/SuperYuLu/SciBeam}{\sphinxincludegraphics{{badge}.png}}\sphinxhref{https://scibeam.readthedocs.io/en/latest/?badge=latest}{\sphinxincludegraphics{{045848884e9aec5dff670df35f2731cdc6ad27a7}.png}}\sphinxhref{https://badge.fury.io/py/scibeam}{\sphinxincludegraphics{{scibeam}.png}}
+\begin{DUlineblock}{0em}
+\item[] 
+\end{DUlineblock}
+
 SciBeam is a python package build on top of pandas, numpy, sicpy and matplotlib. It is  aimed for quick and easy scientific time-series data analysis and visualization in physics, optics, mechanics, and many other STEM subjects.
 
 In the context of scientific data analysis, there are a lot of situations that people have to deal with time-series data, such as time dependent experiment(e.g. temperature measurement), dynamic processes(e.g. beam propagation, chemical reaction), system long/short term behavior(e.g. noise), etc. Quite often is that data taking and result analysis is gaped by some time and effort, which could result in complains or regrets during the data analysis,  like “I wish I took another measurement of … so than I could explain why …”. As such, the general guidline of scibeam is to bridge the gap between measurement and data analysis, so that time-series related experiment can be done in a more guided way.
@@ -399,16 +407,16 @@ How to use
 \section{scibeam.core.base module}
 \label{\detokenize{scibeam.core:module-scibeam.core.base}}\label{\detokenize{scibeam.core:scibeam-core-base-module}}\index{scibeam.core.base (module)}
 Base functions for mixin classes and module width constants
-\index{\_mixin\_class (in module scibeam.core.base)}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{scibeam.core:scibeam.core.base._mixin_class}}\pysigline{\sphinxcode{\sphinxupquote{scibeam.core.base.}}\sphinxbfcode{\sphinxupquote{\_mixin\_class}}}
-\sphinxstyleemphasis{list(str)} \textendash{} Specify allowed mixin class for method chain.
+\begin{quote}\begin{description}
+\item[{ivar \_mixin\_class}] \leavevmode
+Specify allowed mixin class for method chain.
 The two basic data structures are TOFSeries and TOFFrame,
 current.
 
-\end{fulllineitems}
+\item[{vartype \_mixin\_class}] \leavevmode
+list(str)
 
+\end{description}\end{quote}
 
 \begin{sphinxadmonition}{note}{Note:}
 TODO: Move Defaults to a seperate config.py file for easy
@@ -543,6 +551,50 @@ Meta class for method chain mixin
 
 This is a meta class to realize method chain in other classes
 Read-only descriptor for class cross reference
+
+\end{fulllineitems}
+
+
+
+\section{scibeam.core.dictfunc module}
+\label{\detokenize{scibeam.core:module-scibeam.core.dictfunc}}\label{\detokenize{scibeam.core:scibeam-core-dictfunc-module}}\index{scibeam.core.dictfunc (module)}\index{buildDict() (in module scibeam.core.dictfunc)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{scibeam.core:scibeam.core.dictfunc.buildDict}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{scibeam.core.dictfunc.}}\sphinxbfcode{\sphinxupquote{buildDict}}}{\emph{init\_dict}, \emph{key}, \emph{value}}{}
+build dictionary with key and values on top of existing dict
+
+Add / set key,value pair to a given dict.
+If the same key exists, combine values to list under the same key
+If no same key exists, creat new key and initialize it to single value
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{init\_dict}} (\sphinxstyleliteralemphasis{\sphinxupquote{dictionary}}) \textendash{} original dictionary where new key, value pair to be added to
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{key}} (\sphinxstyleliteralemphasis{\sphinxupquote{dictionary key}}) \textendash{} The key of dictionary that the value will be associated to
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{value}} (\sphinxstyleliteralemphasis{\sphinxupquote{dictionary value}}) \textendash{} The value that associated to the key provided
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+
+If the given key is already exist in the given dictionary init\_dict,
+the function checks if type(init\_dict{[}key{]}) == list:
+if true, append value the list init\_dict{[}key{]};
+if false,  change the value of init\_dict{[}key{]} to be a list
+{[}init\_dict{[}key{]}, value{]}
+
+if the given key is not in init\_dict, creat a new key entry and assign
+its value to value (not type list).
+
+
+\item[{Return type}] \leavevmode
+dictionary
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -874,14 +926,11 @@ series is the data value.
 
 Additionally, SeriesPeak is also designed as a mixin class which can be used
 as a method chain in other pandas dataframe / sereis based data formats.
-\index{self (scibeam.core.peak.SeriesPeak attribute)}
+\begin{quote}\begin{description}
+\item[{Variables}] \leavevmode
+\sphinxstyleliteralstrong{\sphinxupquote{self}} (\sphinxstyleliteralemphasis{\sphinxupquote{pandas series}}) \textendash{} pandas series data
 
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{scibeam.core:scibeam.core.peak.SeriesPeak.self}}\pysigline{\sphinxbfcode{\sphinxupquote{self}}}
-\sphinxstyleemphasis{pandas series} \textendash{} pandas series data
-
-\end{fulllineitems}
-
+\end{description}\end{quote}
 \index{\_\_init\_\_() (scibeam.core.peak.SeriesPeak method)}
 
 \begin{fulllineitems}
@@ -2038,6 +2087,7 @@ Hook method for setting up the test fixture before exercising it.
 \item {\sphinxstyleindexentry{scibeam.core.base}}\sphinxstyleindexpageref{scibeam.core:\detokenize{module-scibeam.core.base}}
 \item {\sphinxstyleindexentry{scibeam.core.common}}\sphinxstyleindexpageref{scibeam.core:\detokenize{module-scibeam.core.common}}
 \item {\sphinxstyleindexentry{scibeam.core.descriptor}}\sphinxstyleindexpageref{scibeam.core:\detokenize{module-scibeam.core.descriptor}}
+\item {\sphinxstyleindexentry{scibeam.core.dictfunc}}\sphinxstyleindexpageref{scibeam.core:\detokenize{module-scibeam.core.dictfunc}}
 \item {\sphinxstyleindexentry{scibeam.core.formatter}}\sphinxstyleindexpageref{scibeam.core:\detokenize{module-scibeam.core.formatter}}
 \item {\sphinxstyleindexentry{scibeam.core.gaussian}}\sphinxstyleindexpageref{scibeam.core:\detokenize{module-scibeam.core.gaussian}}
 \item {\sphinxstyleindexentry{scibeam.core.numerical}}\sphinxstyleindexpageref{scibeam.core:\detokenize{module-scibeam.core.numerical}}

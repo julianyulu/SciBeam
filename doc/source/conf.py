@@ -16,6 +16,11 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
+#import mock
+ 
+# MOCK_MODULES = ['numpy', 'scipy', 'matplotlib', 'matplotlib.pyplot', 'scipy.integrate', 'scipy.optimize', 'pandas', 'matplotlib.ticker', 'scipy.fftpack']
+# for mod_name in MOCK_MODULES:
+#     sys.modules[mod_name] = mock.Mock()
 
 # -- Project information -----------------------------------------------------
 
@@ -40,6 +45,7 @@ release = '0.1.1'
 # ones.
 extensions = [
     #'sphinx.ext.apidoc',
+    'sphinx.ext.imgconverter', # to handle svg in latex
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
@@ -181,10 +187,10 @@ napoleon_use_param = True
 napoleon_use_rtype = True
 
 ## sphinx-apidoc
-apidoc_module_dir = '../../scibeam'
+apidoc_module_dir = '../scibeam'
 apidoc_output_dir = 'source'
 apidoc_excluded_paths = []
-apidoc_separate_mudules = True
+apidoc_separate_mudules = False
 # -- Options for todo extension ----------------------------------------------
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
