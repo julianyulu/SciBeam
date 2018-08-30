@@ -158,8 +158,8 @@ class SeriesPeak(pandas.Series):
         return nidx
 
     def height(self, gauss_fit = False, offset = False):
-        """calculate peak height 
-        
+        """calculate peak height
+
         Calculated the peak height, either by gaussian fitting (if gauss_fit
         true), or simply return the maximium as the peak height (default)
 
@@ -167,7 +167,7 @@ class SeriesPeak(pandas.Series):
         ----------
         gauss_fit : bool
             If true, the peak height is get by performing a gaussian fit
-            If false, simply the maximium value in the given data 
+            If false, simply the maximium value in the given data
         offset : bool
             If True, the gaussian fitting will consider also fit the data
             offset. If False (default), the fitting procedure will assume that
@@ -175,8 +175,8 @@ class SeriesPeak(pandas.Series):
 
         Returns
         -------
-        float 
-            Peak height 
+        float
+            Peak height
         """
         if gauss_fit:
             return self.gausFit(offset = offset)[0][0]
@@ -193,11 +193,11 @@ class SeriesPeak(pandas.Series):
 
         Parameters
         ----------
-        n_sigmas : integer 
-            Multiplies of standard deviations of the peak width is wanted 
+        n_sigmas : integer
+            Multiplies of standard deviations of the peak width is wanted
         gauss_fit : bool
             If true, the peak width is obtained from gaussian fitting
-            If False (default), the peak width is calculated from literally 
+            If False (default), the peak width is calculated from literally
             full-width-half-max.
         offset : bool
             If True, the gaussian fitting will consider also fit the data
@@ -225,29 +225,50 @@ class SeriesPeak(pandas.Series):
     def fwhm(self, gauss_fit = False, offset = False):
         """Full-Width-Half-Maximium
 
-        Find the Full-Width-Half-Maximium (FWHM) of the peak, from 
+        Find the Full-Width-Half-Maximium (FWHM) of the peak, from
         gaussian fitting or direction calculation.
 
         Parameters
         ----------
         gauss_fit : bool
-            If true, fwhm is get from gaussian fitting 
-            If false (default), fwhm is from direction calculation 
+            If true, fwhm is get from gaussian fitting
+            If false (default), fwhm is from direction calculation
         offset : bool
             If True, the gaussian fitting will consider also fit the data
             offset. If False (default), the fitting procedure will assume that
             the data has 0 offset.
-        Returns 
+
+        Returns
         -------
         float
             peak full-width-half-maximium value
-        
+
         """
         sigma = self.sigma(n_sigmas = 1, gauss_fit = gauss_fit, offset = offset)
         return sigma * np.sqrt(8 * np.log(2))
 
     def area(self, gauss_fit = False, offset = False):
-        
+        """Area under the peak
+
+        Integrate the data with x and y using numerical method trapz to find
+        the total area under the peak
+
+        Parameters
+        ----------
+        gauss_fit : bool
+            If true, fwhm is get from gaussian fitting
+            If false (default), fwhm is from direction calculation
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+
+        Returns
+        -------
+        float
+            peak area integrated value
+
+        """
         if gauss_fit:
             popt, pcov = self.gausFit()
             # if with offset
@@ -265,12 +286,22 @@ class SeriesPeak(pandas.Series):
     def region(self, n_sigmas = 4, plot = False, offset = False):
         """Auto find the peak region
 
-        Locate the region where there exists a peak and return 
-        the lower and upper bound index of the region.
+        Locate the region where there exists a peak and return
+        the lower and upper bound index of the region in a 1D
+        time-series data, using gaussian fitting.
 
         Parameters
         ----------
-        
+        n_sigmas : int
+            multiplies of standard deviations to locate the broudrary
+            default 1
+        plot : bool
+            If true, plot the raw data with auto detected window
+            If flase, no plot
+        offset:
+            Decide whether or not consider data offset in the gaussian
+            fitting, which is been used for finding the width.
+
         """
         peak_nidx = self.nidx()
         peak_value = self.iloc[peak_nidx]
@@ -290,24 +321,77 @@ class SeriesPeak(pandas.Series):
         return lb, ub
 
     def autocrop(self, n_sigmas = 4, offset = False):
+        """crop the data with peak region in place
+        Find the peak region using 'region' method and return an instance with
+        data already croped. refer to 'region' method
+
+        Parameters
+        ----------
+        n_sigmas : int
+            multiplies of standard deviations to locate the broudrary
+            default 1
+        offset:
+            Decide whether or not consider data offset in the gaussian
+            fitting, which is been used for finding the width.
+
+        Returns
+        -------
+        peak instance
+            Constructed new instance by crop the data in the region of the peak
+
+        """
         lb, ub =  self.region(n_sigmas = n_sigmas, plot = False)
         return self._constructor(self.iloc[lb:ub])
 
 
-
-
-
-
 class FramePeak(pandas.DataFrame):
-    """
-    Peak analysis on 1D labeled / unlabeled data
+    """Peak analysis on 2D time series data
+
+    Build on top of pandas.DataFrame, this adds more methods on peak analysis for
+    pandas dataframe data. The any class instance of SeriesPeak can still access
+    all pandas dataframe methods.
+
+    By default, the indexes is treated as the time axis, while the column names
+    are the variables for different time series measurement.
+
+    Additionally, FramePeak is also designed as a mixin class which can be used
+    as a method chain in other pandas dataframe  based data formats.
+
+    Attributes
+    ----------
+    self : pandas dataframe
+        pandas dataframe instance
+
     """
     def __init__(self, *args, **kwargs):
+        """assign value to initialize FramePeak
+
+        The initlization of this class can be done exactly as one initlize
+        pandas dataframe, for more information please pandas dataframe documentation.
+
+        """
         super().__init__(*args, **kwargs)
 
     def _toTOFSeries(func):
-        """
-        Decorator to wrap series returns for method chain
+        """Deocorator to convert data to TOFSeries instance
+
+        This decorator is the keep data analysis closed under TOFFrame and
+        TOFSeries. Since some of the method calculation will return an array
+        or pandas.series object which is not a TOFFrame/TOFSeries object, method
+        chain will be broken. To enture one can chain multiple method without
+        breaking the chain, returned data has to be ensured to be in either
+        TOFSeries or TOFFrame class.
+
+        Parameters
+        ----------
+        func : function
+            The function whose returned value will be decorated
+
+        Returns
+        -------
+        TOFSeries instance
+            An instance of class TOFSeries
+
         """
         def wrapper(*args, **kwargs):
             result = func(*args, **kwargs)
@@ -319,13 +403,73 @@ class FramePeak(pandas.DataFrame):
 
     @classmethod
     def _constructor(cls, *args, **kwargs):
+        """class constructor
+
+        construct FramePeak instance
+
+        """
         return cls(*args, **kwargs)
 
     @_toTOFSeries
-    def idx(self, axis = 0, gauss_fit = False, normalize = False):
+    """Deocorator to convert data to TOFFrame instance
+
+    This decorator is the keep data analysis closed under TOFFrame and
+    TOFSeries. Since some of the method calculation will return an array
+    or pandas.series object which is not a TOFFrame/TOFSeries object, method
+    chain will be broken. To enture one can chain multiple method without
+    breaking the chain, returned data has to be ensured to be in either
+    TOFSeries or TOFFrame class.
+
+    Parameters
+    ----------
+    func : function
+        The function whose returned value will be decorated
+
+    Returns
+    -------
+    TOFFrame instance
+        An instance of class TOFFrame
+
+    """
+    def idx(self, axis = 0, gauss_fit = False, offset = False, normalize = False):
+        """find x-axis value corresponding to peak
+
+        This funciton is to locate the corresponding x corrdinate or 'index' of
+        the peak. Depend on the value of parameter 'gauss_fit', the x coordinate
+        of peak can either come from the max value or gaussian fitting.
+
+        The index of series is treated as the x coordinate of the data.
+
+        Parameters
+        ----------
+        axis : int
+            The axis the the index of peak is calculated
+            0 (default) for alone the index direction
+            1 for along the column direction
+        gauss_fit : bool
+            If true, the x coordinate corresponding to peak is get by performing
+            gaussian fitting on the data, as in member method gausFit.
+            If false, the maxmium value of data will be treated as the 'peak',
+            and its corresponding x coordinate will be returend.
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+        normalize : bool
+            If true, normalize the returned series data such that the maximium
+            value is set to 1. This is beneficial if one needs to compare
+            different frames' peak analysis.
+
+        Returns
+        -------
+        TOFSeries instance
+             A TOFSeries that corresponding to the peak for each entry.
+
+        """
+
         selfCopy = self.copy() if axis == 0 else self.copy().T
         if gauss_fit:
-            idx =  selfCopy.apply(lambda s: Gaussian.gausFit(x = s.index, y = s.values, offset = False)[0][1])
+            idx =  selfCopy.apply(lambda s: Gaussian.gausFit(x = s.index, y = s.values, offset = offset)[0][1])
         else:
             idx =  selfCopy.idxmax()
         if normalize:
@@ -333,10 +477,17 @@ class FramePeak(pandas.DataFrame):
         return idx
 
     @_toTOFSeries
-    def nidx(self, axis = 0, gauss_fit = False, normalize = False):
+    def nidx(self, axis = 0, gauss_fit = False, normalize = False, offset = False):
+        """number index of the peak
+
+        Similar to member method idx, this one returns the number index rather
+        than the real index, which means self.index[nidx] = idx
+
+        """
+
         selfCopy = self.copy() if axis == 0 else self.copy().T
         if gauss_fit:
-            height = selfCopy.height(gauss_fit)
+            height = selfCopy.height(gauss_fit(offset = offset))
             n_idx = [np.argmin(abs(selfCopy[x].values - h)) for x, h in zip(selfCopy.columns, height)]
         else:
             n_idx = [np.argmax(selfCopy[x].values) for x in selfCopy.columns]
@@ -346,10 +497,38 @@ class FramePeak(pandas.DataFrame):
         return n_idx
 
     @_toTOFSeries
-    def height(self, axis = 0, gauss_fit = False, normalize = False):
+    def height(self, axis = 0, gauss_fit = False, normalize = False, offset = False):
+        """calculate peak height
+
+        Calculated the peak height, either by gaussian fitting (if gauss_fit
+        true), or simply return the maximium as the peak height (default)
+
+        Parameters
+        ----------
+        axis : int
+            The axis the the index of peak is calculated
+            0 (default) for alone the index direction
+            1 for along the column direction
+        gauss_fit : bool
+            If true, the peak height is get by performing a gaussian fit
+            If false, simply the maximium value in the given data
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+        normalize : bool
+            If true, normalize the returned series data such that the maximium
+            value is set to 1. This is beneficial if one needs to compare
+            different frames' peak analysis.
+
+        Returns
+        -------
+        TOFSeries instance
+            TOFSeries instance of peak height for each engry
+        """
         selfCopy = self.copy() if axis == 0 else self.copy().T
         if gauss_fit:
-            height =  selfCopy.apply(lambda s: Gaussian.gausFit(x = s.index, y = s.values, offset = False)[0][0])
+            height =  selfCopy.apply(lambda s: Gaussian.gausFit(x = s.index, y = s.values, offset = offset)[0][0])
         else:
             height =  selfCopy.max()
         if normalize:
@@ -357,12 +536,48 @@ class FramePeak(pandas.DataFrame):
         return height
 
     @_toTOFSeries
-    def sigma(self, n_sigmas = 1, axis = 0, gauss_fit = False, normalize = False):
+    def sigma(self, n_sigmas = 1, axis = 0, gauss_fit = False, normalize = False, ,offset = False):
+        """Find peak width
+
+        Find the peak width, with specified mutiples of standard deviation.
+        The width can be obtained by literally calculate the full-width-half-max
+        or by gaussian fitting, depend on the parameter value 'gauss_fit' to be
+        true of false.
+
+        Parameters
+        ----------
+        n_sigmas : integer
+            Multiplies of standard deviations of the peak width is wanted
+        axis : int
+            The axis the the index of peak is calculated
+            0 (default) for alone the index direction
+            1 for along the column direction
+        gauss_fit : bool
+            If true, the peak width is obtained from gaussian fitting
+            If False (default), the peak width is calculated from literally
+            full-width-half-max.
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+        normalize : bool
+            If true, normalize the returned series data such that the maximium
+            value is set to 1. This is beneficial if one needs to compare
+            different frames' peak analysis.
+
+        Returns
+        -------
+        TOFSeries instance
+            TOFSeries instance of  peak width in terms of multiples of standard
+            deviatioins for each entry
+
+        """
+
         selfCopy = self.copy() if axis == 0 else self.copy().T
 
         def col_sigma(series):
             if gauss_fit:
-                return Gaussian.gausFit(x = series.index, y = series.values, offset = False)[0][2]
+                return Gaussian.gausFit(x = series.index, y = series.values, offset = offset)[0][2]
             else:
                 peak_values = max(series)
                 peak_idx = np.argmax(series.values)
@@ -382,20 +597,79 @@ class FramePeak(pandas.DataFrame):
         return sigma
 
     @_toTOFSeries
-    def fwhm(self, axis = 0, gauss_fit = False, normalize = False):
-        sigma = self.sigma(n_sigmas = 1, axis = axis, gauss_fit = gauss_fit, normalize = False)
+    def fwhm(self, axis = 0, gauss_fit = False, offset = False, normalize = False):
+        """Full-Width-Half-Maximium
+
+        Find the Full-Width-Half-Maximium (FWHM) of the peak, from
+        gaussian fitting or direction calculation.
+
+        Parameters
+        ----------
+        axis : int
+            The axis the the index of peak is calculated
+            0 (default) for alone the index direction
+            1 for along the column direction
+        gauss_fit : bool
+            If true, fwhm is get from gaussian fitting
+            If false (default), fwhm is from direction calculation
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+        normalize : bool
+            If true, normalize the returned series data such that the maximium
+            value is set to 1. This is beneficial if one needs to compare
+            different frames' peak analysis.
+
+        Returns
+        -------
+        TOFSeries instance
+            TOFSeries instance of peak full-width-half-maximium value for each
+            entry
+
+        """
+        sigma = self.sigma(n_sigmas = 1, axis = axis, gauss_fit = gauss_fit, normalize = False, offset = offset)
         fwhm = sigma * np.sqrt(8 * np.log(2))
         if normalize:
             fwhm  = fwhm / fwhm.max()
         return fwhm
 
     @_toTOFSeries
-    def area(self, axis = 0, gauss_fit = False, normalize = False):
+    def area(self, axis = 0, gauss_fit = False, normalize = False, offset = False):
+        """Area under the peak
+
+        Integrate the data with x and y using numerical method trapz to find
+        the total area under the peak
+
+        Parameters
+        ----------
+        axis : int
+            The axis the the index of peak is calculated
+            0 (default) for alone the index direction
+            1 for along the column direction
+        gauss_fit : bool
+            If true, fwhm is get from gaussian fitting
+            If false (default), fwhm is from direction calculation
+        offset : bool
+            If True, the gaussian fitting will consider also fit the data
+            offset. If False (default), the fitting procedure will assume that
+            the data has 0 offset.
+        normalize : bool
+            If true, normalize the returned series data such that the maximium
+            value is set to 1. This is beneficial if one needs to compare
+            different frames' peak analysis.
+
+        Returns
+        -------
+        TOFSeries instance
+            TOFSeries instance of peak area integrated value for each entry
+
+        """
         selfCopy = self.copy() if axis == 0 else self.copy().T
         def col_area(series):
             if gauss_fit:
                 for col in series.columns:
-                    popt, pcov = Gaussian.gausFit(x = series.index, y = series[col].values)
+                    popt, pcov = Gaussian.gausFit(x = series.index, y = series[col].values, ,offset = offset)
                     area = quad(lambda x:Gaussian.gaus(x, *popt), min(series[col].index), max(series[col].index))[0]
 
             else:
@@ -411,10 +685,30 @@ class FramePeak(pandas.DataFrame):
 
     @_toTOFSeries
     def region(self, axis = 0, n_sigmas = 4, plot = False):
+        """Auto find the peak region
+
+        Locate the region where there exists a peak and return
+        the lower and upper bound index of the region in a 1D
+        time-series data.
+
+        Note
+        ----
+        This function will be depracated in the next version
+
+        Parameters
+        ----------
+        axis : int
+            The axis the the index of peak is calculated
+            0 (default) for alone the index direction
+            1 for along the column direction
+        n_sigmas : int
+            multiplies of standard deviations to locate the broudrary
+            default 1
+        plot : bool
+            If true, plot the raw data with auto detected window
+            If flase, no plot
         """
-        Locate the region where there exists a peak
-        return the bound index of the region
-        """
+
         selfCopy = self.copy()
         def col_region(series, plot = False):
             series = SeriesPeak(series.copy())
