@@ -18,36 +18,122 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import NullFormatter
 from .formatter import format_dict
-from . import base
 from .gaussian import Gaussian
+from . import base
 from . import numerical
 
 class PlotTOFSeries:
+    """Plot method class for TOFSeries data
+
+    Plot TOFSeries with time as index and another numerical variable as
+    column labels. This class makes a copy of the original data so it's
+    type safe.
+
+    Designed for using as a mixin class for method chain
+
+    Attributes
+    ----------
+    __is_mixin : bool
+        Indicator of whether the class is been used as mixin class
+    data : TOFSeries instance
+        The hard copy of TOFSeries instance data
+    index_label : string
+        The label of index data values
+    column_label: string
+        The label of columns
+
     """
-    Plot dataframe with time as index and another numerical variable as
-    column labels
-    """
-    def __init__(self, dataseries, lowerBound = None, upperBound = None, index_label = None, column_name = None):
+    def __init__(self, dataseries, index_label = None, column_label = None):
         self.__is_mixin = base._is_mixin(dataseries)
         self.data = dataseries._make_mixin if self.__is_mixin else dataseries
         self.index_label = index_label
-        self.column_name = column_name
+        self.column_label = column_label
 
     @property
     def data(self):
+        """data value as class property
+
+        return the value current stored in data as a property
+
+        Returns
+        -------
+        TOFSeries instance
+            Data that passed to PlotTOFSeries
+
+        """
         return self.__data
+
     @data.setter
     def data(self, dataseries):
+        """data attribute setter
+
+        Set the attribute value of data in a class protected way
+
+        """
         self.__data = dataseries
 
     @classmethod
     def _constructor(cls, data):
+        """PlotTOFSeries class constructor
+
+        Construct class instance using data and other default init values
+
+        Can be used for mixin class as method chain
+
+        """
         return cls(data)
 
 
-    def plot(self, ax = None, gauss_fit = True, gauss_fit_offset = 0, print_fit_params = True, title = None, xlabel = None, ylabel = None, label = None, params_digits = 3, **kwargs):
+    def plot(self, ax = None, gauss_fit = True, gauss_fit_offset = False, print_fit_params = True, title = None, xlabel = None, ylabel = None, label = None, params_digits = 3, **kwargs):
+        """plot 1d time sereis data
 
+        plot the data as 1D plot with optional additional method applied.
 
+        The plot method is using matplotlib and is designed in the way that one
+        can plot multiple plot in one, as one can do in matplotlib. Addigionally
+        plot receives parameter of ax, which can be used to specify the axis to
+        plot, in the situation of multiple subplots this is very useful.
+
+        Additionally, when plotting, one can also specify whether the gaussian
+        fitted should be displayed together with the raw data or not, and
+        whether print the fitting paraters on the plot.
+
+        Any keyword arguments and be directed passed and the function will pass
+        them to it's internal method where matplotlib.pyplot is used.
+
+        ax : matplotlib.axis object
+            The axis where the data will be plotted.
+            If None(defualt), the data will be ploted on the current existing
+            axis (if exists) or create a new axis and plot on it.
+        gauss_fit : bool
+            If true (default), the data will be fitted with gaussian and the
+            fitting line will be plotted together with the raw data.
+        gauss_fit_offset : bool
+            Only has effect when parameter 'gauss_fit' is set to True
+            if True, offset in the data will be considered when performing
+            gausssian fit. If False (defalt), the gaussian fit procedure will
+            assume the data offset has been properly removed.
+        print_fit_params : bool
+            Only has effect when parameter 'gauss_fit' is set to True
+            If True (default), the fitting parameters from gaussian fit will be
+            displayed on the plot; If False, the fitting parameters will not be
+            displayed
+        params_digits : int
+            Only has effect when parameter 'gauss_fit' and 'print_fit_params'
+            are both set to be True.
+            The number of digits to display when showing the fitting parameters
+            default: 3
+        title : string
+            The title of the plot
+        xlabel: string
+            The x-axis label
+        ylabel : string
+            The y-axis label
+        label : string
+            The label for the data line. Useful for multiple lines on the same
+            plot that one may want to add legend to each line.
+
+        """
         if ax is None:
             plt.plot(self.data.index, self.data.values, 'o', **kwargs)
 
@@ -90,9 +176,24 @@ class PlotTOFSeries:
 
 
 class PlotTOFFrame:
-    """
-    Plot dataframe with time as index and another numerical variable as
-    column labels
+    """Plot method class for TOFFrame data
+
+    Plot TOFFrame data with index as time(x labels) and column labels as y label
+    . This class makes a copy of the original data so it's data safe.
+
+    Designed for using as a mixin class for method chain
+
+    Attributes
+    ----------
+    __is_mixin : bool
+        Indicator of whether the class is been used as mixin class
+    data : TOFFrame instance
+        The hard copy of TOFSeries instance data
+    index_label : string
+        The label of index data values
+    column_label: string
+        The label of columns
+
     """
     def __init__(self, dataframe, lowerBound = None, upperBound = None, index_label = None, column_label = None):
         self.__is_mixin = base._is_mixin(dataframe)
@@ -102,18 +203,63 @@ class PlotTOFFrame:
 
     @property
     def data(self):
+        """data value as class property
+
+        return the value current stored in data as a property
+
+        Returns
+        -------
+        TOFSeries instance
+            Data that passed to PlotTOFSeries
+
+        """
         return self.__data
+
     @data.setter
     def data(self, dataframe):
+        """data attribute setter
+
+        Set the attribute value of data in a class protected way
+
+        """
         self.__data = dataframe
 
     @classmethod
     def _constructor(cls, data):
+        """PlotTOFFrame class constructor
+
+        Construct class instance using data and other default init values
+
+        Can be used for mixin class as method chain
+
+        """
+
         return cls(data)
 
     def image(self, sideplots = True, contour = False, **kwargs):
-        """
-        image plot of tof data measured multiplot positions
+        """plot TOFFrame data as image
+
+        Plot the data in TOFFrame as an image, by default, the image uses
+        index as its x-axis, uses columns names (must be numbers)  as y-axis
+
+        Additionally the image method adds extral two side plots along x axis
+        and y axis to show the integrated signal along a single axis. One can
+        also optionally add contour on top of the image plot.
+
+        Parameters
+        ----------
+        sideplots : bool
+            If true (defalt) two side plot will be displayed along x-axis and
+            y-axis, which shows the integrated signal along x-axis and y-axis
+            correspondingly. If False only the image will be ploted.
+        contour : bool
+            If true, contour plot will be display on top of the image, the
+            contour value is set to be 5 contour levels within 2 time of
+            standard deviationas of the signal. If False (default), no contour
+            will be displayed.
+        kwargs: keyword arguments
+            keyword arguments that passed to matplotlib.pyplot.imshow()
+
         """
 
         if 'figsize' in kwargs:
@@ -182,8 +328,33 @@ class PlotTOFFrame:
 
     def contour(self, n_contours = 5, n_sigma = 2, xlabel = 'time', ylabel = 'value', title = 'contour plot', label = None,
            ax = None, image = False, **kwargs):
-        """
-        contour plots for 2D self.data
+        """contour plots on TOFFrame data
+
+        Plot contours on the TOFFrame data. Same as the 'image' method, the
+        contour plot by default uses index as its x-axis, uses columns names
+        (must be numbers)  as y-axis.
+
+        The contour levels are based on multiples of the standard deviation
+        as from gausssian fitting. By default only 5 contour levels evenly
+        space between 2 standard deviations and 0.2 standard deviations are
+        ploted.
+
+        Note
+        -----
+            THe highest contour level is set to be 0.2 standard deviation away
+            from the peak value so that it is still visiable on the contour
+            plot
+
+        Parameters
+        ----------
+        n_contours : int
+            number of contour levels to plot, default 2
+            The n_contours contour are evenly spaced between 2 standard
+            deviations and 0.2 standard deviations are ploted.
+        n_sigma : int
+            multiples of standard deviation from the peak that the furthest
+            contour level from peak center should be. This basically set the
+        
 
         """
         popt = self.data.peak.height().gausFit()[0]
